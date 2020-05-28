@@ -7,6 +7,7 @@ test:
   stage: test
   script:
     - echo 'Placeholder'
+    - echo '$USER'
 
 build:
   stage: build
