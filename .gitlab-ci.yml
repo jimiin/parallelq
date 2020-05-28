@@ -1,0 +1,31 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - echo 'Placeholder'
+
+build:
+  stage: build
+  script:
+    - cd frontend-customer
+    - npm install
+    - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
+    - cd ..
+
+
+deploy:
+  stage: deploy
+  script:
+    - cd frontend-customer
+    - git clone --single-branch --branch initial git@gitlab.doc.ic.ac.uk:g1927138/parallelq-deploy.git
+    - cd parallelq-deploy
+    - cp ../output.apk public/parallelq.apk
+    - git checkout -b master
+    - git add *
+    - git commit -am "Automatic apk deployment"
+    - git push origin master --force
+    - cd ../..
