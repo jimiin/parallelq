@@ -12,6 +12,7 @@ test:
 build:
   stage: build
   script:
+    - source ~/.bashrc
     - cd frontend-customer
     - npm install
     - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
