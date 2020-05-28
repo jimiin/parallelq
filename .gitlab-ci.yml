@@ -13,6 +13,7 @@ build:
   stage: build
   script:
     - source ~/.bashrc
+    - echo $PATH
     - nvm use node
     - cd frontend-customer
     - /home/cya/.nvm/versions/node/v12.17.0/bin/npm install
