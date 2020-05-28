@@ -14,8 +14,8 @@ build:
   script:
     - source ~/.bashrc
     - cd frontend-customer
-    - npm install
-    - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
+    - /home/cya/.nvm/versions/node/v12.17.0/bin/npm install
+    - /home/cya/.nvm/versions/node/v12.17.0/bin/turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
     - cd ..
 
 
