@@ -13,8 +13,8 @@ build:
   stage: build
   script:
     - source ~/.bashrc
+    - export PATH=$PATH:/home/cya/.nvm/versions/node/v12.17.0/bin
     - echo $PATH
-    - nvm use node
     - cd frontend-customer
     - /home/cya/.nvm/versions/node/v12.17.0/bin/npm install
     - /home/cya/.nvm/versions/node/v12.17.0/bin/turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
