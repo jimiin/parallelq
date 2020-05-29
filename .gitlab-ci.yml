@@ -19,11 +19,9 @@ deploy:
   stage: deploy
   script:
     - cd frontend-customer
-    - git clone --single-branch --branch initial git@gitlab.doc.ic.ac.uk:g1927138/parallelq-deploy.git
-    - cd parallelq-deploy
-    - cp ~/gitlabrunner/output/parallelq.apk public/parallelq.apk
-    - git checkout -b master
+    - rm ~/gitlabrunner/drp-parallelq/parallelq.apk
+    - cp ~/gitlabrunner/output/parallelq.apk ~/gitlabrunner/drp-parallelq/parallelq.apk
+    - cd ~/gitlabrunner/drp-parallelq/
     - git add *
     - git commit -am "Automatic apk deployment"
-    - git push origin master --force
-    - cd ../..
+    - git push heroku master
