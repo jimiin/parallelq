@@ -10,6 +10,7 @@ build:
     - echo $PATH
     - cd frontend-customer
     - npm install
+    - expo publish
     - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk > ~/gitlabrunner/logs/buildlog 2>&1
     - cp output.apk ~/gitlabrunner/output/parallelq.apk
     - cd ..
