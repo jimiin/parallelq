@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   fitImage: {
+    width: 300,
     height: 100,
-    resizeMode: 'fit-center',
+    resizeMode: 'stretch',
   },
 });
