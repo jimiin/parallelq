@@ -1,13 +1,6 @@
 stages:
-  - test
   - build
   - deploy
-
-test:
-  stage: test
-  script:
-    - echo 'Placeholder'
-    - echo "$USER"
 
 build:
   stage: build
@@ -16,8 +9,8 @@ build:
     - export PATH=$PATH:/home/cya/.nvm/versions/node/v12.17.0/bin
     - echo $PATH
     - cd frontend-customer
-    - /home/cya/.nvm/versions/node/v12.17.0/bin/npm install
-    - /home/cya/.nvm/versions/node/v12.17.0/bin/turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk 
+    - npm install
+    - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ~/gitlabrunner/output/parallelq.apk
     - cd ..
 
 
@@ -27,7 +20,7 @@ deploy:
     - cd frontend-customer
     - git clone --single-branch --branch initial git@gitlab.doc.ic.ac.uk:g1927138/parallelq-deploy.git
     - cd parallelq-deploy
-    - cp ../output.apk public/parallelq.apk
+    - cp ~/gitlabrunner/output/parallelq.apk public/parallelq.apk
     - git checkout -b master
     - git add *
     - git commit -am "Automatic apk deployment"
