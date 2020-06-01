@@ -5,6 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import HomeNavigator from './HomeNavigator';
+import OrdersScreen from '../screens/OrdersScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -32,7 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Orders"
-        component={HomeScreen}
+        component={OrdersScreen}
         options={{
           title: 'Orders',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-reorder" />,
