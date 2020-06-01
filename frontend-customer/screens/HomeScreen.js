@@ -1,16 +1,18 @@
-import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-export default function LinksScreen() {
+export default function HomeScreen({ navigation }) {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <OptionButton
         img={require('../assets/images/burger.jpg')}
         label="FiveSixEight"
-        onPress={() => WebBrowser.openBrowserAsync('https://example.com')}
+        onPress={() => navigation.navigate('Restaurant')}
       />
 
       <OptionButton
@@ -36,12 +38,12 @@ export default function LinksScreen() {
   );
 }
 
-function OptionButton({img, label, onPress, isLastOption }) {
+function OptionButton({ img, label, onPress, isLastOption }) {
   return (
     <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
       <View style={{ flexDirection: 'column' }}>
         <View style={styles.contentContainer}>
-          <Image style={styles.fitImage} source={img}/>
+          <Image style={styles.fitImage} source={img} />
         </View>
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionText}>{label}</Text>
