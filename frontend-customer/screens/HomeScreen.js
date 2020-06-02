@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -14,26 +13,26 @@ export default function HomeScreen({ navigation }) {
       <OptionButton
         img={require('../assets/images/burger.jpg')}
         label="FiveSixEight"
-        onPress={() => navigation.navigate('Restaurant')}
+        onPress={() => navigation.navigate('Restaurant', { title: "FiveSixEight" })}
       />
 
       <OptionButton
         img={require('../assets/images/katsu.png')}
         label="Kimiko"
-        onPress={() => WebBrowser.openBrowserAsync('https://example.com')}
+        onPress={() => navigation.navigate('Restaurant', { title: "Kimiko" })}
       />
 
       <OptionButton
         img={require('../assets/images/library.jpg')}
         label="Library Cafe"
-        onPress={() => WebBrowser.openBrowserAsync('https://example.com')}
+        onPress={() => navigation.navigate('Restaurant', { title: "Library Cafe" })}
         isLastOption
       />
 
       <OptionButton
         img={require('../assets/images/burger.jpg')}
         label="Placeholder"
-        onPress={() => WebBrowser.openBrowserAsync('https://example.com')}
+        onPress={() => navigation.navigate('Restaurant', { title: "Placeholder" })}
         isLastOption
       />
     </ScrollView>

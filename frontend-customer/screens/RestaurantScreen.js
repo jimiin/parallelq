@@ -20,7 +20,7 @@ async function makeOrder() {
 export default function RestaurantScreen({ navigation, route }) {
   return (
     <View>
-      <Text> This is restaurant screen </Text>
+      <Text> This is {route.params.title} screen </Text>
       <Button
         title='Order'
         onPress={() => { makeOrder() }}
