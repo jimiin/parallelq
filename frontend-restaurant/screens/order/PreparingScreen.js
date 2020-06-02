@@ -22,12 +22,8 @@ state = {
     multipleSelect: true,
   };
 
+  /* generateData retrieves what is being prepared. */
   generateData = () => {
-    /* TODO: Retrieve all the preparing meals, 
-             convert them to JavaScript objects,
-             add elements to this.state.data */
-    
-    var newDataStartIndex = this.state.data.length;
     const newData = [];
     axios.get(`host.com:5000/orders/status/preparing`)
       .then(res => {
@@ -37,11 +33,14 @@ state = {
             id: orders[i].id,
             items: orders[i].items
           });
-        }
-        var diffLength = newData.length - newDataStartIndex - 1;
-        var toAddActiveSections = [...Array(diffLength).keys()].map(x => x + newDataStartIndex);
-        const newActiveSections = this.state.activeSections.concat(toAddActiveSections);
-        this.setState({data: this.state.data.concat(newData), activeSections: newActiveSections});
+        } 
+        let neworderids = newData.map(x => x.id);
+        let oldorderids = this.state.data.map(x => x.id);
+        let stillValid = this.state.activeSections.filter(y => neworderids.includes(y));
+        let newlyActive = neworderids.filter(y => !oldorderids.includes(y));
+        const newActiveSections = stillValid.concat(newlyActive);
+        
+        this.setState({data: newData, activeSections: newActiveSections});
       })
     
   }
@@ -72,21 +71,24 @@ state = {
 
       </View>
       
-      <Button title="Prepared" onPress={this.onHandleDelete} />
+      <Button title="Prepared" onPress={this.onHandleDelete(section.id)} />
       </View>
       
     );
   };
 
-  onHandleDelete = () => {
- 
-    let selectedIndex = this.state.activeSections[0];
-    let newData = this.state.data;
+  /* Sets order to prepared and deletes from the list. */
+  onHandleDelete = (sectionId) => {
+
+    axios.post('http://localhost:5000/orders/change_status/prepared/' + sectionId)
+    .then(response => {
+      /* Remove selected object from array */
+      let newData = this.state.data.filter(section => section != sectionId);
+      this.setState({
+        data: newData
+      }); 
+    }).catch(error => {console.log(error)});
    
-    newData.splice(selectedIndex, 1);
-    this.setState({
-      data: newData
-    });
   }; 
   
 
