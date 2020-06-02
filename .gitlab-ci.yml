@@ -1,17 +1,17 @@
 stages:
-  - build
+  - build-frontend-customer
   - deploy
 
-build:
-  stage: build
+build-frontend-customer:
+  stage: build-frontend-customer
   script:
     - source ~/.bashrc
-    - export PATH=$PATH:/home/cya/.nvm/versions/node/v12.17.0/bin
+    - export PATH=$PATH:/home/gitlab-runner/.nvm/versions/node/v12.17.0/bin
     - echo $PATH
     - cd frontend-customer
     - npm install
-    - turtle build:android \--keystore-path ~/Projects/DRP/androidkey/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ./output.apk > ~/gitlabrunner/logs/buildlog 2>&1
-    - cp output.apk ~/gitlabrunner/output/parallelq.apk
+    - expo publish
+    - turtle build:android \--keystore-path ~/keys/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ~/output/parallelq.apk > ~/logs/buildlog 2>&1
     - cd ..
 
 
@@ -19,9 +19,8 @@ deploy:
   stage: deploy
   script:
     - cd frontend-customer
-    - rm ~/gitlabrunner/drp-parallelq/parallelq.apk
-    - cp ~/gitlabrunner/output/parallelq.apk ~/gitlabrunner/drp-parallelq/parallelq.apk
-    - cd ~/gitlabrunner/drp-parallelq/
+    - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
+    - cd ~/frontend-deploy
     - git add *
     - git commit -am "Automatic apk deployment"
     - git push heroku master
