@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const window = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -28,8 +30,8 @@ export const styles = StyleSheet.create({
     marginTop: 1,
   },
   fitImage: {
-    width: 300,
-    height: 100,
-    resizeMode: 'stretch',
+    width: window.width - 60,
+    height: 150,
+    resizeMode: 'cover',
   },
 });
