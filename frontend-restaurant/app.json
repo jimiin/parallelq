@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "frontend-restaurant",
-    "slug": "frontend-restaurant",
+    "name": "parallelq-restaurant",
+    "slug": "parallelq-restaurant",
     "platforms": [
       "ios",
       "android",

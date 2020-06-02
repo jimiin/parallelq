@@ -1,0 +1,22 @@
+{
+  "name": "parallelq-be",
+  "version": "1.0.0",
+  "description": "Backend for ParallelQ.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.doc.ic.ac.uk/g1927138/parallelq"
+  },
+  "author": "DRP38",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.16",
+    "mongoose-auto-increment": "^5.0.1"
+  }
+}
