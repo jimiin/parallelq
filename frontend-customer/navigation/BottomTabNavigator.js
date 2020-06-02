@@ -2,23 +2,27 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import HomeNavigator from './HomeNavigator';
+import OrdersNavigator from './OrdersNavigator';
+import MapScreen from '../screens/MapScreen';
+import AccountScreen from '../screens/AccountScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions(
+    {
+      headerTitle: getHeaderTitle(route),
+      headerShown: showHeader(route)
+    }
+  );
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeNavigator}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
@@ -26,7 +30,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Orders"
-        component={HomeScreen}
+        component={OrdersNavigator}
         options={{
           title: 'Orders',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-reorder" />,
@@ -34,7 +38,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Map"
-        component={HomeScreen}
+        component={MapScreen}
         options={{
           title: 'Map',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-map" />,
@@ -42,7 +46,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Account"
-        component={LinksScreen}
+        component={AccountScreen}
         options={{
           title: 'Account',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-body" />,
@@ -53,12 +57,15 @@ export default function BottomTabNavigator({ navigation, route }) {
 }
 
 function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+  return route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+}
+
+function showHeader(route) {
+  const routeName =
+    route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':
-      return 'ParallelQ - Home';
-    case 'Links':
-      return 'Links to learn more';
+    case "Home":
+      return false;
   }
 }
