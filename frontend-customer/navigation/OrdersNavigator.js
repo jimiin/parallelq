@@ -1,7 +1,9 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as React from 'react';
 
-import OrdersScreen from '../screens/OrdersScreen';
+import OrdersPreparingScreen from '../screens/OrdersPreparingScreen';
+import OrdersPreparedScreen from '../screens/OrdersPreparedScreen';
+import OrdersPastScreen from '../screens/OrdersPastScreen';
 
 const TopTab = createMaterialTopTabNavigator();
 const INITIAL_ROUTE_NAME = 'Preparing';
@@ -17,15 +19,15 @@ export default function OrdersNavigator({ navigation, route }) {
     <TopTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <TopTab.Screen
         name="Preparing"
-        component={OrdersScreen}
+        component={OrdersPreparingScreen}
       />
       <TopTab.Screen
         name="Pick up"
-        component={OrdersScreen}
+        component={OrdersPreparedScreen}
       />
       <TopTab.Screen
         name="Past Orders"
-        component={OrdersScreen}
+        component={OrdersPastScreen}
       />
     </TopTab.Navigator>
   );
