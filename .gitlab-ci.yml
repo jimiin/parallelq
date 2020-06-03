@@ -1,5 +1,6 @@
 stages:
   - build-frontend-customer
+  - build-frontend-restaurant
   - deploy
 
 build-frontend-customer:
@@ -11,22 +12,35 @@ build-frontend-customer:
     - cd frontend-customer
     - npm install
     - expo publish
-    - turtle build:android \--keystore-path ~/keys/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ~/output/parallelq.apk > ~/logs/buildlog 2>&1
+    - turtle build:android \--keystore-path ~/keys/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ~/output/parallelq.apk > ~/logs/customer_build_log 2>&1
     - cd ..
 
+build-frontend-restaurant:
+  stage: build-frontend-restaurant
+  script:
+    - source ~/.bashrc
+    - export PATH=$PATH:/home/gitlab-runner/.nvm/versions/node/v12.17.0/bin
+    - echo $PATH
+    - cd frontend-restaurant
+    - npm install
+    - expo publish
+    - turtle build:android \--keystore-path ~/keys/parallelq.jks \--keystore-alias QGFva2lzZWl5YS9wYXJhbGxlbHE= -t apk -o ~/output/parallelq-restaurant.apk > ~/logs/restaurant_build_log 2>&1
+    - cd ..
 
 deploy:
   stage: deploy
   script:
-    - pushd frontend-customer
+    - # Frontend deployment
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
-    - cd ~/frontend-deploy
+    - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
+    - pushd ~/frontend-deploy
     - git add *
     - git commit -am "Automatic apk deployment"
     - git push heroku master
+    - # Backend deployment
     - popd
-    - cp -TR /backend ~/backend-deploy
-    - cd ~/backend-deploy
+    - cp -TR backend ~/backend-deploy
+    - pushd ~/backend-deploy
     - git add *
     - git commit -am "Automatic apk deployment"
     - git push heroku master
