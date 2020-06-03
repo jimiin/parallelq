@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux'
 
 import ShoppingCartItems from '../src/components/ShoppingCartItems';
@@ -17,6 +17,12 @@ class ShoppingCartScreen extends React.Component {
     this.props.items.map(item => makeOrder(item));
   }
 
+  totalPrice() {
+    let prices = this.props.items.map(item => item.price);
+    const reducer = (acc, val) => acc + val;
+    return prices.reduce(reducer, 0);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,6 +30,9 @@ class ShoppingCartScreen extends React.Component {
           onPress={this.props.remove}
           items={this.props.items}
         />
+        <Text>
+          Total: {this.totalPrice()}
+        </Text>
         <Button
           title='Order'
           color="#841584"
