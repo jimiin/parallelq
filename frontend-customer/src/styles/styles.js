@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
   optionIconContainer: {
     marginRight: 12,
   },
+  optionTextContainer: {
+    marginLeft: 20,
+    marginTop: 10
+  },
   option: {
     backgroundColor: '#fdfdfd',
     paddingHorizontal: 25,
@@ -25,6 +29,16 @@ export const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   optionText: {
+    fontSize: 15,
+    alignSelf: 'flex-start',
+    marginTop: 1,
+  },
+  itemNameText: {
+    fontSize: 17.5,
+    alignSelf: 'flex-start',
+    marginTop: 5,
+  },
+  itemPriceText: {
     fontSize: 15,
     alignSelf: 'flex-start',
     marginTop: 1,

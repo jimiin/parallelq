@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, View, Button } from "react-native";
+import { ScrollView, View, Text, Button } from "react-native";
 
 import { styles } from '../styles/styles';
 
@@ -8,10 +8,16 @@ class Menus extends Component {
     return menus.map(
       (item, index) => {
         return (
-          <View key={index} style={{ padding: 20 }}>
-            <Button
-              title={item.name + " - " + item.price}
-              onPress={() => this.props.onPress(item)} />
+          <View style={{ flexDirection: 'column' }}>
+            <View style={styles.optionTextContainer}>
+              <Text style={styles.itemNameText}>{item.name}</Text>
+              <Text style={styles.itemPriceText}>£{item.price}</Text>
+            </View>
+            <View key={index} style={{ padding: 10 }}>
+              <Button
+                title="Add to cart"
+                onPress={() => this.props.onPress(item)} />
+            </View>
           </View>
         )
       })
