@@ -18,9 +18,15 @@ build-frontend-customer:
 deploy:
   stage: deploy
   script:
-    - cd frontend-customer
+    - pushd frontend-customer
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - cd ~/frontend-deploy
+    - git add *
+    - git commit -am "Automatic apk deployment"
+    - git push heroku master
+    - popd
+    - cp -TR /backend ~/backend-deploy
+    - cd ~/backend-deploy
     - git add *
     - git commit -am "Automatic apk deployment"
     - git push heroku master
