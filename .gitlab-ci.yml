@@ -34,11 +34,11 @@ deploy:
     - cp ~/output/parallelq-restaurant.apk ~/frontend-deploy/parallelq-restaurant.apk
     - pushd ~/frontend-deploy
     - git add *
-    - git diff-index --quiet HEAD || git commit -am "Automatic apk deployment"
+    - git commit -am "Automatic apk deployment" || true
     - git push heroku master
     - popd
     - cp -TR backend ~/backend-deploy
     - pushd ~/backend-deploy
     - git add *
-    - git diff-index --quiet HEAD || git commit -am "Automatic apk deployment"
+    - git commit -am "Automatic backend deployment" || true
     - git push heroku master
