@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { styles } from '../src/styles/styles';
-import OptionButton from '../src/components/OptionButton';
+import RestaurantCard from '../src/components/RestaurantCard';
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -10,26 +10,26 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <OptionButton
+      <RestaurantCard
         img={require('../assets/images/burger.jpg')}
         label="FiveSixEight"
         onPress={() => navigation.navigate('Restaurant', { title: "FiveSixEight" })}
       />
 
-      <OptionButton
+      <RestaurantCard
         img={require('../assets/images/katsu.png')}
         label="Kimiko"
         onPress={() => navigation.navigate('Restaurant', { title: "Kimiko" })}
       />
 
-      <OptionButton
+      <RestaurantCard
         img={require('../assets/images/library.jpg')}
         label="Library Cafe"
         onPress={() => navigation.navigate('Restaurant', { title: "Library Cafe" })}
         isLastOption
       />
 
-      <OptionButton
+      <RestaurantCard
         img={require('../assets/images/burger.jpg')}
         label="Placeholder"
         onPress={() => navigation.navigate('Restaurant', { title: "Placeholder" })}

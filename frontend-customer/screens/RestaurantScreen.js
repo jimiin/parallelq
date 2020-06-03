@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux'
+
+import Menus from '../src/components/Menus'
+import { menus } from '../src/backend-api/data'
+import { styles } from '../src/styles/styles';
 
 class RestaurantScreen extends React.Component {
   state = {}
@@ -14,11 +18,8 @@ class RestaurantScreen extends React.Component {
     );
 
     return (
-      <View>
-        <Button
-          title='Add to cart'
-          onPress={this.props.addItemToCart}
-        />
+      <View style={styles.container}>
+        <Menus menus={menus} onPress={this.props.addItemToCart} />
       </View>
     );
   }
@@ -32,7 +33,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItemToCart: () => dispatch({ type: 'ADD_ITEM', payload: "Katsu Curry" }),
+    addItemToCart: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
   }
 }
 

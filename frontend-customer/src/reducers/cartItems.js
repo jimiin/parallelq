@@ -7,7 +7,10 @@ const cartItems = (state = initialState, action) => {
     case 'ADD_ITEM':
       return { items: [...state.items, action.payload] }
     case 'REMOVE_ITEM':
-      return initialState
+      return {
+        items:
+          state.items.filter(item => item.id !== action.payload.id)
+      }
     case 'RESET':
       return initialState
   }

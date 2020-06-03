@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { styles } from '../styles/styles';
 
-export default function OptionButton({ img, label, onPress, isLastOption }) {
+export default function RestaurantCard({ img, label, onPress, isLastOption }) {
   return (
     <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
       <View style={{ flexDirection: 'column' }}>
