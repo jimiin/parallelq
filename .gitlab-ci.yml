@@ -34,11 +34,11 @@ deploy:
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - pushd ~/frontend-deploy
     - git add *
-    - git commit -am "Automatic apk deployment"
+    - git diff-index --quiet HEAD || git commit -am "Automatic apk deployment"
     - git push heroku master
     - popd
     - cp -TR backend ~/backend-deploy
     - pushd ~/backend-deploy
     - git add *
-    - git commit -am "Automatic apk deployment"
+    - git diff-index --quiet HEAD || git commit -am "Automatic apk deployment"
     - git push heroku master
