@@ -3,9 +3,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { styles } from '../src/styles/styles';
 import OrderCard from '../src/components/OrderCard';
-
-const url = 'http://localhost:5000'
-const axios = require('axios');
+import { axios, url } from '../src/backend-api/api';
 
 class OrdersPreparingScreen extends React.Component {
   state = {}
@@ -18,7 +16,7 @@ class OrdersPreparingScreen extends React.Component {
       this.setState({
         Orders: orders.map(order => (
           <OrderCard
-            orderNumber="1"
+            orderNumber={order._id}
             item={order.items}
           />
         ))

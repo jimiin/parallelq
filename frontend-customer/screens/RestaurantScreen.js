@@ -1,31 +1,39 @@
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
+import { connect } from 'react-redux'
 
-const url = 'http://localhost:5000'
-const axios = require('axios');
+class RestaurantScreen extends React.Component {
+  state = {}
+  render() {
+    const title = this.props.route.params.title;
 
-async function makeOrder() {
-  const res = await axios.post(url + "/orders/add", {
-    items: "Burger"
-  });
+    this.props.navigation.setOptions(
+      {
+        headerTitle: title
+      }
+    );
+
+    return (
+      <View>
+        <Button
+          title='Add to cart'
+          onPress={this.props.addItemToCart}
+        />
+      </View>
+    );
+  }
 }
 
-export default function RestaurantScreen({ navigation, route }) {
-  const title = route.params.title;
-
-  navigation.setOptions(
-    {
-      headerTitle: title
-    }
-  );
-
-  return (
-    <View>
-      <Text> This is {title} screen </Text>
-      <Button
-        title='Order'
-        onPress={() => { makeOrder() }}
-      />
-    </View>
-  );
+const mapStateToProps = (state) => {
+  return {
+    items: state.items
+  }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart: () => dispatch({ type: 'ADD_ITEM' }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantScreen)

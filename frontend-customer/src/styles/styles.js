@@ -34,4 +34,21 @@ export const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'cover',
   },
+  cartItemCountContainer: {
+    position: 'absolute',
+    height: 20,
+    width: 20,
+    borderRadius: 15,
+    backgroundColor: 'rgba(173, 216, 232, 0.8)',
+    right: 15,
+    bottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2000
+  },
+  cartIconContainer: {
+    paddingLeft: 20,
+    paddingTop: 10,
+    marginRight: 5
+  }
 });
