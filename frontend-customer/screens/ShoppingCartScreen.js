@@ -3,8 +3,9 @@ import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux'
 
 import ShoppingCartItems from '../src/components/ShoppingCartItems';
-import { styles } from '../src/styles/styles';
 import { axios, url } from '../src/backend-api/api';
+import { styles } from '../src/styles/styles';
+import { formatter } from '../src/styles/formatter';
 
 async function makeOrder(item) {
   let res = await axios.post(url + "/orders/add", {
@@ -30,8 +31,8 @@ class ShoppingCartScreen extends React.Component {
           onPress={this.props.remove}
           items={this.props.items}
         />
-        <Text>
-          Total: {this.totalPrice()}
+        <Text style={{ fontSize: 20 }}>
+          Total: {formatter.format(this.totalPrice())}
         </Text>
         <Button
           title='Order'

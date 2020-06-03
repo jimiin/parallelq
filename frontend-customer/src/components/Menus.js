@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { ScrollView, View, Text, Button } from "react-native";
 
 import { styles } from '../styles/styles';
+import { formatter } from '../styles/formatter';
 
 class Menus extends Component {
   renderMenus = (menus) => {
     return menus.map(
       (item, index) => {
         return (
-          <View style={{ flexDirection: 'column' }}>
+          <View style={{ flexDirection: 'column', margin: 1 }}>
             <View style={styles.optionTextContainer}>
               <Text style={styles.itemNameText}>{item.name}</Text>
-              <Text style={styles.itemPriceText}>£{item.price}</Text>
+              <Text style={styles.itemPriceText}>{formatter.format(item.price)}</Text>
             </View>
             <View key={index} style={{ padding: 10 }}>
               <Button
