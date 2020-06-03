@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
+import axios from 'axios';
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -22,15 +23,15 @@ state = {
   };
 
 
-  /* generateData retrieves what is ready. */
+  /* generateData retrieves what is being prepared. */
   generateData = () => {
     const newData = [];
-    axios.get(`host.com:5000/orders/status/prepared`)
+    axios.get(`https://drp38-backend.herokuapp.com/orders/status/prepared`)
       .then(res => {
-        var orders = res.map(jorder => JSON.parse(jorder))
+        var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
-            id: orders[i].id,
+            id: orders[i]._id,
             items: orders[i].items
           });
         } 
@@ -42,7 +43,6 @@ state = {
         
         this.setState({data: newData, activeSections: newActiveSections});
       })
-    
   }
 
   toggleExpanded = () => {
@@ -113,6 +113,10 @@ state = {
   updateSections = activeSections => {
     this.setState({ activeSections });
   };
+
+  componentDidMount() {
+    this.generateData();
+  }
 
   render() {
     return (

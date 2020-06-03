@@ -25,12 +25,12 @@ state = {
   /* generateData retrieves what is being prepared. */
   generateData = () => {
     const newData = [];
-    axios.get(`host.com:5000/orders/status/preparing`)
+    axios.get(`https://drp38-backend.herokuapp.com/orders/status/preparing`)
       .then(res => {
-        var orders = res.map(jorder => JSON.parse(jorder))
+        var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
-            id: orders[i].id,
+            id: orders[i]._id,
             items: orders[i].items
           });
         } 
@@ -42,9 +42,25 @@ state = {
         
         this.setState({data: newData, activeSections: newActiveSections});
       })
-    
   }
 
+  genData = async () => {
+    try {
+      let res = await axios.get('https://drp38-backend.herokuapp.com/orders/status/preparing');
+      let orders = res.data;
+
+      this.setState({
+        Orders: orders.map(order => (
+          <OrderCard
+            orderNumber="1"
+            item={order.items}
+          />
+        ))
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   toggleExpanded = () => {
     this.setState({ collapsed: this.state.collapsed });
@@ -109,6 +125,10 @@ state = {
   updateSections = activeSections => {
     this.setState({ activeSections });
   };
+
+  componentDidMount() {
+    this.generateData();
+  }
 
   render() {
     return (
