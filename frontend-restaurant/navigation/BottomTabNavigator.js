@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import OrdersNavigator from '../screens/order/OrdersNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -17,19 +17,35 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Orders"
+        component={OrdersNavigator}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          title: 'Orders',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-reorder" />,
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="Menu"
+        component={HomeScreen}
         options={{
-          title: 'Resources',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: 'Menu',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-menu" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Sale"
+        component={HomeScreen}
+        options={{
+          title: 'Sale',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-money" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Account"
+        component={OrdersNavigator}
+        options={{
+          title: 'Account',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-body" />,
         }}
       />
     </BottomTab.Navigator>
@@ -40,8 +56,8 @@ function getHeaderTitle(route) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':
-      return 'How to get started';
+    case 'Orders':
+      return 'ParallelQ - Home';
     case 'Links':
       return 'Links to learn more';
   }
