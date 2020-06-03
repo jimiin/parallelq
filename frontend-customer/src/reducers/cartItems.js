@@ -5,7 +5,7 @@ const initialState = {
 const cartItems = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
-      return { items: [...state.items, "Katsu Curry"] }
+      return { items: [...state.items, action.payload] }
     case 'REMOVE_ITEM':
       return initialState
     case 'RESET':

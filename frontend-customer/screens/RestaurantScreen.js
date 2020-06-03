@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItemToCart: () => dispatch({ type: 'ADD_ITEM' }),
+    addItemToCart: () => dispatch({ type: 'ADD_ITEM', payload: "Katsu Curry" }),
   }
 }
 
