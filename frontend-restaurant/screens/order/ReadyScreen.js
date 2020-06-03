@@ -23,19 +23,25 @@ state = {
 
 
   /* generateData retrieves what is being prepared. */
-  generateData = () => {
-    const newData = [];
-    axios.get(`https://drp38-backend.herokuapp.com/orders/status/prepared`)
-      .then(res => {
+  generateData = async () => {
+    try {
+        const newData = [];
+        let newActiveSection = []
+        let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/status/prepared`)
         var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
             id: orders[i]._id,
             items: orders[i].items
           });
+          newActiveSection.push(i);
         } 
-        this.setState({data: newData});
-      })
+        
+        this.setState({data: newData, activeSections: newActiveSection});
+    } catch(err) {
+      console.log(err)
+    }
+     
   }
 
   toggleExpanded = () => {
@@ -63,7 +69,11 @@ state = {
 
           </View>
           
-          <Button title="Picked up" onPress={this.onHandleDelete(section.id)} />
+          <Button title="Picked up" onPress={async (sectionId) => {try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId)
+    } catch(err) {
+      console.log(err)
+    } }} />
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -77,14 +87,13 @@ state = {
 
 
   /* Sets order to prepared and deletes from the list. */
-  onHandleDelete = (sectionId) => {
-
-    axios.post('http://localhost:5000/orders/change_status/past/' + sectionId)
-    .then(response => {
-      this.generateData();
-    }).catch(error => {console.log(error)});
-   
-  }; 
+  onHandleDelete = async (sectionId) => {
+    try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId)
+    } catch(err) {
+      console.log(err)
+    }   
+  };  
   
 
   renderContent(section, _, isActive) {
