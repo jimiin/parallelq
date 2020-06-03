@@ -30,14 +30,12 @@ build-frontend-restaurant:
 deploy:
   stage: deploy
   script:
-    - # Frontend deployment
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - pushd ~/frontend-deploy
     - git add *
     - git commit -am "Automatic apk deployment"
     - git push heroku master
-    - # Backend deployment
     - popd
     - cp -TR backend ~/backend-deploy
     - pushd ~/backend-deploy
