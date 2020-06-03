@@ -31,7 +31,7 @@ deploy:
   stage: deploy
   script:
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
-    - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
+    - cp ~/output/parallelq-restaurant.apk ~/frontend-deploy/parallelq-restaurant.apk
     - pushd ~/frontend-deploy
     - git add *
     - git diff-index --quiet HEAD || git commit -am "Automatic apk deployment"
