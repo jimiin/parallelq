@@ -18,7 +18,6 @@ export default class ReadyScreen extends Component {
 state = {
     data: [],
     activeSections: [],
-    collapsed: false,
     multipleSelect: true,
   };
 
@@ -35,13 +34,7 @@ state = {
             items: orders[i].items
           });
         } 
-        let neworderids = newData.map(x => x.id);
-        let oldorderids = this.state.data.map(x => x.id);
-        let stillValid = this.state.activeSections.filter(y => neworderids.includes(y));
-        let newlyActive = neworderids.filter(y => !oldorderids.includes(y));
-        const newActiveSections = stillValid.concat(newlyActive);
-        
-        this.setState({data: newData, activeSections: newActiveSections});
+        this.setState({data: newData});
       })
   }
 
@@ -57,20 +50,22 @@ state = {
 
   renderHeader = (section, _, isActive) => {
     return (
+      <View>
+        <View style={[styles.row]}>
+          <View style={{flexDirection:'column'}}>
 
-      <View style={[styles.row]}>
-      <View style={{flexDirection:'column'}}>
+            <Text style={styles.title}>{section.id}</Text>
 
-        <Text style={styles.title}>{section.id}</Text>
+            <View style={{flexDirection:'row'}}>
+              <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
+              <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
+            </View>
 
-        <View style={{flexDirection:'row'}}>
-          <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
-          <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
+          </View>
+          
+          <Button title="Picked up" onPress={this.onHandleDelete(section.id)} />
         </View>
-
-      </View>
-      
-      <Button title="Picked up" onPress={this.onHandleDelete(section.id)} />
+        <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
       
     );
@@ -86,11 +81,7 @@ state = {
 
     axios.post('http://localhost:5000/orders/change_status/past/' + sectionId)
     .then(response => {
-      /* Remove selected object from array */
-      let newData = this.state.data.filter(section => section != sectionId);
-      this.setState({
-        data: newData
-      }); 
+      this.generateData();
     }).catch(error => {console.log(error)});
    
   }; 
@@ -98,15 +89,19 @@ state = {
 
   renderContent(section, _, isActive) {
     return (
-      <Animatable.View
-        duration={400}
-        style={[styles.content, isActive ? styles.active : styles.inactive]}
-        transition="backgroundColor"
-      >
-        <Text>
-          {section.items}
-        </Text>
-      </Animatable.View>
+      <View>
+        <Animatable.View
+          duration={0}
+          style={[styles.content, styles.active]}
+          transition="backgroundColor"
+        >
+          <Text>
+            {section.items}
+          </Text>
+        </Animatable.View>
+        <View style={styles.inactive}>
+        </View>
+      </View>
     );
   }
 
@@ -129,7 +124,7 @@ state = {
             expandMultiple={true}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
-            duration={400}
+            duration={0}
             onChange={this.updateSections}
           />
         </ScrollView>
@@ -148,6 +143,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 22,
     fontWeight: '300',
+    marginBottom: 20,
   },
   row: {
     flexDirection:'row', 
@@ -161,11 +157,15 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
     backgroundColor: '#fff',
+    borderColor: 'grey',
+    borderRadius: 2,
+    borderWidth: 1,
   },
   active: {
     backgroundColor: 'white',
   },
   inactive: {
-    backgroundColor: 'white',
+    backgroundColor: '#f8f8f8',
+    paddingBottom: 20,
   },
 });

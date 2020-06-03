@@ -6,7 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import OrdersNavigator from '../screens/order/OrdersNavigator';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'Orders';
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
@@ -29,7 +29,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={HomeScreen}
         options={{
           title: 'Menu',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-menu" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
         }}
       />
       <BottomTab.Screen
@@ -37,7 +37,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={HomeScreen}
         options={{
           title: 'Sale',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-money" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="logo-usd" />,
         }}
       />
       <BottomTab.Screen
@@ -57,7 +57,7 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Orders':
-      return 'ParallelQ - Home';
+      return 'ParallelQ - Orders';
     case 'Links':
       return 'Links to learn more';
   }
