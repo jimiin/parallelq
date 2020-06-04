@@ -5,9 +5,9 @@ import { RectButton } from 'react-native-gesture-handler';
 import { styles } from '../styles/styles';
 
 /* TODO: Add number of people in queue in case 2 */
-const orderStatus = (prepared) => {
+const orderStatus = (prepared, queuePosition) => {
   switch(prepared) {
-    case 0: return (<Text>Input Estimated Time Here</Text>)
+  case 0: return (<Text style={styles.orderTitle}>Position in queue: {queuePosition + 1}</Text>)
     case 1: return (<Text style={styles.orderTitle} >Pick Up Now</Text>)
     case 2:
     default: return (<Text></Text>)
@@ -21,7 +21,7 @@ const orderTime = (creationTime) => {
   return (<Text style={styles.optionText}>Ordered: {date + ' at ' + time}</Text>)
 }
 
-export default function OrderCard({ orderNumber, item, creationTime, prepared, onPress }) {
+export default function OrderCard({ orderNumber, item, creationTime, prepared, queuePosition, onPress }) {
   return (
     <RectButton style={[(prepared == 1) ? styles.preparedRow : styles.preparingRow, onPress = { onPress }, {borderRadius:10, margin:10}]} >
       <View style={{ flexDirection: 'column' }}>
@@ -32,7 +32,7 @@ export default function OrderCard({ orderNumber, item, creationTime, prepared, o
           {orderTime(creationTime)}
         </View>
       </View>
-        {orderStatus(prepared)}
+        {orderStatus(prepared, queuePosition)}
     </ RectButton>
   );
 }
