@@ -3,6 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
+import "intl";
+import "intl/locale-data/jsonp/en";
+
 import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
@@ -10,6 +13,11 @@ import LinkingConfiguration from './navigation/LinkingConfiguration';
 const Stack = createStackNavigator();
 
 export default function App(props) {
+  if (Platform.OS === "android") {
+    if (typeof Intl.__disableRegExpRestore === "function") {
+      Intl.__disableRegExpRestore();
+    }
+  }
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
