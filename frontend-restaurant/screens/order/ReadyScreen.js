@@ -36,6 +36,8 @@ state = {
           });
           newActiveSection.push(i);
         } 
+
+        console.log(newData);
         
         this.setState({data: newData, activeSections: newActiveSection});
     } catch(err) {
@@ -85,7 +87,8 @@ state = {
   /* Sets order to prepared and deletes from the list. */
   onHandleDelete = async (sectionId) => {
     try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId)
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId);
+      this.generateData();
     } catch(err) {
       console.log(err)
     }   
@@ -115,8 +118,13 @@ state = {
   };
 
   componentDidMount() {
-    this.generateData();
+    this.interval = setInterval(this.generateData, 1000);
   }
+
+  componentWillUnmount() {
+    // Clear the interval right before component unmount
+    clearInterval(this.interval);
+}
 
   render() {
     return (

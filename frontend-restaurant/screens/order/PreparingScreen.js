@@ -38,29 +38,13 @@ state = {
           newActiveSection.push(i);
         } 
         
+        console.log(newData);
+        
         this.setState({data: newData, activeSections: newActiveSection});
     } catch(err) {
       console.log(err)
     }
      
-  }
-
-  genData = async () => {
-    try {
-      let res = await axios.get('https://drp38-backend.herokuapp.com/orders/status/preparing');
-      let orders = res.data;
-
-      this.setState({
-        Orders: orders.map(order => (
-          <OrderCard
-            orderNumber="1"
-            item={order.items}
-          />
-        ))
-      });
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   toggleExpanded = () => {
@@ -100,7 +84,8 @@ state = {
   onHandleDelete = async (sectionId) => {
     console.log("Deleting:" + sectionId);
     try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId)
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId);
+      this.generateData();
     } catch(err) {
       console.log(err)
     }   
@@ -130,8 +115,13 @@ state = {
   };
 
   componentDidMount() {
-    this.generateData();
+    this.interval = setInterval(this.generateData, 1000);
   }
+
+  componentWillUnmount() {
+    // Clear the interval right before component unmount
+    clearInterval(this.interval);
+}
 
   render() {
     return (
