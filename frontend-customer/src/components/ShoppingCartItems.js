@@ -48,18 +48,18 @@ class ShoppingCartItems extends Component {
                 <View style={[styles.row]}>
                   <Button
                     title={"+"}
-                    onPress={() => this.props.onPressPlus(section)} />
+                    onPress={() => this.props.onPressPlus(item)} />
                 </View>
                 <View style={[styles.row]}>
                   <Button
                     title={"-"}
-                    onPress={() => this.props.onPressMinus(section)} />
+                    onPress={() => this.props.onPressMinus(item)} />
                 </View>
                 <View style={[styles.row]}>
                   <Button
                     title={"Remove"}
                     onPress={() => {
-                      this.props.onPressRemove(section);
+                      this.props.onPressRemove(item);
                     }} />
                 </View>
               </View>
