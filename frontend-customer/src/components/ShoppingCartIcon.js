@@ -6,12 +6,18 @@ import { styles } from '../styles/styles';
 import { connect } from 'react-redux'
 
 class ShoppingCartIcon extends React.Component {
+  totalCount() {
+    let counts = this.props.itemCount.map(i => i.count);
+    const reducer = (acc, val) => acc + val;
+    return counts.reduce(reducer, 0);
+  }
+
   render() {
     return (
       <View style={{ padding: 5 }}>
         <View style={styles.cartItemCountContainer}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>
-            {this.props.itemCount.length}
+            {this.totalCount()}
           </Text>
         </View>
         <Ionicons
