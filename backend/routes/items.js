@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let Item = require('../models/item.model');
 
-const valid_status = Object.freeze({
+const AVAILABILITIES = Object.freeze({
     AVAILABLE: 'available',
     UNAVAILABLE: 'unavailable'
 });
@@ -13,27 +13,6 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-// router.route('/status/'+valid_status.PREPARING).get((req, res) => {
-//     Item.find({ status: valid_status.PREPARING })
-//         .sort('_id')
-//         .then(items => res.json(items))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-// router.route('/status/'+valid_status.PREPARED).get((req, res) => {
-//     Item.find({ status: valid_status.PREPARED })
-//         .sort('_id')
-//         .then(items => res.json(items))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-// router.route('/status/'+valid_status.PAST).get((req, res) => {
-//     Item.find({ status: valid_status.PAST })
-//     .sort('_id')
-//         .then(items => res.json(items))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const price = req.body.price;
@@ -42,7 +21,7 @@ router.route('/add').post((req, res) => {
         name,
         price,
         description,
-        status: valid_status.AVAILABLE
+        status: AVAILABILITIES.AVAILABLE
     });
 
     newItem.save()
@@ -57,7 +36,7 @@ router.route('/change_status/:status/:id').post((req, res) => {
 
     Item.findById(id)
         .then(item => {
-            if (Object.values(valid_status).includes(status)) {
+            if (Object.values(AVAILABILITIES).includes(status)) {
                 item.status = status;
 
                 item.save()
@@ -69,7 +48,6 @@ router.route('/change_status/:status/:id').post((req, res) => {
             
         })
         .catch(err => res.status(400).json('Error: ' + err));
-    
 });
 
 module.exports = router;
