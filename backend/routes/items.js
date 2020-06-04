@@ -21,7 +21,7 @@ router.route('/add').post((req, res) => {
         name,
         price,
         description,
-        status: AVAILABILITIES.AVAILABLE
+        availability: AVAILABILITIES.AVAILABLE
     });
 
     newItem.save()
@@ -30,20 +30,20 @@ router.route('/add').post((req, res) => {
     
 });
 
-router.route('/change_status/:status/:id').post((req, res) => {
+router.route('/change_availability/:availability/:id').post((req, res) => {
     const id = req.params.id;
-    const status = req.params.status;
+    const availability = req.params.availability;
 
     Item.findById(id)
         .then(item => {
-            if (Object.values(AVAILABILITIES).includes(status)) {
-                item.status = status;
+            if (Object.values(AVAILABILITIES).includes(availability)) {
+                item.availability = availability;
 
                 item.save()
-                    .then(() => res.json('Item status updated'))
+                    .then(() => res.json('Item availability updated'))
                     .catch(err => res.status(400).json('Error: ' + err));
             } else {
-                res.status(400).json('Error: Invalid status')
+                res.status(400).json('Error: Invalid availability')
             }
             
         })
