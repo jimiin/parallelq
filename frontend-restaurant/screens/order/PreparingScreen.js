@@ -27,7 +27,7 @@ state = {
   generateData = async () => {
     try {
         const newData = [];
-        let newActiveSection = []
+        let newActiveSection = [];
         let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/status/preparing`)
         var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
@@ -61,9 +61,12 @@ state = {
     return (
       <View>
         <View style={[styles.row]}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => this.onHandleCancel(section.id)}>
+           <Text>Cancel</Text>
+           </TouchableOpacity>
           <View style={{flexDirection:'column'}}>
 
-            <Text style={styles.title}>{section.id}</Text>
+            <Text style={styles.title}>#{section.id}</Text>
 
             <View style={{flexDirection:'row'}}>
               <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
@@ -72,7 +75,9 @@ state = {
 
           </View>
           
-         <Button title="Prepared" onPress={() => this.onHandleDelete(section.id)} />
+         <TouchableOpacity style={styles.preparedButton} onPress={() => this.onHandleReady(section.id)}>
+           <Text>Prepared</Text>
+           </TouchableOpacity>
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -81,7 +86,7 @@ state = {
   };
 
   /* Sets order to prepared and deletes from the list. */
-  onHandleDelete = async (sectionId) => {
+  onHandleReady = async (sectionId) => {
     console.log("Deleting:" + sectionId);
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId);
@@ -90,7 +95,17 @@ state = {
       console.log(err)
     }   
   }; 
-  
+
+  /* Cancels order and deletes from the list. */
+  onHandleCancel = async (sectionId) => {
+    console.log("Deleting:" + sectionId);
+    try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/cancelled/' + sectionId);
+      this.generateData();
+    } catch(err) {
+      console.log(err)
+    }   
+  }; 
 
   renderContent(section, _, isActive) {
     return (
@@ -172,6 +187,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: 'grey',
     borderRadius: 2,
+    borderWidth: 1,
+  },
+  preparedButton: {
+    padding: 20,
+    backgroundColor: '#96cdff',
+    borderColor: 'grey',
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  cancelButton: {
+    padding: 20,
+    backgroundColor: '#fa8072',
+    borderColor: 'grey',
+    borderRadius: 5,
     borderWidth: 1,
   },
   active: {
