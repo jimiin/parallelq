@@ -41,6 +41,7 @@ class CurrentOrdersScreen extends React.Component {
             item={order.items}
             creationTime={order.createdAt}
             prepared={0}
+            queuePosition={order.queuePosition}
           />
         ))
       });
