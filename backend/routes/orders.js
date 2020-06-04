@@ -4,7 +4,8 @@ let Order = require('../models/order.model');
 const valid_status = Object.freeze({
     PREPARING: 'preparing',
     PREPARED: 'prepared',
-    PAST: 'past'
+    PAST: 'past',
+    CANCELLED: 'cancelled'
 });
 
 function appendQueuePos(initialOrders) {
@@ -44,6 +45,13 @@ router.route('/status/'+valid_status.PREPARED).get((req, res) => {
 
 router.route('/status/'+valid_status.PAST).get((req, res) => {
     Order.find({ status: valid_status.PAST })
+        .sort('_id')
+        .then(orders => res.json(appendQueuePos(orders)))
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
+router.route('/status/'+valid_status.CANCELLED).get((req, res) => {
+    Order.find({ status: valid_status.CANCELLED })
         .sort('_id')
         .then(orders => res.json(appendQueuePos(orders)))
         .catch(err => res.status(400).json('Error: ' + err));
