@@ -60,7 +60,6 @@ class ShoppingCartItems extends Component {
                     title={"Remove"}
                     onPress={() => {
                       this.props.onPressRemove(section);
-                      this.forceUpdate();
                     }} />
                 </View>
               </View>

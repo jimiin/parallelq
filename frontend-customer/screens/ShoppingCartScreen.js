@@ -21,7 +21,9 @@ class ShoppingCartScreen extends React.Component {
       .map(i => { order += (i.count + " " + i.item.name + "\n") });
 
     console.log(order);
-    makeOrder(order);
+    if (order !== "") {
+      makeOrder(order);
+    }
   }
 
   totalPrice() {
@@ -33,14 +35,32 @@ class ShoppingCartScreen extends React.Component {
   }
 
   render() {
+    let order = ""
+    this.props.itemCount
+      .map(i => { order += (i.count + " " + i.item.name + "\n") });
+
+    console.log(order);
+
     return (
       <View style={styles.container}>
-        <ShoppingCartItems
-          onPressPlus={this.props.incItem}
-          onPressMinus={this.props.decItem}
-          onPressRemove={this.props.removeItemFromCart}
-          itemCount={this.props.itemCount}
-        />
+        {
+          this.props.itemCount.length > 0 ?
+            <ShoppingCartItems
+              onPressPlus={this.props.incItem}
+              onPressMinus={this.props.decItem}
+              onPressRemove={this.props.removeItemFromCart}
+              itemCount={this.props.itemCount}
+            /> :
+            <View style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Text style={{ fontSize: 20 }}>
+                Your Cart is empty!
+              </Text>
+            </View>
+        }
         <Text style={{ fontSize: 20 }}>
           Total: {formatter.format(this.totalPrice())}
         </Text>

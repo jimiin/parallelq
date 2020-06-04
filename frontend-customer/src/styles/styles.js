@@ -14,9 +14,7 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   optionTextContainer: {
-
     marginTop: 10,
-    textAlign: 'left',
   },
   option: {
     backgroundColor: '#fdfdfd',
@@ -31,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 15,
-   // alignSelf: 'flex-start',
+    // alignSelf: 'flex-start',
     marginTop: 1,
     textAlign: 'left',
   },
@@ -70,12 +68,12 @@ export const styles = StyleSheet.create({
     marginRight: 5
   },
 
-  
-
-/* new items */
 
 
-   title: {
+  /* new items */
+
+
+  title: {
     textAlign: 'left',
     fontSize: 22,
     fontWeight: '300',
@@ -87,36 +85,36 @@ export const styles = StyleSheet.create({
     fontWeight: '300',
   },
   row: {
-    flexDirection:'row', 
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderColor: 'grey',
-    padding:10,
+    padding: 10,
     borderWidth: 1,
     backgroundColor: 'white',
   },
   preparingRow: {
-    flexDirection:'row', 
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderColor: 'grey',
-    padding:10,
+    padding: 10,
     borderWidth: 1,
     backgroundColor: 'white',
   },
   preparedRow: {
-    flexDirection:'row', 
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderColor: 'grey',
-    padding:10,
+    padding: 10,
     borderWidth: 1,
     backgroundColor: '#96cdff',
   },
-  priceTag: { 
-    flexDirection:'row', 
-    justifyContent:'space-between', 
-    marginRight:20
+  priceTag: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 20
   },
   cartButtons: {
-    flexDirection:'row',
+    flexDirection: 'row',
   },
   content: {
     padding: 20,
@@ -133,8 +131,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   description: {
-    height:0, 
-    color:'transparent',
+    height: 0,
+    color: 'transparent',
   },
 
 
