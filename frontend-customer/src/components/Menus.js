@@ -40,6 +40,16 @@ class Menus extends Component {
     )
   }
 
+  renderItemCount(item) {
+    let itemWithCount = this.props.itemCount.find(i => i.item._id === item._id);
+    if (itemWithCount !== undefined) {
+      return (
+        <Text style={styles.title}>x{itemWithCount.count}</Text>
+      );
+    }
+  }
+
+
   renderHeader = (section, _, isActive) => {
     return (
       <View>
@@ -47,6 +57,7 @@ class Menus extends Component {
           <View style={{ flexDirection: 'column', flexShrink: 1 }}>
 
             <Text style={styles.title}>{section.name}</Text>
+            {this.renderItemCount(section)}
             <View style={styles.priceTag}>
               <Text style={styles.itemPriceText}>
                 {formatter.format(section.price)}

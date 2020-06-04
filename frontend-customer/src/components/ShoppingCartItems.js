@@ -31,7 +31,7 @@ class ShoppingCartItems extends Component {
           <View style={{ flexDirection: 'column' }}>
 
             <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.title}>{section.count}</Text>
+            <Text style={styles.title}>x{section.count}</Text>
             <Text style={styles.itemPriceText}>
               {formatter.format(item.price)}
             </Text>
