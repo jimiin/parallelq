@@ -34,22 +34,22 @@ class Menus extends Component {
     return (
       <View>
         <View style={[styles.row]}>
-          <View style={{ flexDirection: 'column' }}>
+          <View style={{ flexDirection: 'column', flexShrink: 1}}>
 
             <Text style={styles.title}>{section.name}</Text>
             <View style={styles.priceTag}>
               <Text style={styles.itemPriceText}>{formatter.format(section.price)}</Text>
               <Text style={(section.ordered > 0) ? { fontSize: 22 } : { color: 'transparent' }}>x{section.ordered}</Text>
             </ View>
-            <View style={{ width: 350 }}>
+            <View style={{width:500}} >
               <Text style={isActive ? styles.description : { padding: 10 }}>  Description: {section.description.substring(0, 5)}... </Text>
               <Text style={isActive ? { padding: 10 } : styles.description}>  Description: {section.description} </Text>
             </View>
 
           </View>
 
-          <View style={{ flexDirection: 'column' }}>
-            <Image style={styles.fitImage} source={require('../../assets/images/library.jpg')} />
+          <View style={{ flexDirection: 'column', flexShrink: 1 }}>
+           {/* <Image style={styles.fitImage} source={require('../../assets/images/library.jpg')} /> */}
             <Text style={{ height: 10 }} />
             <Button title="Add to cart"
               onPress={() => { this.props.onPress(section); section.ordered++; }} />

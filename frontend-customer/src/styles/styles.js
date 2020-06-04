@@ -14,8 +14,9 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   optionTextContainer: {
-    marginLeft: 20,
-    marginTop: 10
+
+    marginTop: 10,
+    textAlign: 'left',
   },
   option: {
     backgroundColor: '#fdfdfd',
@@ -30,8 +31,9 @@ export const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 15,
-    alignSelf: 'flex-start',
+   // alignSelf: 'flex-start',
     marginTop: 1,
+    textAlign: 'left',
   },
   itemNameText: {
     fontSize: 17.5,
@@ -78,6 +80,11 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '300',
     marginBottom: 20,
+  },
+  orderTitle: {
+    textAlign: 'left',
+    fontSize: 22,
+    fontWeight: '300',
   },
   row: {
     flexDirection:'row', 
