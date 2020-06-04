@@ -1,7 +1,6 @@
 const initialState = {
   itemCount: []
 }
-// itemCount : [ { item: item, count: n } ]
 
 const cartItems = (state = initialState, action) => {
   switch (action.type) {
@@ -12,7 +11,7 @@ const cartItems = (state = initialState, action) => {
     case 'REMOVE_ITEM':
       return {
         itemCount:
-          state.itemCount.filter(i => i.item.id !== action.payload.id)
+          state.itemCount.filter(i => i.item._id !== action.payload._id)
       }
     case 'RESET':
       return initialState
@@ -22,7 +21,7 @@ const cartItems = (state = initialState, action) => {
 }
 
 const findItemIndex = (state, item) => {
-  return state.itemCount.findIndex(i => i.item.id === item.id);
+  return state.itemCount.findIndex(i => i.item._id === item._id);
 }
 
 const incrementItemCount = (state, item) => {
