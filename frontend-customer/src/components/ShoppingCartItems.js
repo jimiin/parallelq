@@ -69,7 +69,7 @@ state = {
               <View style={[styles.row]}>
               <Button
               title={"Remove"}
-              onPress={this.props.onPressReset} />
+              onPress={this.props.onPressRemove} />
               </ View>
             </ View>
             </View>
