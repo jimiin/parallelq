@@ -18,7 +18,7 @@ class ShoppingCartScreen extends React.Component {
     let order = ""
     this.props.itemCount
       .filter(i => i.count > 0)
-      .map(i => { order += (i.count + " " + i.item.name + "\n") });
+      .map(i => { order += (i.item.name + " x" + i.count + "\n") });
 
     if (order !== "") {
       makeOrder(order);

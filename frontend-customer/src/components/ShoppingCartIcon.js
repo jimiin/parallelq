@@ -22,7 +22,7 @@ class ShoppingCartIcon extends React.Component {
         </View>
         <Ionicons
           name="ios-cart"
-          size={30}
+          size={50}
           onPress={this.props.onPress} />
       </View>
     );
