@@ -7,31 +7,45 @@ const valid_status = Object.freeze({
     PAST: 'past'
 });
 
+function appendQueuePos(initialOrders) {
+    orders = [];
+    initialOrders.forEach(e => orders.push(e.toObject()));
+    for (i = 0; i < orders.length; i++) {
+        orders[i].queue_position = 0;
+        for (j = 0; j < orders.length; j++) {
+            if (orders[j].status == 'preparing' && orders[j]._id < orders[i]._id) {
+                orders[i].queue_position++;
+            }
+        }
+    }
+    return orders;
+}
+
 router.route('/').get((req, res) => {
     Order.find()
         .sort('_id')
-        .then(orders => res.json(orders))
+        .then(orders => res.json(appendQueuePos(orders)))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
 router.route('/status/'+valid_status.PREPARING).get((req, res) => {
     Order.find({ status: valid_status.PREPARING })
         .sort('_id')
-        .then(orders => res.json(orders))
+        .then(orders => res.json(appendQueuePos(orders)))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
 router.route('/status/'+valid_status.PREPARED).get((req, res) => {
     Order.find({ status: valid_status.PREPARED })
         .sort('_id')
-        .then(orders => res.json(orders))
+        .then(orders => res.json(appendQueuePos(orders)))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
 router.route('/status/'+valid_status.PAST).get((req, res) => {
     Order.find({ status: valid_status.PAST })
-    .sort('_id')
-        .then(orders => res.json(orders))
+        .sort('_id')
+        .then(orders => res.json(appendQueuePos(orders)))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
