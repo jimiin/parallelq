@@ -19,7 +19,10 @@ class RestaurantScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Menus items={this.props.items} menus={menus} onPress={this.props.addItemToCart} />
+        <Menus
+          itemCount={this.props.itemCount}
+          menus={menus}
+          onPress={this.props.addItemToCart} />
       </View>
     );
   }
@@ -27,13 +30,13 @@ class RestaurantScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items
+    itemCount: state.itemCount
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItemToCart: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
+    addItemToCart: (item) => dispatch({ type: 'INC_ITEM', payload: item }),
   }
 }
 

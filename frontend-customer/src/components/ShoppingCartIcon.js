@@ -11,7 +11,7 @@ class ShoppingCartIcon extends React.Component {
       <View style={{ padding: 5 }}>
         <View style={styles.cartItemCountContainer}>
           <Text style={{ color: 'white', fontWeight: 'bold' }}>
-            {this.props.items.length}
+            {this.props.itemCount.length}
           </Text>
         </View>
         <Ionicons
@@ -25,7 +25,7 @@ class ShoppingCartIcon extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items
+    itemCount: state.itemCount
   }
 }
 

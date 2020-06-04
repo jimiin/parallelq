@@ -9,17 +9,20 @@ import { formatter } from '../src/styles/formatter';
 
 async function makeOrder(item) {
   let res = await axios.post(url + "/orders/add", {
-    items: item.name
+    items: item
   });
 }
 
 class ShoppingCartScreen extends React.Component {
   makeOrders() {
-    this.props.items.map(item => makeOrder(item));
+    this.props.itemCount.map(
+      i => makeOrder(i.item));
   }
 
   totalPrice() {
-    let prices = this.props.items.map(item => item.price);
+    let prices = this.props.itemCount.map(
+      i => i.item.price * i.count
+    );
     const reducer = (acc, val) => acc + val;
     return prices.reduce(reducer, 0);
   }
@@ -28,10 +31,10 @@ class ShoppingCartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ShoppingCartItems
-          onPressReset={this.props.reset}
-          onPressRemove={this.props.remove}
-          onPressAdd={this.props.add}
-          items={this.props.items}
+          onPressPlus={this.props.incItem}
+          onPressMinus={this.props.decItem}
+          onPressRemove={this.props.removeItemFromCart}
+          itemCount={this.props.itemCount}
         />
         <Text style={{ fontSize: 20 }}>
           Total: {formatter.format(this.totalPrice())}
@@ -41,7 +44,7 @@ class ShoppingCartScreen extends React.Component {
           color="#841584"
           onPress={() => {
             this.makeOrders();
-            (this.props.reset)();
+            (this.props.resetCart)();
           }}
         />
       </View>
@@ -51,15 +54,16 @@ class ShoppingCartScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.items
+    itemCount: state.itemCount
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    add: () => dispatch({ type: 'ADD_ITEM' }),
-    remove: (item) => dispatch({ type: 'REMOVE_ITEM', payload: item }),
-    reset: () => dispatch({ type: 'RESET' }),
+    incItem: (item) => dispatch({ type: 'INC_ITEM', payload: item }),
+    decItem: (item) => dispatch({ type: 'DEC_ITEM', payload: item }),
+    removeItemFromCart: (item) => dispatch({ type: 'REMOVE_ITEM', payload: item }),
+    resetCart: () => dispatch({ type: 'RESET' }),
   }
 }
 
