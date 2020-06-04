@@ -3,11 +3,31 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux'
 
 import Menus from '../src/components/Menus'
-import { menus } from '../src/backend-api/data'
 import { styles } from '../src/styles/styles';
+import { axios, url } from '../src/backend-api/api';
 
 class RestaurantScreen extends React.Component {
-  state = {}
+  state = {menu: []}
+
+  updateMenu = () => {
+    axios.get(url+'/items/')
+      .then(res => {
+        this.setState({ menu: res.data });
+      })
+      .catch(err => {
+        console.log("Error: " + err);
+      });
+  }
+
+  componentDidMount() {
+    this.updateMenu();
+    this.menuInterval = setInterval(this.updateMenu, 1000);
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.menuInterval);
+  }
+
   render() {
     const title = this.props.route.params.title;
 
@@ -21,7 +41,7 @@ class RestaurantScreen extends React.Component {
       <View style={styles.container}>
         <Menus
           itemCount={this.props.itemCount}
-          menus={menus}
+          menus={this.state.menu}
           onPress={this.props.addItemToCart} />
       </View>
     );

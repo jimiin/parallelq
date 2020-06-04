@@ -81,7 +81,7 @@ class Menus extends Component {
         <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
 
           <Accordion
-            sections={this.state.data}
+            sections={this.props.menus}
             activeSections={this.state.activeSections}
             touchableComponent={TouchableOpacity}
             expandMultiple={true}
