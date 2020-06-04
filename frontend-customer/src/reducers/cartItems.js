@@ -41,7 +41,7 @@ const incrementItemCount = (state, item) => {
 }
 
 const decrementItemCount = (state, item) => {
-  let itemIndex = findItemIndex(item);
+  let itemIndex = findItemIndex(state, item);
   if (itemIndex === -1) {
     return {
       itemCount: [...state.itemCount]

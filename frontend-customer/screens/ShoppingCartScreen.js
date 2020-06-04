@@ -15,8 +15,13 @@ async function makeOrder(item) {
 
 class ShoppingCartScreen extends React.Component {
   makeOrders() {
-    this.props.itemCount.map(
-      i => makeOrder(i.item));
+    let order = ""
+    this.props.itemCount
+      .filter(i => i.count > 0)
+      .map(i => { order += (i.count + " " + i.item.name + "\n") });
+
+    console.log(order);
+    makeOrder(order);
   }
 
   totalPrice() {
@@ -45,6 +50,7 @@ class ShoppingCartScreen extends React.Component {
           onPress={() => {
             this.makeOrders();
             (this.props.resetCart)();
+            this.forceUpdate();
           }}
         />
       </View>
