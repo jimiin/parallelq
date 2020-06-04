@@ -39,9 +39,11 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   itemPriceText: {
-    fontSize: 15,
     alignSelf: 'flex-start',
     marginTop: 1,
+    textAlign: 'left',
+    fontSize: 22,
+    fontWeight: '300',
   },
   fitImage: {
     width: window.width - 60,
@@ -64,5 +66,53 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingTop: 10,
     marginRight: 5
-  }
+  },
+
+  
+
+/* new items */
+
+
+   title: {
+    textAlign: 'left',
+    fontSize: 22,
+    fontWeight: '300',
+    marginBottom: 20,
+  },
+  row: {
+    flexDirection:'row', 
+    justifyContent:'space-between',
+    borderColor: 'grey',
+    padding:10,
+    borderWidth: 1,
+    backgroundColor: 'white',
+  },
+  priceTag: { 
+    flexDirection:'row', 
+    justifyContent:'space-between', 
+    marginRight:20
+  },
+  cartButtons: {
+    flexDirection:'row',
+  },
+  content: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderColor: 'grey',
+    borderRadius: 2,
+    borderWidth: 1,
+  },
+  active: {
+    backgroundColor: 'white',
+  },
+  inactive: {
+    backgroundColor: '#f8f8f8',
+    paddingBottom: 20,
+  },
+  description: {
+    height:0, 
+    color:'transparent',
+  },
+
+
 });

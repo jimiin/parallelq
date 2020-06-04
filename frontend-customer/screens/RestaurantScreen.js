@@ -19,7 +19,7 @@ class RestaurantScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Menus menus={menus} onPress={this.props.addItemToCart} />
+        <Menus items={this.props.items} menus={menus} onPress={this.props.addItemToCart} />
       </View>
     );
   }

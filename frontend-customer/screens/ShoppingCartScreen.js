@@ -28,7 +28,9 @@ class ShoppingCartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ShoppingCartItems
-          onPress={this.props.remove}
+          onPressReset={this.props.reset}
+          onPressRemove={this.props.remove}
+          onPressAdd={this.props.add}
           items={this.props.items}
         />
         <Text style={{ fontSize: 20 }}>
