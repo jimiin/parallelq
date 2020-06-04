@@ -69,11 +69,7 @@ state = {
 
           </View>
           
-          <Button title="Picked up" onPress={async (sectionId) => {try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId)
-    } catch(err) {
-      console.log(err)
-    } }} />
+          <Button title="Picked up" onPress={() => this.onHandleDelete(section.id)} />
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
