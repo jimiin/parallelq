@@ -88,7 +88,7 @@ state = {
 
           </View>
           
-         <Button title="Prepared" onClick={this.onHandleDelete(section.id)} />
+         <Button title="Prepared" onPress={() => this.onHandleDelete(section.id)} />
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -98,6 +98,7 @@ state = {
 
   /* Sets order to prepared and deletes from the list. */
   onHandleDelete = async (sectionId) => {
+    console.log("Deleting:" + sectionId);
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId)
     } catch(err) {
