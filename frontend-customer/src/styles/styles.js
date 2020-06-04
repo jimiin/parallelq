@@ -87,6 +87,22 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'white',
   },
+  preparingRow: {
+    flexDirection:'row', 
+    justifyContent:'space-between',
+    borderColor: 'grey',
+    padding:10,
+    borderWidth: 1,
+    backgroundColor: 'white',
+  },
+  preparedRow: {
+    flexDirection:'row', 
+    justifyContent:'space-between',
+    borderColor: 'grey',
+    padding:10,
+    borderWidth: 1,
+    backgroundColor: '#96cdff',
+  },
   priceTag: { 
     flexDirection:'row', 
     justifyContent:'space-between', 

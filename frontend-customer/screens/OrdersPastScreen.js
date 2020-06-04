@@ -18,6 +18,8 @@ class OrderPastScreen extends React.Component {
           <OrderCard
             orderNumber={order._id}
             item={order.items}
+            creationTime={order.createdAt}
+            prepared={2}
           />
         ))
       });

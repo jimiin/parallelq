@@ -4,17 +4,28 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { styles } from '../styles/styles';
 
-export default function OrderCard({ orderNumber, item, onPress }) {
+/* TODO: Add number of people in queue in case 2 */
+const orderStatus = (prepared) => {
+  switch(prepared) {
+    case 0: return (<Text>Input Estimated Time Here</Text>)
+    case 1: return (<Text>Pick Up Now</Text>)
+    case 2:
+    default: return (<Text></Text>)
+  }
+}
+
+export default function OrderCard({ orderNumber, item, creationTime, prepared, onPress }) {
   return (
-    <RectButton style={onPress = { onPress }} >
+    <RectButton style={[(prepared == 1) ? styles.preparedRow : styles.preparingRow, onPress = { onPress }, {borderRadius:10, margin:10}]} >
       <View style={{ flexDirection: 'column' }}>
-        <View style={styles.contentContainer}>
+        <View style={styles.title}>
           <Text style={styles.optionText}>Order #{orderNumber}</Text>
         </View>
         <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{item}</Text>
+          <Text style={styles.optionText}>Ordered at: {creationTime}</Text>
         </View>
       </View>
+        {orderStatus(prepared)}
     </ RectButton>
   );
 }
