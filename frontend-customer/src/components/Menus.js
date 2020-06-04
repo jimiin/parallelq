@@ -35,7 +35,8 @@ class Menus extends Component {
     return (
       <Button
         title="Unavailable"
-        disabled={true} />
+        disabled={true}
+        onPress={() => { console.log("unavilable menu") }} />
     )
   }
 
