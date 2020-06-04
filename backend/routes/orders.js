@@ -11,10 +11,10 @@ function appendQueuePos(initialOrders) {
     orders = [];
     initialOrders.forEach(e => orders.push(e.toObject()));
     for (i = 0; i < orders.length; i++) {
-        orders[i].queue_position = 0;
+        orders[i].queuePosition = 0;
         for (j = 0; j < orders.length; j++) {
             if (orders[j].status == 'preparing' && orders[j]._id < orders[i]._id) {
-                orders[i].queue_position++;
+                orders[i].queuePosition++;
             }
         }
     }
