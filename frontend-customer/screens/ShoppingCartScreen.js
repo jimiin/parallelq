@@ -64,6 +64,7 @@ class ShoppingCartScreen extends React.Component {
             this.makeOrders();
             (this.props.resetCart)();
             this.forceUpdate();
+            this.props.navigation.navigate("Orders");
           }}
         />
       </View>
