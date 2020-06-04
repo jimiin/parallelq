@@ -23,7 +23,11 @@ autoIncrement.initialize(connection);
 
 const orderRouter = require('./routes/orders');
 
+const itemRouter = require('./routes/items');
+
 app.use('/orders', orderRouter);
+
+app.use('/items', itemRouter);
 
 app.listen(port, () => {
     console.log(`Sever is running on port: ${port}`)
