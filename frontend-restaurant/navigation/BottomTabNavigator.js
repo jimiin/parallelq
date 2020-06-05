@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import MenuScreen from '../screens/MenuScreen';
 import OrdersNavigator from '../screens/order/OrdersNavigator';
 
 const BottomTab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Menu"
-        component={HomeScreen}
+        component={MenuScreen}
         options={{
           title: 'Menu',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
@@ -58,6 +59,8 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Orders':
       return 'ParallelQ - Orders';
+    case 'Menu':
+      return 'Menu Items';
     case 'Links':
       return 'Links to learn more';
   }
