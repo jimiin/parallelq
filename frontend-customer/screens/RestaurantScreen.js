@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import Menus from '../src/components/Menus'
+import Menus from '../src/components/Menus';
+import { menus } from '../src/backend-api/kimiko';
 import { styles } from '../src/styles/styles';
 import { axios, url } from '../src/backend-api/api';
 
 class RestaurantScreen extends React.Component {
-  state = {menu: []}
+  state = { menu: [] }
 
   updateMenu = () => {
-    axios.get(url+'/items/')
+    axios.get(url + '/items/')
       .then(res => {
         this.setState({ menu: res.data });
       })
@@ -23,9 +24,17 @@ class RestaurantScreen extends React.Component {
     this.updateMenu();
     this.menuInterval = setInterval(this.updateMenu, 1000);
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.menuInterval);
+  }
+
+  getMenu(title) {
+    if (title === "Kimiko") {
+      return menus
+    }
+    this.updateMenu()
+    return this.state.menu
   }
 
   render() {
@@ -41,7 +50,7 @@ class RestaurantScreen extends React.Component {
       <View style={styles.container}>
         <Menus
           itemCount={this.props.itemCount}
-          menus={this.state.menu}
+          menus={this.getMenu(title)}
           onPress={this.props.addItemToCart} />
       </View>
     );
