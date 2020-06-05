@@ -4,13 +4,29 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { styles } from '../styles/styles';
 
+const ordinalSuffix = (queuePosition) => {
+  const pos = queuePosition + 1
+  const i = pos % 10
+  const j = pos % 100;
+  if (i == 1 && j != 11) {
+    return pos + "st";
+  }
+  if (i == 2 && j != 12) {
+    return pos + "nd";
+  }
+  if (i == 3 && j != 13) {
+    return pos + "rd";
+  }
+  return pos + "th";
+}
+
 /* TODO: Add number of people in queue in case 2 */
 const orderStatus = (prepared, queuePosition) => {
   switch (prepared) {
     case 0:
       return (
         <Text style={styles.orderTitle}>
-          Position in queue: {queuePosition + 1}
+          Position in queue: {ordinalSuffix(queuePosition)}
         </Text>
       )
     case 1:
