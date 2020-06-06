@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  Modal,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { connect } from 'react-redux'
 
 import ShoppingCartItems from '../src/components/ShoppingCartItems';
@@ -14,6 +20,8 @@ async function makeOrder(item) {
 }
 
 class ShoppingCartScreen extends React.Component {
+  state = { modalVisible: false }
+
   makeOrders() {
     let order = ""
     this.props.itemCount
@@ -32,6 +40,19 @@ class ShoppingCartScreen extends React.Component {
     const reducer = (acc, val) => acc + val;
     return prices.reduce(reducer, 0);
   }
+
+  handleOpen = () => {
+    this.setState({
+      modalVisible: true
+    });
+    setTimeout(this.handleClose, 1000);
+  };
+
+  handleClose = () => {
+    this.setState({
+      modalVisible: false
+    });
+  };
 
   render() {
     return (
@@ -64,9 +85,25 @@ class ShoppingCartScreen extends React.Component {
             this.makeOrders();
             (this.props.resetCart)();
             this.forceUpdate();
-            this.props.navigation.navigate("Orders");
+            this.handleOpen();
           }}
         />
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { this.setModalVisible(false) }}>
+          <TouchableWithoutFeedback
+            onPress={this.handleClose}>
+            <View style={styles.notificationView}>
+              <View style={styles.notificationContainer}>
+                <Text style={{ color: 'white' }}>
+                  Order has been successfully made!
+                </Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </View>
     );
   }

@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   notificationContainer: {
-    width: 250,
+    width: 300,
     borderRadius: 15,
     backgroundColor: 'rgba(100, 100, 100, 0.8)',
     alignItems: 'center',
