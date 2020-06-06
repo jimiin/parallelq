@@ -50,6 +50,11 @@ export const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'cover',
   },
+
+
+  /* new items */
+
+
   cartItemCountContainer: {
     position: 'absolute',
     height: 20,
@@ -66,12 +71,6 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
     marginRight: 5
   },
-
-
-
-  /* new items */
-
-
   title: {
     textAlign: 'left',
     fontSize: 22,
@@ -129,8 +128,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     paddingBottom: 20,
   },
+  descriptionContainer: {
+    width: window.width - 10
+  },
   description: {
     height: 0,
+    flexWrap: 'wrap',
     color: 'transparent',
   },
 

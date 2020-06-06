@@ -31,19 +31,16 @@ class ShoppingCartItems extends Component {
           <View style={{ flexDirection: 'column' }}>
 
             <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.title}>x{section.count}</Text>
-            <Text style={styles.itemPriceText}>
-              {formatter.format(item.price)}
-            </Text>
+            <View style={styles.priceTag}>
+              <Text style={styles.itemPriceText}>
+                {formatter.format(item.price)}
+              </Text>
+              <Text style={(section.count > 0) ? styles.itemPriceText : { color: 'transparent' }}>
+                x{section.count}
+              </Text>
+            </View>
 
             <View style={{ width: 350 }}>
-              <Text style={isActive ? styles.description : { padding: 10 }}>
-                Description: {item.description.substring(0, 5)}...
-              </Text>
-              <Text style={isActive ? { padding: 10 } : styles.description}>
-                Description: {item.description}
-              </Text>
-
               <View style={[styles.cartButtons]}>
                 <View style={[styles.row]}>
                   <Button
@@ -66,9 +63,9 @@ class ShoppingCartItems extends Component {
             </View>
           </View>
 
-          <Image
+          {/* <Image
             style={styles.fitImage}
-            source={require('../../assets/images/library.jpg')} />
+            source={require('../../assets/images/library.jpg')} /> */}
 
         </View>
         <View style={isActive ? styles.inactive : styles.inactive}></View>

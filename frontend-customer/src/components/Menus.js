@@ -43,7 +43,10 @@ class Menus extends Component {
     let itemWithCount = this.props.itemCount.find(i => i.item._id === item._id);
     if (itemWithCount !== undefined) {
       return (
-        <Text style={styles.title}>x{itemWithCount.count}</Text>
+        <Text style={(itemWithCount.count > 0) ?
+          styles.itemPriceText : { color: 'transparent' }}>
+          x{itemWithCount.count}
+        </Text>
       );
     }
   }
@@ -56,15 +59,15 @@ class Menus extends Component {
           <View style={{ flexDirection: 'column', flexShrink: 1 }}>
 
             <Text style={styles.title}>{section.name}</Text>
-            {this.renderItemCount(section)}
             <View style={styles.priceTag}>
               <Text style={styles.itemPriceText}>
                 {formatter.format(section.price)}
               </Text>
-            </ View>
-            <View style={{ width: 500 }} >
+              {this.renderItemCount(section)}
+            </View>
+            <View style={styles.descriptionContainer} >
               <Text style={isActive ? styles.description : { padding: 10 }}>
-                Description: {section.description.substring(0, 5)}...
+                Description: {section.description.substring(0, 60)}...
               </Text>
               <Text style={isActive ? { padding: 10 } : styles.description}>
                 Description: {section.description}
@@ -79,7 +82,7 @@ class Menus extends Component {
           </View>
         </View>
         <View style={isActive ? styles.inactive : styles.inactive}></View>
-      </View>
+      </View >
 
     );
   };
