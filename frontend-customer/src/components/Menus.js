@@ -13,7 +13,6 @@ class Menus extends Component {
     multipleSelect: true,
   };
 
-
   toggleExpanded = () => {
     this.setState({ collapsed: this.state.collapsed });
   };
@@ -97,8 +96,7 @@ class Menus extends Component {
 
   render() {
     return (
-
-      <View style={styles.container}>
+      <View style={styles.container} >
         <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
 
           <Accordion
@@ -114,7 +112,7 @@ class Menus extends Component {
           <View style={styles.accordion}></View>
 
         </ScrollView>
-      </View>
+      </View >
     );
   }
 }
