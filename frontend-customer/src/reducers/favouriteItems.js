@@ -3,18 +3,22 @@ const initialState = {
 }
 
 const favouriteItems = (state = initialState, action) => {
+  let item = action.payload;
 
-  console.log(state.favItems)
   switch (action.type) {
     case 'FAV_ITEM':
-      return {
-        favItems:
-          [...state.favItems, action.payload]
+      if (!state.favItems.find(
+        i => i._id === item._id
+      )) {
+        return {
+          favItems:
+            [...state.favItems, item]
+        }
       }
     case 'UNFAV_ITEM':
       return {
         favItems:
-          state.favItems.filter(i => i._id !== action.payload._id)
+          state.favItems.filter(i => i._id !== item._id)
       }
   }
 

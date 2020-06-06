@@ -63,7 +63,8 @@ class Menus extends Component {
               <FavouriteIcon
                 onPressFav={this.props.onPressFav}
                 onPressUnfav={this.props.onPressUnfav}
-                item={section} />
+                item={section}
+                favItems={this.props.favItems} />
               <Text style={styles.title}>{section.name}</Text>
             </View>
 

@@ -90,6 +90,7 @@ class RestaurantScreen extends React.Component {
       <View style={styles.container}>
         <Menus
           itemCount={this.props.itemCount}
+          favItems={this.props.favItems}
           menus={this.getMenu()}
           onPressFav={this.props.favItem}
           onPressUnfav={this.props.unfavItem}

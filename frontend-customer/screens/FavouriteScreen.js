@@ -22,6 +22,7 @@ class FavouriteScreen extends React.Component {
           this.props.favItems.length > 0 ?
             <Menus
               itemCount={this.props.itemCount}
+              favItems={this.props.favItems}
               menus={this.props.favItems}
               onPressFav={this.props.favItem}
               onPressUnfav={this.props.unfavItem}
