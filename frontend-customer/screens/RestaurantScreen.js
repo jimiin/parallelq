@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import Menus from '../src/components/Menus';
@@ -7,7 +13,7 @@ import { styles } from '../src/styles/styles';
 import { axios, url } from '../src/backend-api/api';
 
 class RestaurantScreen extends React.Component {
-  state = { menu: [] }
+  state = { menu: [], modalVisible: false }
 
   compareMenu(a, b) {
     if (a.availability < b.availability) {
@@ -42,6 +48,19 @@ class RestaurantScreen extends React.Component {
     return this.state.menu.sort(this.compareMenu)
   }
 
+  handleOpen = () => {
+    this.setState({
+      modalVisible: true
+    });
+    setTimeout(this.handleClose, 1000);
+  };
+
+  handleClose = () => {
+    this.setState({
+      modalVisible: false
+    });
+  };
+
   render() {
     const title = this.props.route.params.title;
 
@@ -56,7 +75,26 @@ class RestaurantScreen extends React.Component {
         <Menus
           itemCount={this.props.itemCount}
           menus={this.getMenu()}
-          onPress={this.props.addItemToCart} />
+          onPress={(item) => {
+            this.props.addItemToCart(item);
+            this.handleOpen();
+          }} />
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { this.setModalVisible(false) }}>
+          <TouchableWithoutFeedback
+            onPress={this.handleClose}>
+            <View style={styles.notificationView}>
+              <View style={styles.notificationContainer}>
+                <Text style={{ color: 'white' }}>
+                  Added to Shopping Cart!
+                </Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </View>
     );
   }

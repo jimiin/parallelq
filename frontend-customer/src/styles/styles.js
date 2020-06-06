@@ -136,6 +136,21 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: 'transparent',
   },
-
-
+  notificationView: {
+    position: 'absolute',
+    height: 40,
+    width: window.width,
+    top: window.height - 100,
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  notificationContainer: {
+    width: 250,
+    borderRadius: 15,
+    backgroundColor: 'rgba(100, 100, 100, 0.8)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2000
+  }
 });
