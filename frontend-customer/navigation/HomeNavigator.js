@@ -3,6 +3,7 @@ import * as React from "react";
 
 import HomeScreen from "../screens/HomeScreen";
 import RestaurantScreen from "../screens/RestaurantScreen";
+import FavouriteScreen from "../screens/FavouriteScreen";
 import ShoppingCartScreen from "../screens/ShoppingCartScreen";
 import ShoppingCartIcon from '../src/components/ShoppingCartIcon';
 
@@ -29,6 +30,12 @@ export default function HomeNavigator({ navigation, route }) {
         <Stack.Screen
           name="Restaurant"
           component={RestaurantScreen}
+          options={() => ({
+            headerRight: () => shoppingCart
+          })} />
+        <Stack.Screen
+          name="Favourites"
+          component={FavouriteScreen}
           options={() => ({
             headerRight: () => shoppingCart
           })} />

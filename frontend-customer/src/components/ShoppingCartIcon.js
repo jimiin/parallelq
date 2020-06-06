@@ -31,7 +31,7 @@ class ShoppingCartIcon extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    itemCount: state.itemCount
+    itemCount: state.cartItems.itemCount
   }
 }
 

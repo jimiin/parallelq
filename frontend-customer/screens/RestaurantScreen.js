@@ -22,6 +22,23 @@ class RestaurantScreen extends React.Component {
       return 1
     }
     return a._id - b._id
+    // let aIsFaved = this.props.favItems.includes(a);
+    // let bIsFaved = this.props.favItems.includes(b);
+
+    // if (aIsFaved === bIsFaved) {
+    //   if (a.availability < b.availability) {
+    //     return -1
+    //   }
+    //   if (a.availability > b.availability) {
+    //     return 1
+    //   }
+    //   return a._id - b._id
+    // }
+
+    // if (aIsFaved) {
+    //   return -1
+    // }
+    // return 1
   }
 
   updateMenu = () => {
@@ -74,6 +91,8 @@ class RestaurantScreen extends React.Component {
         <Menus
           itemCount={this.props.itemCount}
           menus={this.getMenu()}
+          onPressFav={this.props.favItem}
+          onPressUnfav={this.props.unfavItem}
           onPress={(item) => {
             this.props.addItemToCart(item);
             this.handleOpen();
@@ -101,13 +120,16 @@ class RestaurantScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    itemCount: state.itemCount
+    itemCount: state.cartItems.itemCount,
+    favItems: state.favItems.favItems
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addItemToCart: (item) => dispatch({ type: 'INC_ITEM', payload: item }),
+    favItem: (item) => dispatch({ type: 'FAV_ITEM', payload: item }),
+    unfavItem: (item) => dispatch({ type: 'UNFAV_ITEM', payload: item }),
   }
 }
 

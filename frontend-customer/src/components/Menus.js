@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Image, ScrollView, View, Text, Button, TouchableOpacity } from "react-native";
 import Accordion from 'react-native-collapsible/Accordion';
 
+import FavouriteIcon from '../components/FavouriteIcon'
 import { styles } from '../styles/styles';
 import { formatter } from '../styles/formatter';
 
@@ -58,7 +59,14 @@ class Menus extends Component {
         <View style={[styles.row]}>
           <View style={{ flexDirection: 'column', flexShrink: 1 }}>
 
-            <Text style={styles.title}>{section.name}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <FavouriteIcon
+                onPressFav={this.props.onPressFav}
+                onPressUnfav={this.props.onPressUnfav}
+                item={section} />
+              <Text style={styles.title}>{section.name}</Text>
+            </View>
+
             <View style={styles.priceTag}>
               <Text style={styles.itemPriceText}>
                 {formatter.format(section.price)}

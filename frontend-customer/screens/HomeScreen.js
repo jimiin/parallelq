@@ -12,6 +12,11 @@ export default function HomeScreen({ navigation }) {
     >
       <RestaurantCard
         img={require('../assets/images/burger.jpg')}
+        label="Favourites"
+        onPress={() => navigation.navigate('Favourites')}
+      />
+      <RestaurantCard
+        img={require('../assets/images/burger.jpg')}
         label="FiveSixEight"
         onPress={() => navigation.navigate('Restaurant', { title: "FiveSixEight" })}
       />

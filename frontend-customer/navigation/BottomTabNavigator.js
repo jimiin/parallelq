@@ -4,7 +4,7 @@ import * as React from 'react';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeNavigator from './HomeNavigator';
 import OrdersNavigator from './OrdersNavigator';
-import MapScreen from '../screens/MapScreen';
+import FavouriteScreen from '../screens/FavouriteScreen';
 import AccountScreen from '../screens/AccountScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -36,14 +36,14 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-reorder" />,
         }}
       />
-      <BottomTab.Screen
-        name="Map"
-        component={MapScreen}
+      {/* <BottomTab.Screen
+        name="Favourite"
+        component={FavouriteScreen}
         options={{
-          title: 'Map',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-map" />,
+          title: 'Favourite',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-star" />,
         }}
-      />
+      /> */}
       <BottomTab.Screen
         name="Account"
         component={AccountScreen}
