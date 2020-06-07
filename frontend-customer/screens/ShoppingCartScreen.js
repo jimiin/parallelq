@@ -60,6 +60,7 @@ class ShoppingCartScreen extends React.Component {
         {
           this.props.itemCount.length > 0 ?
             <ShoppingCartItems
+              key={this.props.itemCount}
               onPressPlus={this.props.incItem}
               onPressMinus={this.props.decItem}
               onPressRemove={this.props.removeItemFromCart}
