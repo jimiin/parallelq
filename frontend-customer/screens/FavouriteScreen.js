@@ -5,15 +5,6 @@ import { connect } from 'react-redux';
 import Menus from '../src/components/Menus';
 
 class FavouriteScreen extends React.Component {
-  // state = { favs: [] }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   this.setState({
-  //     favs: prevProps.favItems.map(
-  //       i => { <Text>{i.name}</Text> }
-  //     )
-  //   })
-  // }
 
   render() {
     return (
@@ -21,6 +12,7 @@ class FavouriteScreen extends React.Component {
         {
           this.props.favItems.length > 0 ?
             <Menus
+              key={this.props.favItems}
               itemCount={this.props.itemCount}
               favItems={this.props.favItems}
               menus={this.props.favItems}

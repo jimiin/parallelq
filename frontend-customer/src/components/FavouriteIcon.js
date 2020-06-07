@@ -1,22 +1,29 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 
 class FavouriteIcon extends React.Component {
-  state = { fav: false }
+  state = { favItems: [] }
 
   componentDidMount() {
-    let faved = this.props.favItems.find(
-      i => i._id === this.props.item._id
-    ) != undefined
-    this.setState({ fav: faved })
+    this.setState({ favItems: this.props.favItems })
+  }
+
+  componentDidUpdate(newProps) {
+    if (this.state.favItems !== newProps.favItems) {
+      this.setState({ favItems: newProps.favItems })
+    }
   }
 
   render() {
+    let faved = this.state.favItems.find(
+      i => i._id === this.props.item._id
+    ) != undefined
+
     return (
       <View style={{ marginRight: 5 }}>
         {
-          this.state.fav ?
+          faved ?
             <Ionicons
               name="md-star"
               size={30}
