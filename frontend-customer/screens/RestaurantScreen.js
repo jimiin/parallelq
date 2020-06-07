@@ -22,29 +22,27 @@ class RestaurantScreen extends React.Component {
       return 1
     }
     return a._id - b._id
-    // let aIsFaved = this.props.favItems.includes(a);
-    // let bIsFaved = this.props.favItems.includes(b);
+  }
 
-    // if (aIsFaved === bIsFaved) {
-    //   if (a.availability < b.availability) {
-    //     return -1
-    //   }
-    //   if (a.availability > b.availability) {
-    //     return 1
-    //   }
-    //   return a._id - b._id
-    // }
+  faved(favedItems, item) {
+    return favedItems.filter(i => item._id === i._id).length !== 0
+  }
 
-    // if (aIsFaved) {
-    //   return -1
-    // }
-    // return 1
+  sortMenu(menu) {
+    const favedItems = menu
+      .filter(i => this.faved(this.props.favItems, i))
+      .sort(this.compareMenu)
+    const notfavedItems = menu
+      .filter(i => !this.faved(this.props.favItems, i))
+      .sort(this.compareMenu)
+
+    return favedItems.concat(notfavedItems)
   }
 
   updateMenu = () => {
     axios.get(url + '/items/')
       .then(res => {
-        this.setState({ menu: res.data });
+        this.setState({ menu: this.sortMenu(res.data) })
       })
       .catch(err => {
         console.log("Error: " + err);
@@ -58,10 +56,6 @@ class RestaurantScreen extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.menuInterval);
-  }
-
-  getMenu() {
-    return this.state.menu.sort(this.compareMenu)
   }
 
   handleOpen = () => {
@@ -89,9 +83,10 @@ class RestaurantScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Menus
+          key={this.state.menu}
           itemCount={this.props.itemCount}
           favItems={this.props.favItems}
-          menus={this.getMenu()}
+          menus={this.state.menu}
           onPressFav={this.props.favItem}
           onPressUnfav={this.props.unfavItem}
           onPress={(item) => {

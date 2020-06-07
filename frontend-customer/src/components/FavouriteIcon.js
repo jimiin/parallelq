@@ -13,7 +13,6 @@ class FavouriteIcon extends React.Component {
   }
 
   render() {
-    console.log(this.state.fav)
     return (
       <View style={{ marginRight: 5 }}>
         {
