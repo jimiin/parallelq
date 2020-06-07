@@ -1,14 +1,34 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import Menus from '../src/components/Menus';
+import { styles } from '../src/styles/styles';
 
 class FavouriteScreen extends React.Component {
+  state = { modalVisible: false }
+
+  handleOpen = () => {
+    this.setState({
+      modalVisible: true
+    });
+    setTimeout(this.handleClose, 1000);
+  };
+
+  handleClose = () => {
+    this.setState({
+      modalVisible: false
+    });
+  };
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {
           this.props.favItems.length > 0 ?
             <Menus
@@ -20,6 +40,7 @@ class FavouriteScreen extends React.Component {
               onPressUnfav={this.props.unfavItem}
               onPress={(item) => {
                 this.props.addItemToCart(item);
+                this.handleOpen();
               }} /> :
             <View style={{
               flex: 1,
@@ -28,9 +49,25 @@ class FavouriteScreen extends React.Component {
             }}>
               <Text style={{ fontSize: 20 }}>
                 No favourite items
-            </Text>
+              </Text>
             </View>
         }
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={this.handleClose}>
+          <TouchableWithoutFeedback
+            onPress={this.handleClose}>
+            <View style={styles.notificationView}>
+              <View style={styles.notificationContainer}>
+                <Text style={{ color: 'white' }}>
+                  Added to Shopping Cart!
+                </Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </View>
     );
   }

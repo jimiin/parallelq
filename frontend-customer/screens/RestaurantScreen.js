@@ -97,7 +97,7 @@ class RestaurantScreen extends React.Component {
           animationType="fade"
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={() => { this.setModalVisible(false) }}>
+          onRequestClose={this.handleClose}>
           <TouchableWithoutFeedback
             onPress={this.handleClose}>
             <View style={styles.notificationView}>
