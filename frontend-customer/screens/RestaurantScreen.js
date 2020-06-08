@@ -92,7 +92,7 @@ class RestaurantScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Searchbar
-          placeholder="Search"
+          placeholder="Search meal"
           onChangeText={this._onChangeSearch}
           value={searchQuery}
         />
