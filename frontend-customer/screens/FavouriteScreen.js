@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import Menus from '../src/components/Menus';
+import MenuItems from '../src/components/MenuItems';
 import { styles } from '../src/styles/styles';
 
 class FavouriteScreen extends React.Component {
@@ -31,7 +31,7 @@ class FavouriteScreen extends React.Component {
       <View style={styles.container}>
         {
           this.props.favItems.length > 0 ?
-            <Menus
+            <MenuItems
               key={this.props.favItems}
               itemCount={this.props.itemCount}
               favItems={this.props.favItems}

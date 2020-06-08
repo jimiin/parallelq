@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import Menus from '../src/components/Menus';
+import MenuItems from '../src/components/MenuItems';
 import { styles } from '../src/styles/styles';
 import { axios, url } from '../src/backend-api/api';
 
@@ -82,7 +82,7 @@ class RestaurantScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Menus
+        <MenuItems
           key={this.state.menu}
           itemCount={this.props.itemCount}
           favItems={this.props.favItems}

@@ -108,10 +108,21 @@ export const styles = StyleSheet.create({
   priceTag: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginLeft: 10,
     marginRight: 20
+  },
+  windowWidth: {
+    width: window.width - 10
+  },
+  cartButtonsContainer: {
+    flexDirection: 'row',
   },
   cartButtons: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderColor: 'grey',
+    padding: 5,
+    backgroundColor: 'white',
   },
   content: {
     padding: 20,

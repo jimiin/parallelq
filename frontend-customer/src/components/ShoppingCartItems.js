@@ -35,26 +35,26 @@ class ShoppingCartItems extends Component {
               <Text style={styles.itemPriceText}>
                 {formatter.format(item.price)}
               </Text>
-              <Text style={(section.count > 0) ? styles.itemPriceText : { color: 'transparent' }}>
+              <Text style={styles.itemPriceText}>
                 x{section.count}
               </Text>
             </View>
 
-            <View style={{ width: 350 }}>
-              <View style={[styles.cartButtons]}>
-                <View style={[styles.row]}>
+            <View style={styles.windowWidth}>
+              <View style={styles.cartButtonsContainer}>
+                <View style={styles.cartButtons}>
                   <Button
-                    title={"+"}
+                    title={"  +  "}
                     onPress={() => this.props.onPressPlus(item)} />
                 </View>
-                <View style={[styles.row]}>
+                <View style={styles.cartButtons}>
                   <Button
-                    title={"-"}
+                    title={"  -  "}
                     onPress={() => this.props.onPressMinus(item)} />
                 </View>
-                <View style={[styles.row]}>
+                <View style={styles.cartButtons}>
                   <Button
-                    title={"Remove"}
+                    title={"  Remove  "}
                     onPress={() => {
                       this.props.onPressRemove(item);
                     }} />

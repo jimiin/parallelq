@@ -27,10 +27,7 @@ class ShoppingCartScreen extends React.Component {
     this.props.itemCount
       .filter(i => i.count > 0)
       .map(i => { order += (i.item.name + " x" + i.count + "\n") });
-
-    if (order !== "") {
-      makeOrder(order.substring(0, order.length - 1));
-    }
+    return order.substring(0, order.length - 1)
   }
 
   totalPrice() {
@@ -81,12 +78,14 @@ class ShoppingCartScreen extends React.Component {
         </Text>
         <Button
           title='Order'
-          color="#841584"
+          color='#00008B'
           onPress={() => {
-            this.makeOrders();
-            (this.props.resetCart)();
-            this.forceUpdate();
-            this.handleOpen();
+            const order = this.makeOrders();
+            if (order !== "") {
+              makeOrder(order);
+              (this.props.resetCart)();
+              this.handleOpen();
+            }
           }}
         />
         <Modal

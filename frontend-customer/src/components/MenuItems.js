@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Image, ScrollView, View, Text, Button, TouchableOpacity } from "react-native";
 import Accordion from 'react-native-collapsible/Accordion';
 
-import FavouriteIcon from '../components/FavouriteIcon'
+import FavouriteIcon from './FavouriteIcon'
 import { styles } from '../styles/styles';
 import { formatter } from '../styles/formatter';
 
-class Menus extends Component {
+class MenuItems extends Component {
 
   state = {
     data: this.props.menus,
@@ -104,8 +104,6 @@ class Menus extends Component {
     this.setState({ activeSections });
   };
 
-
-
   render() {
     return (
       <View style={styles.container} >
@@ -129,7 +127,4 @@ class Menus extends Component {
   }
 }
 
-
-
-
-export default Menus;
+export default MenuItems;
