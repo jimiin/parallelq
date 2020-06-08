@@ -29,7 +29,7 @@ class ShoppingCartScreen extends React.Component {
       .map(i => { order += (i.item.name + " x" + i.count + "\n") });
 
     if (order !== "") {
-      makeOrder(order);
+      makeOrder(order.substring(0, order.length - 1));
     }
   }
 

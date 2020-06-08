@@ -83,7 +83,6 @@ export default function OrderCard({ orderNumber, item, creationTime, prepared, q
         </View>
       </View>
 
-
     </ RectButton>
   );
 }
