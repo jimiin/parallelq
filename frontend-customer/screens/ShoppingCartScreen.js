@@ -20,14 +20,22 @@ async function makeOrder(item) {
 }
 
 class ShoppingCartScreen extends React.Component {
-  state = { modalVisible: false }
+  state = {
+    modalVisible: false,
+    orderSuccessful: true,
+  }
 
   makeOrders() {
     let order = ""
     this.props.itemCount
       .filter(i => i.count > 0)
       .map(i => { order += (i.item.name + " x" + i.count + "\n") });
-    return order.substring(0, order.length - 1)
+
+    this.setState({ orderSuccessful: (order !== "") });
+
+    if (order !== "") {
+      makeOrder(order.substring(0, order.length - 1));
+    }
   }
 
   totalPrice() {
@@ -80,12 +88,9 @@ class ShoppingCartScreen extends React.Component {
           title='Order'
           color='#00008B'
           onPress={() => {
-            const order = this.makeOrders();
-            if (order !== "") {
-              makeOrder(order);
-              (this.props.resetCart)();
-              this.handleOpen();
-            }
+            this.makeOrders();
+            (this.props.resetCart)();
+            this.handleOpen();
           }}
         />
         <Modal
@@ -97,9 +102,15 @@ class ShoppingCartScreen extends React.Component {
             onPress={this.handleClose}>
             <View style={styles.notificationView}>
               <View style={styles.notificationContainer}>
-                <Text style={{ color: 'white' }}>
-                  Order has been successfully made!
-                </Text>
+                {
+                  (this.state.orderSuccessful) ?
+                    <Text style={{ color: 'white' }}>
+                      Order has been successfully made!
+                    </Text> :
+                    <Text style={{ color: 'white' }}>
+                      Your cart is empty!
+                    </Text>
+                }
               </View>
             </View>
           </TouchableWithoutFeedback>
