@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 15,
-    // alignSelf: 'flex-start',
     marginTop: 1,
     textAlign: 'left',
   },

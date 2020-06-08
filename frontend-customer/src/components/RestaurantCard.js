@@ -6,7 +6,9 @@ import { styles } from '../styles/styles';
 
 export default function RestaurantCard({ img, label, onPress, isLastOption }) {
   return (
-    <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
+    <RectButton
+      style={[styles.option, isLastOption && styles.lastOption]}
+      onPress={onPress}>
       <View style={{ flexDirection: 'column' }}>
         <View style={styles.contentContainer}>
           <Image style={styles.fitImage} source={img} />

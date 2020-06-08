@@ -53,17 +53,37 @@ const orderTime = (creationTime) => {
 
 export default function OrderCard({ orderNumber, item, creationTime, prepared, queuePosition, onPress }) {
   return (
-    <RectButton style={[(prepared == 1) ? styles.preparedRow : styles.preparingRow, onPress = { onPress }, { borderRadius: 10, margin: 10 }]} >
-      <View style={{ flexDirection: 'column' }}>
-        <View style={styles.title}>
-          <Text style={styles.orderTitle}>Order #{orderNumber}</Text>
-          <Text style={styles.itemNameText}>{item}</Text>
+    <RectButton
+      style={[(prepared == 1) ?
+        styles.preparedRow :
+        styles.preparingRow,
+      onPress = { onPress },
+      { borderRadius: 10, margin: 10 }]} >
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+          }}>
+            <View style={styles.title}>
+              <Text style={styles.orderTitle}>
+                Order #{orderNumber}
+              </Text>
+            </View>
+          </View>
+          <View style={{ alignItems: 'flex-end' }}>
+            {orderStatus(prepared, queuePosition)}
+          </View>
         </View>
+
+        <Text style={styles.itemNameText}>{item}</Text>
         <View style={styles.optionTextContainer}>
           {orderTime(creationTime)}
         </View>
       </View>
-      {orderStatus(prepared, queuePosition)}
+
+
     </ RectButton>
   );
 }

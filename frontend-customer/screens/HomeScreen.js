@@ -11,7 +11,7 @@ export default function HomeScreen({ navigation }) {
       contentContainerStyle={styles.contentContainer}
     >
       <RestaurantCard
-        img={require('../assets/images/burger.jpg')}
+        img={require('../assets/images/favourites.jpg')}
         label="Favourites"
         onPress={() => navigation.navigate('Favourites')}
       />
@@ -31,13 +31,6 @@ export default function HomeScreen({ navigation }) {
         img={require('../assets/images/library.jpg')}
         label="Library Cafe"
         onPress={() => navigation.navigate('Restaurant', { title: "Library Cafe" })}
-        isLastOption
-      />
-
-      <RestaurantCard
-        img={require('../assets/images/burger.jpg')}
-        label="Placeholder"
-        onPress={() => navigation.navigate('Restaurant', { title: "Placeholder" })}
         isLastOption
       />
     </ScrollView>
