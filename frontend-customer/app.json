@@ -28,11 +28,12 @@
     "android": {
       "package": "com.drp38.parallelq",
       "versionCode": 1,
-      "config: {
+      "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyC2O2MiTNEi2005DRBph20Obg_mqg0N0sY",
           "certificateHash": "D4BF701F38A167799CE90D6325D6B3C46E9DC739"
-       }
+        }
+      }
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
