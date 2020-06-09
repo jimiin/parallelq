@@ -13,30 +13,46 @@ class AccountScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.profileImageContainer}>
-          <Image
-            style={styles.profileImage}
-            source={{ uri: this.props.user.photoUrl }} />
-        </View>
+        {
+          (this.props.user) ? (
+            <View>
+              <View style={styles.profileImageContainer}>
+                <Image
+                  style={styles.profileImage}
+                  source={{ uri: this.props.user.photoUrl }} />
+              </View>
 
-        <View style={styles.nameContainer}>
-          <Text style={styles.nameText}>
-            {this.props.user.name}
-          </Text>
-        </View>
+              <View style={styles.nameContainer}>
+                <Text style={styles.nameText}>
+                  {this.props.user.name}
+                </Text>
+              </View>
 
-        <OptionButton
-          icon="md-mail"
-          label={this.props.user.email}
-        />
+              <OptionButton
+                icon="md-mail"
+                label={this.props.user.email}
+              />
+            </View>
+          ) : (
+              <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Text style={{ fontSize: 20 }}>
+                  You need to log in!
+                </Text>
+              </View>
+            )
+        }
 
         <OptionButton
           icon="md-log-out"
           label="Log out"
           onPress={() => {
-            // this.navigation.navigate("Login");
-            // this.props.signOut();
-            console.log("Log out");
+            console.log("Log out")
+            this.props.signOut();
+            this.props.navigation.goBack(null);
           }}
         />
       </ScrollView>

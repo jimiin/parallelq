@@ -43,7 +43,12 @@ class LoginScreen extends Component {
   render() {
     return (
       <View
-        style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
         <Image
           style={styles.logoImage}
           source={require('../assets/images/logo.png')} />
