@@ -1,26 +1,43 @@
 import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 class AccountScreen extends React.Component {
   state = {}
   render() {
     return (
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.profileImageContainer}>
+          <Image
+            style={styles.profileImage}
+            source={{ uri: this.props.user.photoUrl }} />
+        </View>
+
+        <View style={styles.nameContainer}>
+          <Text style={styles.nameText}>
+            {this.props.user.name}
+          </Text>
+        </View>
+
         <OptionButton
-          icon="md-school"
-          label={this.props.user.name}
-          onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}
+          icon="md-mail"
+          label={this.props.user.email}
         />
 
         <OptionButton
-          icon="md-compass"
-          label={this.props.user.email}
-          onPress={() => WebBrowser.openBrowserAsync('https://reactnavigation.org')}
+          icon="md-log-out"
+          label="Log out"
+          onPress={() => {
+            // this.navigation.navigate("Login");
+            // this.props.signOut();
+            console.log("Log out");
+          }}
         />
       </ScrollView>
     );
@@ -33,6 +50,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+    signOut: () => dispatch({ type: 'SIGN_OUT' }),
+  }
+}
+
 function OptionButton({ icon, label, onPress, isLastOption }) {
   return (
     <RectButton
@@ -40,7 +64,7 @@ function OptionButton({ icon, label, onPress, isLastOption }) {
       onPress={onPress}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
+          <Ionicons name={icon} size={30} color="rgba(0,0,0,0.35)" />
         </View>
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionText}>{label}</Text>
@@ -73,10 +97,29 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   optionText: {
-    fontSize: 15,
+    fontSize: 18,
     alignSelf: 'flex-start',
     marginTop: 1,
   },
+  nameContainer: {
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  nameText: {
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  profileImageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileImage: {
+    margin: 10,
+    width: 100,
+    height: 100,
+    borderRadius: 50
+  }
 });
 
-export default connect(mapStateToProps)(AccountScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountScreen)

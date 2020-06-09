@@ -4,8 +4,7 @@ import * as React from 'react';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeNavigator from './HomeNavigator';
 import OrdersNavigator from './OrdersNavigator';
-import FavouriteScreen from '../screens/FavouriteScreen';
-import AccountScreen from '../screens/AccountScreen';
+import AccountNavigator from './AccountNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -36,17 +35,9 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-reorder" />,
         }}
       />
-      {/* <BottomTab.Screen
-        name="Favourite"
-        component={FavouriteScreen}
-        options={{
-          title: 'Favourite',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-star" />,
-        }}
-      /> */}
       <BottomTab.Screen
         name="Account"
-        component={AccountScreen}
+        component={AccountNavigator}
         options={{
           title: 'Account',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-body" />,
@@ -66,6 +57,7 @@ function showHeader(route) {
 
   switch (routeName) {
     case "Home":
+    case "Account":
       return false;
   }
 }

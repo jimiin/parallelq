@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-    singOut: () => dispatch({ type: 'SIGN_OUT' }),
+    signOut: () => dispatch({ type: 'SIGN_OUT' }),
   }
 }
 
