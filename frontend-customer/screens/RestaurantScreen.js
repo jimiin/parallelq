@@ -6,13 +6,14 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Searchbar } from 'react-native-paper';
 
 import MenuItems from '../src/components/MenuItems';
 import { styles } from '../src/styles/styles';
 import { axios, url } from '../src/backend-api/api';
 
 class RestaurantScreen extends React.Component {
-  state = { menu: [], modalVisible: false }
+  state = { menu: [], modalVisible: false, searchQuery: '' }
 
   compareMenu(a, b) {
     if (a.availability < b.availability) {
@@ -42,12 +43,19 @@ class RestaurantScreen extends React.Component {
   updateMenu = () => {
     axios.get(url + '/items/')
       .then(res => {
-        this.setState({ menu: this.sortMenu(res.data) })
+        var allItems = res.data;
+        var allRelevantItems = allItems.filter(item => (item.name.toLowerCase()).includes(this.state.searchQuery.toLowerCase()));
+        this.setState({ menu: this.sortMenu(allRelevantItems) })
       })
       .catch(err => {
         console.log("Error: " + err);
       });
   }
+
+  _onChangeSearch = query => {
+    this.setState({ searchQuery: query });
+  }
+
 
   componentDidMount() {
     this.updateMenu();
@@ -73,15 +81,21 @@ class RestaurantScreen extends React.Component {
 
   render() {
     const title = this.props.route.params.title;
+    const { searchQuery } = this.state;
 
     this.props.navigation.setOptions(
       {
         headerTitle: title
       }
     );
-
+    
     return (
       <View style={styles.container}>
+        <Searchbar
+          placeholder="Search meal"
+          onChangeText={this._onChangeSearch}
+          value={searchQuery}
+        />
         <MenuItems
           key={this.state.menu}
           itemCount={this.props.itemCount}
