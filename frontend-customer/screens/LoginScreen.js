@@ -1,54 +1,42 @@
 import React, { Component } from "react";
 import { View, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
-import * as GoogleSignIn from 'expo-google-sign-in';
+import * as Google from 'expo-google-app-auth';
+import { axios } from '../src/backend-api/api';
 
 import { styles } from '../src/styles/styles';
 
 class LoginScreen extends Component {
   state = {}
 
-  componentDidMount() {
-    this.initAsync();
-  }
+  // componentDidMount() {
+  //   this.initAsync();
+  // }
 
-  initAsync = async () => {
-    await GoogleSignIn.initAsync({
-      clientId: '302399817797-0u74s0rbvcrmapn413h3fp703g98i91h.apps.googleusercontent.com',
-    });
-    this._syncUserWithStateAsync();
+  config = {
+    androidClientId: `302399817797-0u74s0rbvcrmapn413h3fp703g98i91h.apps.googleusercontent.com`,
+    androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
+    scopes: ['profile', 'email']
   };
 
-  _syncUserWithStateAsync = async () => {
-    const user = await GoogleSignIn.signInSilentlyAsync();
-    // this.setState({ user });
-    this.props.signIn(user);
-  };
-
-  signOutAsync = async () => {
-    await GoogleSignIn.signOutAsync();
-    // this.setState({ user: null });
-    this.props.singOut();
-  };
-
-  signInAsync = async () => {
+  signInWithGoogleAsync = async () => {
+    console.log("About to log on!!!");
     try {
-      await GoogleSignIn.askForPlayServicesAsync();
-      const { type, user } = await GoogleSignIn.signInAsync();
-      if (type === 'success') {
-        this._syncUserWithStateAsync();
-      }
-    } catch ({ message }) {
-      alert('login: Error:' + message);
+      // First- obtain access token from Expo's Google API
+      const { type, accessToken, user } = await Google.logInAsync(this.config);
+      console.log(type);
+      console.log(user);
+    } catch(e) {
+      console.log("Error: " + e);
     }
-  };
 
-  onPress = () => {
-    if (this.props.user) {
-      this.signOutAsync();
-    } else {
-      this.signInAsync();
-    }
+    // if (type === 'success') {
+    //   // Then you can use the Google REST API
+    //   let userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+    //     headers: { Authorization: `Bearer ${accessToken}` },
+    //   });
+    // }
+
   };
 
   render() {
@@ -61,7 +49,11 @@ class LoginScreen extends Component {
 
         <Button
           title="Sign in With Google"
-          onPress={this.onPress} />
+          onPress={() => {
+            console.log("Hello");
+            this.signInWithGoogleAsync();
+
+          }} />
       </View>
     );
   }
