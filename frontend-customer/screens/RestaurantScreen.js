@@ -41,7 +41,7 @@ class RestaurantScreen extends React.Component {
   }
 
   updateMenu = () => {
-    axios.get(url + '/items/')
+    axios.get('drp38-backend.herokuapp.com/items/' + this.props.id)
       .then(res => {
         var allItems = res.data;
         var allRelevantItems = allItems.filter(item => (item.name.toLowerCase()).includes(this.state.searchQuery.toLowerCase()));
