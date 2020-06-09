@@ -24,9 +24,10 @@ class LoginScreen extends Component {
     try {
       // First- obtain access token from Expo's Google API
       const { type, accessToken, user } = await Google.logInAsync(this.config);
+      this.props.signIn(user);
       console.log(type);
       console.log(user);
-    } catch(e) {
+    } catch (e) {
       console.log("Error: " + e);
     }
 
