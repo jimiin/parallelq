@@ -15,7 +15,7 @@ class LoginScreen extends Component {
 
   config = {
     androidClientId: `302399817797-0u74s0rbvcrmapn413h3fp703g98i91h.apps.googleusercontent.com`,
-    androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
+    androidStandaloneAppClientId: `302399817797-3hf5lo1ljogl5phng26t4803att42ia6.apps.googleusercontent.com`,
     scopes: ['profile', 'email']
   };
 
