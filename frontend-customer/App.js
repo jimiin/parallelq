@@ -25,9 +25,6 @@ export default function App(props) {
 
   React.useEffect(() => {
     user = AsyncStorage.getItem('user');
-    if (user) {
-      data = JSON.parse(user)
-    }
   })
 
   if (!isLoadingComplete) {
@@ -37,7 +34,7 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-          <AppNavigator user = {data}/>
+          <AppNavigator user = {user}/>
         </View>
       </Provider>
     );
