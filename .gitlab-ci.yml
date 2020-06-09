@@ -33,6 +33,7 @@ deploy:
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - cp ~/output/parallelq-restaurant.apk ~/frontend-deploy/parallelq-restaurant.apk
     - pushd ~/frontend-deploy
+    - aws configure set region us-east-1
     - aws s3 cp parallelq.apk s3://$S3_BUCKET/parallelq.apk
     - aws s3 cp parallelq-restaurant.apk s3://$S3_BUCKET/parallelq-restaurant.apk
     - popd
