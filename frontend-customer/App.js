@@ -25,7 +25,7 @@ export default function App(props) {
 
   React.useEffect(() => {
     user = AsyncStorage.getItem('user');
-    if (!user) {
+    if (user) {
       data = JSON.parse(user)
     }
   })
