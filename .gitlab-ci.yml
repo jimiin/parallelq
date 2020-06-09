@@ -35,7 +35,7 @@ deploy:
     - pushd ~/frontend-deploy
     - git add *
     - git commit -am "Automatic apk deployment" || true
-    - git push heroku master
+    - git push heroku master || true
     - popd
     - cp -TR backend ~/backend-deploy
     - pushd ~/backend-deploy
