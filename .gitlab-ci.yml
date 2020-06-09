@@ -33,9 +33,8 @@ deploy:
     - cp ~/output/parallelq.apk ~/frontend-deploy/parallelq.apk
     - cp ~/output/parallelq-restaurant.apk ~/frontend-deploy/parallelq-restaurant.apk
     - pushd ~/frontend-deploy
-    - git add *
-    - git commit -am "Automatic apk deployment" || true
-    - git push heroku master || true
+    - aws s3 cp parallelq.apk s3://$S3_BUCKET/parallelq.apk
+    - aws s3 cp parallelq-restaurant.apk s3://$S3_BUCKET/parallelq-restaurant.apk
     - popd
     - cp -TR backend ~/backend-deploy
     - pushd ~/backend-deploy
