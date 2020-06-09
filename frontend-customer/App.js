@@ -19,7 +19,7 @@ export default function App(props) {
     }
   }
   const isLoadingComplete = useCachedResources();
-  
+
   var user = ''
   var data = ''
 
@@ -37,7 +37,7 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-          <AppNavigator user = {data}/>
+          <AppNavigator userData={data} />
         </View>
       </Provider>
     );

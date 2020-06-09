@@ -12,6 +12,10 @@ const Stack = createStackNavigator();
 class AppNavigator extends React.Component {
   state = {}
   render() {
+    const data = this.props.userData;
+    if (data) {
+      this.props.signIn(data);
+    }
     const isSignedIn = this.props.user;
 
     return (
@@ -38,4 +42,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AppNavigator)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator)
