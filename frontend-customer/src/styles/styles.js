@@ -54,6 +54,11 @@ export const styles = StyleSheet.create({
   /* new items */
 
 
+  logoImage: {
+    width: 400,
+    height: 200,
+    resizeMode: 'cover',
+  },
   cartItemCountContainer: {
     position: 'absolute',
     height: 20,
