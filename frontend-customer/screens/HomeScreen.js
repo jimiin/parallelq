@@ -1,38 +1,55 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import { axios, urlList } from '../src/backend-api/api';
 import { styles } from '../src/styles/styles';
 import RestaurantCard from '../src/components/RestaurantCard';
 
-export default function HomeScreen({ navigation }) {
-  return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
-      <RestaurantCard
-        img={require('../assets/images/favourites.jpg')}
-        label="Favourites"
-        onPress={() => navigation.navigate('Favourites')}
-      />
-      <RestaurantCard
-        img={require('../assets/images/burger.jpg')}
-        label="FiveSixEight"
-        onPress={() => navigation.navigate('Restaurant', { title: "FiveSixEight" })}
-      />
+class HomeScreen extends React.Component {
+  state = {}
 
-      <RestaurantCard
-        img={require('../assets/images/katsu.png')}
-        label="Kimiko"
-        onPress={() => navigation.navigate('Restaurant', { title: "Kimiko" })}
-      />
+  renderRestaurants = async () => {
+    try {
+      let res = await axios.get(urlList.restaurants);
+      let restaurants = res.data;
 
-      <RestaurantCard
-        img={require('../assets/images/library.jpg')}
-        label="Library Cafe"
-        onPress={() => navigation.navigate('Restaurant', { title: "Library Cafe" })}
-        isLastOption
-      />
-    </ScrollView>
-  );
+      console.log(restaurants);
+
+      this.setState({
+        restaurantsList: restaurants.map(restaurant => (
+          <RestaurantCard
+            key={restaurant._id}
+            img={require('../assets/images/favourites.jpg')}
+            label={restaurant.name}
+            onPress={() =>
+              navigation.navigate('Restaurant',
+                { id: restaurant._id, title: restaurant.name })
+            }
+          />
+        ))
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  render() {
+    this.renderRestaurants();
+
+    return (
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <RestaurantCard
+          img={require('../assets/images/favourites.jpg')}
+          label="Favourites"
+          onPress={() => navigation.navigate('Favourites')}
+        />
+        {this.state.restaurantsList}
+      </ScrollView>
+    );
+  }
 }
+
+export default HomeScreen;

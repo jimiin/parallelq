@@ -3,14 +3,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { styles } from '../src/styles/styles';
 import OrderCard from '../src/components/OrderCard';
-import { axios, url } from '../src/backend-api/api';
+import { axios, urlList } from '../src/backend-api/api';
 
 class OrderPastScreen extends React.Component {
   state = {}
 
   renderOrders = async () => {
     try {
-      let res = await axios.get(url + '/orders/status/past');
+      let res = await axios.get(urlList.pastOrders);
       let orders = res.data;
 
       this.setState({

@@ -9,12 +9,12 @@ import {
 import { connect } from 'react-redux'
 
 import ShoppingCartItems from '../src/components/ShoppingCartItems';
-import { axios, url } from '../src/backend-api/api';
+import { axios, urlList } from '../src/backend-api/api';
 import { styles } from '../src/styles/styles';
 import { formatter } from '../src/styles/formatter';
 
 async function makeOrder(item) {
-  let res = await axios.post(url + "/orders/add", {
+  let res = await axios.post(urlList.makeOrder, {
     items: item
   });
 }

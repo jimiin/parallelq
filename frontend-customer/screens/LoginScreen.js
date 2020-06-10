@@ -56,7 +56,6 @@ class LoginScreen extends Component {
         <Button
           title="Sign in With Google"
           onPress={() => {
-            console.log("Hello");
             this.signInWithGoogleAsync();
 
           }} />
