@@ -12,7 +12,7 @@ class OrdersCurrentScreen extends React.Component {
 
   renderPreparedOrders = async () => {
     try {
-      let res = await axios.get(urlList.preparedOrders);
+      let res = await axios.get(urlList.orders + this.props.user.id + '/prepared');
       let orders = res.data;
 
       this.setState({
@@ -32,7 +32,7 @@ class OrdersCurrentScreen extends React.Component {
 
   renderPreparingOrders = async () => {
     try {
-      let res = await axios.get(urlList.preparingOrders);
+      let res = await axios.get(urlList.orders + this.props.user.id + '/preparing');
       let orders = res.data;
 
       this.setState({

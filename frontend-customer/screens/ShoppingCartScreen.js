@@ -13,9 +13,12 @@ import { axios, urlList } from '../src/backend-api/api';
 import { styles } from '../src/styles/styles';
 import { formatter } from '../src/styles/formatter';
 
-async function makeOrder(item) {
+async function makeOrder(item, rid, uid, price) {
   let res = await axios.post(urlList.makeOrder, {
-    items: item
+    items: item,
+    restaurant_id: rid,
+    user_id: uid,
+    total_price: price
   });
 }
 
@@ -27,6 +30,10 @@ class ShoppingCartScreen extends React.Component {
 
   makeOrders() {
     let order = ""
+    const exampleItem = this.props.itemCount[0].item
+    const restaurant_id = exampleItem.restaurant_id
+    const user_id = exampleItem.user_id
+    const price = this.totalPrice()
     this.props.itemCount
       .filter(i => i.count > 0)
       .map(i => { order += (i.item.name + " x" + i.count + "\n") });
@@ -34,7 +41,7 @@ class ShoppingCartScreen extends React.Component {
     this.setState({ orderSuccessful: (order !== "") });
 
     if (order !== "") {
-      makeOrder(order.substring(0, order.length - 1));
+      makeOrder(order.substring(0, order.length - 1), restaurant_id, user_id, price);
     }
   }
 

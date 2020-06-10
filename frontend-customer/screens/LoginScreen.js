@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
 import * as Google from 'expo-google-app-auth';
-import { axios } from '../src/backend-api/api';
+import { axios, urlList } from '../src/backend-api/api';
 
 import { styles } from '../src/styles/styles';
 
@@ -24,6 +24,11 @@ class LoginScreen extends Component {
     try {
       // First- obtain access token from Expo's Google API
       const { type, accessToken, user } = await Google.logInAsync(this.config);
+      const gid = await axios.post(urlList.verify, {
+        name: user.name,
+        email: user.email,
+        gid: user.id
+      })
       this.props.signIn(user);
       console.log(type);
       console.log(user);

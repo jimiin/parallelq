@@ -10,7 +10,7 @@ class OrderPastScreen extends React.Component {
 
   renderOrders = async () => {
     try {
-      let res = await axios.get(urlList.pastOrders);
+      let res = await axios.get(urlList.orders + this.props.user.id + '/past');
       let orders = res.data;
 
       this.setState({
