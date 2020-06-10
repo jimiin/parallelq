@@ -13,13 +13,11 @@ class HomeScreen extends React.Component {
       let res = await axios.get(urlList.restaurants);
       let restaurants = res.data;
 
-      console.log(restaurants);
-
       this.setState({
         restaurantsList: restaurants.map(restaurant => (
           <RestaurantCard
             key={restaurant._id}
-            img={require('../assets/images/favourites.jpg')}
+            img={require('../assets/images/burger.jpg')}
             label={restaurant.name}
             onPress={() =>
               this.props.navigation.navigate('Restaurant',

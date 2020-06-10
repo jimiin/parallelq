@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
 import { Provider } from 'react-redux'
 import { store } from './src/store/index'
@@ -20,11 +20,6 @@ export default function App(props) {
   }
   const isLoadingComplete = useCachedResources();
 
-  var user = ''
-  React.useEffect(() => {
-    user = AsyncStorage.getItem('user');
-  })
-
   if (!isLoadingComplete) {
     return null;
   } else {
@@ -32,7 +27,7 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-          <AppNavigator userData={user} />
+          <AppNavigator />
         </View>
       </Provider>
     );

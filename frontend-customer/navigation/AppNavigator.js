@@ -1,7 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { AsyncStorage } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import LinkingConfiguration from './LinkingConfiguration';
 import BottomTabNavigator from './BottomTabNavigator';
@@ -11,11 +12,24 @@ const Stack = createStackNavigator();
 
 class AppNavigator extends React.Component {
   state = {}
+
+  componentDidMount() {
+    AsyncStorage.getItem('user')
+      .then(data => {
+        if (data !== null) {
+          console.log("=================================")
+          console.log(data);
+          this.props.signIn(data);
+        }
+      })
+      .catch(err => console.log('Error: '+err))
+    // React.useEffect(() => {
+    //   data = AsyncStorage.getItem('user');
+    // })
+
+  }
+
   render() {
-    const data = this.props.userData;
-    if (data) {
-      this.props.signIn(data);
-    }
     const isSignedIn = this.props.user;
 
     return (
