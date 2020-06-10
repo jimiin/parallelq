@@ -19,7 +19,7 @@ class HomeScreen extends React.Component {
         restaurantsList: restaurants.map(restaurant => (
           <RestaurantCard
             key={restaurant._id}
-            img={require(restaurant.photo_dir)}
+            img={require('../assets/images/favourites.jpg')}
             label={restaurant.name}
             onPress={() =>
               navigation.navigate('Restaurant',
