@@ -27,25 +27,25 @@ class ReadyScreen extends Component {
   /* generateData retrieves what is being prepared. */
   generateData = async () => {
     try {
-        const newData = [];
-        let newActiveSection = []
-        let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/restaurant_status/`+this.props.id+`/prepared`)
-        var orders = res.data;
-        for (let i = 0; i < orders.length; i++) {
-          newData.push({
-            id: orders[i]._id,
-            items: orders[i].items
-          });
-          newActiveSection.push(i);
-        } 
+      const newData = [];
+      let newActiveSection = []
+      let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/restaurant_status/` + this.props.id + `/prepared`)
+      var orders = res.data;
+      for (let i = 0; i < orders.length; i++) {
+        newData.push({
+          id: orders[i]._id,
+          items: orders[i].items
+        });
+        newActiveSection.push(i);
+      }
 
-        console.log(newData);
-        
-        this.setState({data: newData, activeSections: newActiveSection});
-    } catch(err) {
+      console.log(newData);
+
+      this.setState({ data: newData, activeSections: newActiveSection });
+    } catch (err) {
       console.log(err)
     }
-     
+
   }
 
   toggleExpanded = () => {
@@ -62,22 +62,22 @@ class ReadyScreen extends Component {
     return (
       <View>
         <View style={[styles.row]}>
-          <View style={{flexDirection:'column'}}>
+          <View style={{ flexDirection: 'column' }}>
 
             <Text style={styles.title}>{section.id}</Text>
 
-            <View style={{flexDirection:'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
               <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
             </View>
 
           </View>
-          
+
           <Button title="Picked up" onPress={() => this.onHandleDelete(section.id)} />
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
-      
+
     );
   };
 
@@ -91,11 +91,11 @@ class ReadyScreen extends Component {
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId);
       this.generateData();
-    } catch(err) {
+    } catch (err) {
       console.log(err)
-    }   
-  };  
-  
+    }
+  };
+
 
   renderContent(section, _, isActive) {
     return (
@@ -126,7 +126,7 @@ class ReadyScreen extends Component {
   componentWillUnmount() {
     // Clear the interval right before component unmount
     clearInterval(this.interval);
-}
+  }
 
   render() {
     return (
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    padding:-15,
+    padding: -15,
   },
   title: {
     textAlign: 'left',
@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   row: {
-    flexDirection:'row', 
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderColor: 'grey',
-    padding:10,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
     backgroundColor: 'white',
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    user: state.id
+    id: state.id
   }
 };
 

@@ -36,6 +36,7 @@ class LoginScreen extends Component {
         <Button
           title="Sign in"
           onPress={() => {
+            console.log(this.state.id);
             this.props.signIn(this.state.id);
           }} />
       </View>
@@ -45,7 +46,7 @@ class LoginScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.id
+    id: state.id
   }
 }
 
