@@ -10,7 +10,7 @@ import { Searchbar } from 'react-native-paper';
 
 import MenuItems from '../src/components/MenuItems';
 import { styles } from '../src/styles/styles';
-import { axios, url } from '../src/backend-api/api';
+import { axios, urlList } from '../src/backend-api/api';
 
 class RestaurantScreen extends React.Component {
   state = { menu: [], modalVisible: false, searchQuery: '' }
@@ -41,7 +41,7 @@ class RestaurantScreen extends React.Component {
   }
 
   updateMenu = () => {
-    axios.get('drp38-backend.herokuapp.com/items/' + this.props.id)
+    axios.get(urlList.items + this.props.route.params.id)
       .then(res => {
         var allItems = res.data;
         var allRelevantItems = allItems.filter(item => (item.name.toLowerCase()).includes(this.state.searchQuery.toLowerCase()));
@@ -88,7 +88,7 @@ class RestaurantScreen extends React.Component {
         headerTitle: title
       }
     );
-    
+
     return (
       <View style={styles.container}>
         <Searchbar

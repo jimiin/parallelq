@@ -5,14 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { styles } from '../src/styles/styles';
 import OrderCard from '../src/components/OrderCard';
-import { axios, url } from '../src/backend-api/api';
+import { axios, urlList } from '../src/backend-api/api';
 
 class OrdersCurrentScreen extends React.Component {
   state = {}
 
   renderPreparedOrders = async () => {
     try {
-      let res = await axios.get(url + '/orders/status/prepared');
+      let res = await axios.get(urlList.preparedOrders);
       let orders = res.data;
 
       this.setState({
@@ -32,7 +32,7 @@ class OrdersCurrentScreen extends React.Component {
 
   renderPreparingOrders = async () => {
     try {
-      let res = await axios.get(url + '/orders/status/preparing');
+      let res = await axios.get(urlList.preparingOrders);
       let orders = res.data;
 
       this.setState({
