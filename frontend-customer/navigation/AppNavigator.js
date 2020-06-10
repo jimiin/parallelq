@@ -14,15 +14,19 @@ class AppNavigator extends React.Component {
   state = {}
 
   componentDidMount() {
-    let data = AsyncStorage.getItem('user');
+    AsyncStorage.getItem('user')
+      .then(data => {
+        if (data !== null) {
+          console.log("=================================")
+          console.log(data);
+          this.props.signIn(data);
+        }
+      })
+      .catch(err => console.log('Error: '+err))
     // React.useEffect(() => {
     //   data = AsyncStorage.getItem('user');
     // })
-    if (data !== null) {
-      console.log("=================================")
-      console.log(data);
-      this.props.signIn(data);
-    }
+
   }
 
   render() {
