@@ -13,22 +13,20 @@ import axios from 'axios';
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-export default class PreparingScreen extends Component {
+class PreparingScreen extends Component {
 
-state = { 
+  state = { 
     data: [],
     activeSections: [],
     multipleSelect: true,
   };
-
-  
 
   /* generateData retrieves what is being prepared. */
   generateData = async () => {
     try {
         const newData = [];
         let newActiveSection = [];
-        let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/status/preparing`)
+        let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/restaurant_status/`+this.props.id+`/preparing`)
         var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
@@ -211,3 +209,17 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.id
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PreparingScreen);

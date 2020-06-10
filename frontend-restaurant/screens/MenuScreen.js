@@ -13,9 +13,9 @@ import axios from 'axios';
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-export default class PreparingScreen extends Component {
+class MenuScreen extends Component {
 
-state = { 
+  state = { 
     data: [],
     activeSections: [],
     multipleSelect: true,
@@ -26,7 +26,7 @@ state = {
     try {
         const newData = [];
         let newActiveSection = []
-        let res = await axios.get(`https://drp38-backend.herokuapp.com/items`)
+        let res = await axios.get(`https://drp38-backend.herokuapp.com/items`+this.props.id);
         var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
@@ -198,3 +198,17 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.id
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);
