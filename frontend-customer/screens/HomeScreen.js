@@ -22,7 +22,7 @@ class HomeScreen extends React.Component {
             img={require('../assets/images/favourites.jpg')}
             label={restaurant.name}
             onPress={() =>
-              navigation.navigate('Restaurant',
+              this.props.navigation.navigate('Restaurant',
                 { id: restaurant._id, title: restaurant.name })
             }
           />
@@ -44,7 +44,7 @@ class HomeScreen extends React.Component {
         <RestaurantCard
           img={require('../assets/images/favourites.jpg')}
           label="Favourites"
-          onPress={() => navigation.navigate('Favourites')}
+          onPress={() => this.props.navigation.navigate('Favourites')}
         />
         {this.state.restaurantsList}
       </ScrollView>
