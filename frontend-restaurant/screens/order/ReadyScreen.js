@@ -64,7 +64,7 @@ class ReadyScreen extends Component {
         <View style={[styles.row]}>
           <View style={{ flexDirection: 'column' }}>
 
-            <Text style={styles.title}>{section.id}</Text>
+            <Text style={styles.title}>#{section.id}</Text>
 
             <View style={{ flexDirection: 'row' }}>
               <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
@@ -73,7 +73,11 @@ class ReadyScreen extends Component {
 
           </View>
 
-          <Button title="Picked up" onPress={() => this.onHandleDelete(section.id)} />
+          <View style={styles.rightContainer}>
+            <Button
+              title="Picked up"
+              onPress={() => this.onHandleDelete(section.id)} />
+          </View>
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 22,
     fontWeight: '300',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   row: {
     flexDirection: 'row',
@@ -175,6 +179,12 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderRadius: 2,
     borderWidth: 1,
+  },
+  rightContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   active: {
     backgroundColor: 'white',
