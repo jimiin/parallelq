@@ -84,18 +84,26 @@ router.route('/user/:uid').get((req, res) => {
 })
 
 router.route('/restaurant_status/:rid/:status').get((req, res) => {
-    const user_id = req.params.uid;
+    const restaurant_id = req.params.rid;
     const status = req.params.status;
     if (Object.values(STASUSES).includes(status)) {
-        getHelper(req, res, {user_id, status})
+        Order
+        .find({restaurant_id, status})
+        .sort('_id')
+        .then(orders => res.json(orders))
+        .catch(err => res.status(400).json('Error: ' + err));
     } else {
         res.status(400).json('Error: Invalid status')
     }
 })
 
-router.route('/user_status/:uid').get((req, res) => {
-    const user_id = req.params.uid;
-    getHelper(req, res, {user_id});
+router.route('/restaurant/:rid').get((req, res) => {
+    const restaurant_id = req.params.rid;
+    Order
+        .find({restaurant_id})
+        .sort('_id')
+        .then(orders => res.json(orders))
+        .catch(err => res.status(400).json('Error: ' + err));
 })
 
 // router.route('/status/'+STASUSES.PREPARING).get((req, res) => {
