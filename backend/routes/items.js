@@ -13,6 +13,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/:r_id').get((req, res) => {
+    const restaurant_id = req.params.r_id;
+    Item.find({restaurant_id})
+        .sort('_id')
+        .then(items => res.json(items))
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const price = req.body.price;
