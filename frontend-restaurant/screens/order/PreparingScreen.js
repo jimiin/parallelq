@@ -59,24 +59,30 @@ class PreparingScreen extends Component {
   renderHeader = (section, _, isActive) => {
     return (
       <View>
-        <View style={[styles.row]}>
-          <TouchableOpacity style={styles.cancelButton} onPress={() => this.onHandleCancel(section.id)}>
-            <Text>Cancel</Text>
-          </TouchableOpacity>
+        <View style={styles.row}>
+          <View style={styles.leftContainer}>
+            <Button
+              title='Cancel'
+              color='#fa8072'
+              onPress={() => this.onHandleCancel(section.id)}>
+            </Button>
+          </View>
+
           <View style={{ flexDirection: 'column' }}>
-
             <Text style={styles.title}>#{section.id}</Text>
-
             <View style={{ flexDirection: 'row' }}>
               <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
               <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
             </View>
-
           </View>
 
-          <TouchableOpacity style={styles.preparedButton} onPress={() => this.onHandleReady(section.id)}>
-            <Text>Prepared</Text>
-          </TouchableOpacity>
+          <View style={styles.rightContainer}>
+            <Button
+              title='Prepared'
+              color='#96cdff'
+              onPress={() => this.onHandleReady(section.id)}>
+            </Button>
+          </View>
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -170,11 +176,12 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 22,
     fontWeight: '300',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     borderColor: 'grey',
     padding: 10,
     borderRadius: 10,
@@ -188,19 +195,16 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
   },
-  preparedButton: {
-    padding: 20,
-    backgroundColor: '#96cdff',
-    borderColor: 'grey',
-    borderRadius: 5,
-    borderWidth: 1,
+  leftContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
-  cancelButton: {
-    padding: 20,
-    backgroundColor: '#fa8072',
-    borderColor: 'grey',
-    borderRadius: 5,
-    borderWidth: 1,
+  rightContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   active: {
     backgroundColor: 'white',
