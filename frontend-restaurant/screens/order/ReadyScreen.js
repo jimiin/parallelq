@@ -11,6 +11,8 @@ import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 class ReadyScreen extends Component {
