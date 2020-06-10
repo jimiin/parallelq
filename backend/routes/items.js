@@ -25,11 +25,14 @@ router.route('/add').post((req, res) => {
     const name = req.body.name;
     const price = req.body.price;
     const description = req.body.description;
+    const restaurant_id = req.body.restaurant_id;
+    
     const newItem = new Item({
         name,
         price,
         description,
-        availability: AVAILABILITIES.AVAILABLE
+        availability: AVAILABILITIES.AVAILABLE,
+        restaurant_id
     });
 
     newItem.save()
