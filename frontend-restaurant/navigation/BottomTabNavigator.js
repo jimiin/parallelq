@@ -5,6 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import MenuScreen from '../screens/MenuScreen';
 import OrdersNavigator from '../screens/order/OrdersNavigator';
+import AccountScreen from '../screens/AccountScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Orders';
@@ -43,7 +44,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Account"
-        component={OrdersNavigator}
+        component={AccountScreen}
         options={{
           title: 'Account',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-body" />,
@@ -59,9 +60,6 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Orders':
       return 'ParallelQ - Orders';
-    case 'Menu':
-      return 'Menu Items';
-    case 'Links':
-      return 'Links to learn more';
   }
+  return routeName;
 }
