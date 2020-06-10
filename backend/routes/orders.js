@@ -106,34 +106,6 @@ router.route('/restaurant/:rid').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-// router.route('/status/'+STASUSES.PREPARING).get((req, res) => {
-//     Order.find({ status: STASUSES.PREPARING })
-//         .sort('_id')
-//         .then(orders => res.json(appendQueuePos(orders)))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-// router.route('/status/'+STASUSES.PREPARED).get((req, res) => {
-//     Order.find({ status: STASUSES.PREPARED })
-//         .sort('_id')
-//         .then(orders => res.json(appendQueuePos(orders)))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-// router.route('/status/'+STASUSES.PAST).get((req, res) => {
-//     Order.find({ status: STASUSES.PAST })
-//         .sort('_id')
-//         .then(orders => res.json(appendQueuePos(orders)))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
-// router.route('/status/'+STASUSES.CANCELLED).get((req, res) => {
-//     Order.find({ status: STASUSES.CANCELLED })
-//         .sort('_id')
-//         .then(orders => res.json(appendQueuePos(orders)))
-//         .catch(err => res.status(400).json('Error: ' + err));
-// })
-
 router.route('/add').post((req, res) => {
     const items = req.body.items;
     const restaurant_id = req.body.restaurant_id;
