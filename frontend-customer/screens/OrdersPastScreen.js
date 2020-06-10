@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 
 import { styles } from '../src/styles/styles';
 import OrderCard from '../src/components/OrderCard';
@@ -10,7 +11,7 @@ class OrderPastScreen extends React.Component {
 
   renderOrders = async () => {
     try {
-      let res = await axios.get(urlList.orders + this.props.user.id + '/past');
+      let res = await axios.get(urlList.orders + this.props.user.gid + '/past');
       let orders = res.data;
 
       this.setState({
@@ -41,4 +42,17 @@ class OrderPastScreen extends React.Component {
   }
 }
 
-export default OrderPastScreen;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+    signOut: () => dispatch({ type: 'SIGN_OUT' }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPastScreen);

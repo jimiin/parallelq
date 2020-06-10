@@ -3,8 +3,8 @@ export const axios = require('axios');
 
 export const urlList = {
   restaurants: url + '/restaurants/',
-  orders: url + '/orders/users_status/',
+  orders: url + '/orders/user_status/',
   makeOrder: url + '/orders/add',
   items: url + '/items/',
-  verify: url + '/users/verify'
+  verify: url + '/users/verify',
 }

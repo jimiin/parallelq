@@ -13,8 +13,6 @@ class HomeScreen extends React.Component {
       let res = await axios.get(urlList.restaurants);
       let restaurants = res.data;
 
-      console.log(restaurants);
-
       this.setState({
         restaurantsList: restaurants.map(restaurant => (
           <RestaurantCard

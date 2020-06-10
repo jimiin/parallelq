@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
 import { styles } from '../src/styles/styles';
 import OrderCard from '../src/components/OrderCard';
@@ -83,4 +84,18 @@ class OrdersCurrentScreen extends React.Component {
   }
 }
 
-export default OrdersCurrentScreen;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+    signOut: () => dispatch({ type: 'SIGN_OUT' }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersCurrentScreen);
+
