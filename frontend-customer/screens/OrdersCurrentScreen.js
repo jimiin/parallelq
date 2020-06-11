@@ -11,58 +11,58 @@ import { axios, urlList } from '../src/backend-api/api';
 class OrdersCurrentScreen extends React.Component {
   state = {}
 
-  renderPreparedOrders = async () => {
-    try {
-      let res = await axios.get(urlList.orders + this.props.id + '/prepared');
-      let orders = res.data;
-
-      this.setState({
-        preparedOrders: orders.map(order => (
-          <OrderCard
-            orderNumber={order._id}
-            item={order.items}
-            creationTime={order.createdAt}
-            prepared={1}
-            totalPrice={order.total_price}
-            restaurant={order.restaurant_id} />
-        ))
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  componentDidMount() {
+    this.updateOrders();
+    this.updateInterval = setInterval(this.updateOrders, 1000);
   }
 
-  renderPreparingOrders = async () => {
-    try {
-      let res = await axios.get(urlList.orders + this.props.id + '/preparing');
-      let orders = res.data;
+  componentWillUnmount() {
+    clearInterval(this.updateInterval);
+  }
 
-      console.log("===========")
-      console.log(urlList.orders + this.props.id + '/preparing')
-      console.log(orders)
-
-      this.setState({
-        preparingOrders: orders.map(order => (
-          <OrderCard
-            orderNumber={order._id}
-            item={order.items}
-            creationTime={order.createdAt}
-            prepared={0}
-            queuePosition={order.queuePosition}
-            totalPrice={order.total_price}
-            restaurant={order.restaurant_id}
-          />
-        ))
+  updateOrders = () => {
+    axios.get(urlList.orders + this.props.id + '/prepared')
+      .then(res => {
+        const orders = res.data;
+        this.setState({
+          preparedOrders: orders.map(order => (
+            <OrderCard
+              orderNumber={order._id}
+              item={order.items}
+              creationTime={order.createdAt}
+              prepared={1}
+              totalPrice={order.total_price}
+              restaurant={order.restaurant_id} />
+          ))
+        });
+      })
+      .catch(err => {
+        console.log("Error: " + err);
       });
-    } catch (err) {
-      console.log(err);
-    }
+
+    axios.get(urlList.orders + this.props.id + '/preparing')
+      .then(res => {
+        const orders = res.data;
+        this.setState({
+          preparingOrders: orders.map(order => (
+            <OrderCard
+              orderNumber={order._id}
+              item={order.items}
+              creationTime={order.createdAt}
+              prepared={0}
+              queuePosition={order.queuePosition}
+              totalPrice={order.total_price}
+              restaurant={order.restaurant_id}
+            />
+          ))
+        });
+      })
+      .catch(err => {
+        console.log("Error: " + err);
+      });
   }
 
   render() {
-    this.renderPreparingOrders();
-    this.renderPreparedOrders();
-
     return (
       <ScrollView
         style={styles.container}

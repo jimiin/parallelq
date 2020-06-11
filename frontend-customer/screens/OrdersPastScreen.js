@@ -9,31 +9,38 @@ import { axios, urlList } from '../src/backend-api/api';
 class OrderPastScreen extends React.Component {
   state = {}
 
-  renderOrders = async () => {
-    try {
-      let res = await axios.get(urlList.orders + this.props.id + '/past');
-      let orders = res.data;
+  componentDidMount() {
+    this.updateOrders();
+    this.updateInterval = setInterval(this.updateOrders, 1000);
+  }
 
-      this.setState({
-        Orders: orders.map(order => (
-          <OrderCard
-            orderNumber={order._id}
-            item={order.items}
-            creationTime={order.createdAt}
-            prepared={2}
-            totalPrice={order.total_price}
-            restaurant={order.restaurant_id}
-          />
-        ))
+  componentWillUnmount() {
+    clearInterval(this.updateInterval);
+  }
+
+  updateOrders = () => {
+    axios.get(urlList.orders + this.props.id + '/past')
+      .then(res => {
+        const orders = res.data;
+        this.setState({
+          Orders: orders.map(order => (
+            <OrderCard
+              orderNumber={order._id}
+              item={order.items}
+              creationTime={order.createdAt}
+              prepared={2}
+              totalPrice={order.total_price}
+              restaurant={order.restaurant_id}
+            />
+          ))
+        });
+      })
+      .catch(err => {
+        console.log("Error: " + err);
       });
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   render() {
-    this.renderOrders();
-
     return (
       <ScrollView
         style={styles.container}
