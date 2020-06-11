@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { View, Image, Button, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import  t  from  'tcomb-form-native'
+import t from 'tcomb-form-native';
 
-let  Form = t.form.Form
+let Form = t.form.Form
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -13,9 +13,7 @@ class LoginScreen extends Component {
   }
 
   submitForm() {
-    this.setState({ id: this.refs.form.getValue().restaurant_id });
-    console.log(this.state.id);
-    this.props.signIn(this.state.id);
+    this.props.signIn(this.refs.form.getValue().restaurant_id);
   }
   state = {}
 
@@ -53,20 +51,18 @@ class LoginScreen extends Component {
           <Form
             ref='form'
             type={loginModel}
-           options={options}
-          // value={{}}
-          // onChange={{}}
+            options={options}
           />
           <TouchableOpacity style={styles.button} onPress={this.submitForm} >
-             <Text style={styles.buttonText}>Sign In</Text>
+            <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
-      </View>
+        </View>
       </View>
     );
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     marginTop: 50,
@@ -99,7 +95,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-    signOut: () => dispatch({ type: 'SIGN_OUT' }),
   }
 }
 

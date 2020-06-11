@@ -22,8 +22,6 @@ class AddMenuScreen extends Component {
   async submitForm() {
     var value = this.refs.form.getValue();
 
-    console.log("=================")
-    console.log(this.props.id);
     if (value) {
       // if validation fails, value will be null
       try {
@@ -47,7 +45,6 @@ class AddMenuScreen extends Component {
       name: t.String,
       price: t.Number,
       description: t.String,
-      // restaurant_id: t.String,
     });
 
     return (
@@ -55,9 +52,6 @@ class AddMenuScreen extends Component {
         <Form
           ref='form'
           type={MenuItemModel}
-        // options={{}}
-        // value={{}}
-        // onChange={{}}
         />
         <TouchableOpacity style={styles.button} onPress={this.submitForm}>
           <Text style={styles.buttonText}>Submit</Text>
