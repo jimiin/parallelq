@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 class SalesCard extends React.Component {
-  updateTime = (updatedTime) => {
-    const dateTime = updatedTime.split('T')
+  orderTime = (orderTime) => {
+    const dateTime = orderTime.split('T')
     const date = dateTime[0];
     const time = (dateTime[1]).split('.')[0];
     return (
@@ -21,7 +21,7 @@ class SalesCard extends React.Component {
           </Text>
           <Text style={styles.itemNameText}>{this.props.item}</Text>
           <Text style={styles.itemNameText}>£{this.props.totalPrice}</Text>
-          <Text>{this.updateTime(this.props.time)}</Text>
+          <Text>{this.orderTime(this.props.time)}</Text>
         </View>
       </View >
     );

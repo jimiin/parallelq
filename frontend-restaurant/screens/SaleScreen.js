@@ -25,10 +25,11 @@ class SaleScreen extends Component {
         this.setState({
           Orders: orders.map(order => (
             <SalesCard
+              key={order._id}
               orderNumber={order._id}
               item={order.items}
               totalPrice={order.total_price}
-              time={order.updatedAt}
+              time={order.createdAt}
             />
           ))
         })
