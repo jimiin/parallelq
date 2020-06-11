@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+
+import { formatter } from '../styles/formatter';
 
 import SalesCard from '../components/SalesCard'
 const axios = require('axios');
@@ -38,12 +40,23 @@ class SaleScreen extends Component {
         console.log(err);
       })
   }
+  totalPrice() {
+    if (this.state.Orders) {
+      const prices = this.state.Orders.map(order => order.props.totalPrice);
+      const reducer = (acc, val) => acc + val;
+    return prices.reduce(reducer, 0);
+    }
+    return 0;
+  }
 
   render() {
     return (
       <ScrollView
+       
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
+        <Text style={{ fontSize: 20 }}>
+          Total Sales: {formatter.format(this.totalPrice())}</Text>
         {this.state.Orders}
       </ScrollView>
     );
