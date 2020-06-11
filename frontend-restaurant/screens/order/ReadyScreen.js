@@ -28,26 +28,17 @@ class ReadyScreen extends Component {
     axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/prepared')
       .then(res => {
         const orders = res.data;
-        const oldOrders = this.state.orderCards;
-        const oldOrderIds = oldOrders.map(order => order.id);
         const orderIds = orders.map(order => order.id);
         var newOrders = [];
-        for (let i = 0; i < oldOrders.length; i++) {
-          if (orderIds.includes(oldOrderIds[i])) {
-            newOrders.push(oldOrders[i]);
-          }
-        }
         for (let i = 0; i < orderIds.length; i++) {
-          if (!oldOrderIds.includes(orderIds[i])) {
-            var order = orders[i];
-            newOrders.push(
-              <OrderCardReady
-              key={order._id}
-              id={order._id}
-              items={order.items}
-              onHandleDelete={() => this.onHandleDelete(order._id)} />
-            );
-          }
+          var order = orders[i];
+          newOrders.push(
+            <OrderCardReady
+            key={order._id}
+            id={order._id}
+            items={order.items} />
+          );
+          
         }
 
         this.setState({
@@ -82,15 +73,6 @@ class ReadyScreen extends Component {
       );
   }
 
-  /* Sets order to prepared and deletes from the list. */
-  onHandleDelete = async (sectionId) => {
-    try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId);
-      this.updateOrders();
-    } catch (err) {
-      console.log(err)
-    }
-  };
 
 }
 

@@ -5,6 +5,7 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/styles';
 import { formatter } from '../styles/formatter';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import axios from 'axios';
 
 class OrderCardReady extends React.Component {
 
@@ -22,6 +23,15 @@ class OrderCardReady extends React.Component {
     const previous = this.state.isActive;
     this.setState({isActive: (!previous)});
   }
+
+  /* Sets order to prepared and deletes from the list. */
+  onHandleDelete = async () => {
+    try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + this.props.id);
+    } catch (err) {
+      console.log(err)
+    }
+  };
 
   render() {
     return (
@@ -43,7 +53,7 @@ class OrderCardReady extends React.Component {
             <Button
               title='PICKED UP'
               color='#96cdff'
-              onPress={this.props.onHandleDelete}>
+              onPress={this.onHandleDelete}>
             </Button>
           </View>
         </View>

@@ -5,6 +5,7 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/styles';
 import { formatter } from '../styles/formatter';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import axios from 'axios';
 
 class OrderCard extends React.Component {
 
@@ -23,6 +24,25 @@ class OrderCard extends React.Component {
     this.setState({isActive: (!previous)});
   }
 
+   /* Sets order to prepared and deletes from the list. */
+   onHandleReady = async () => {
+    try {
+      console.log('got here')
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + this.props.id);
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
+  /* Cancels order and deletes from the list. */
+  onHandleCancel = async () => {
+    try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/cancelled/' + this.props.id);
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
   render() {
     return (
       <TouchableOpacity
@@ -34,7 +54,7 @@ class OrderCard extends React.Component {
             <Button
               title='Cancel'
               color='#fa8072'
-              onPress={this.props.onHandleCancel}>
+              onPress={this.onHandleCancel}>
             </Button>
           </View>
 
@@ -50,7 +70,7 @@ class OrderCard extends React.Component {
             <Button
               title='Prepared'
               color='#96cdff'
-              onPress={this.props.onHandleReady}>
+              onPress={this.onHandleReady}>
             </Button>
           </View>
         </View>

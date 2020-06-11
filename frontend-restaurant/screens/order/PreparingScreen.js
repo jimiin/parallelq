@@ -23,55 +23,24 @@ class PreparingScreen extends Component {
     orderCards: [],
   };
 
- 
-
-  /* Sets order to prepared and deletes from the list. */
-  onHandleReady = async (sectionId) => {
-    try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId);
-      this.updateOrders();
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
-  /* Cancels order and deletes from the list. */
-  onHandleCancel = async (sectionId) => {
-    try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/cancelled/' + sectionId);
-      this.updateOrders();
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
 
 
   updateOrders = () => {
     axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/preparing')
       .then(res => {
         const orders = res.data;
-        const oldOrders = this.state.orderCards;
-        const oldOrderIds = oldOrders.map(order => order.id);
         const orderIds = orders.map(order => order.id);
         var newOrders = [];
-        for (let i = 0; i < oldOrders.length; i++) {
-          if (orderIds.includes(oldOrderIds[i])) {
-            newOrders.push(oldOrders[i]);
-          }
-        }
+        
         for (let i = 0; i < orderIds.length; i++) {
-          if (!oldOrderIds.includes(orderIds[i])) {
-            var order = orders[i];
-            newOrders.push(
-              <OrderCard
-              key={order._id}
-              id={order._id}
-              items={order.items}
-              onHandleReady={() => this.onHandleReady(order._id)}
-              onHandleCancel={() => this.onHandleCancel(order._id)} />
-            );
-          }
+          var order = orders[i];
+          newOrders.push(
+            <OrderCard
+            key={order._id}
+            id={order._id}
+            items={order.items} />
+          );
+        
         }
 
         this.setState({
