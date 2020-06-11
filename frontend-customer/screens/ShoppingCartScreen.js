@@ -4,7 +4,8 @@ import {
   Text,
   Button,
   Modal,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux'
 
@@ -89,15 +90,18 @@ class ShoppingCartScreen extends React.Component {
         <Text style={{ fontSize: 20 }}>
           Total: {formatter.format(this.totalPrice())}
         </Text>
-        <Button
-          title='Order'
-          color='#00008B'
+        <View style={{paddingBottom:10}}>
+        <TouchableOpacity
+        style={{backgroundColor:'#00008B', padding:20, borderRadius:20}}
           onPress={() => {
             this.makeOrders();
             (this.props.resetCart)();
             this.handleOpen();
           }}
-        />
+        >
+          <Text style={{textAlign:'center', color:'white', fontSize:20}}>ORDER</Text>
+        </TouchableOpacity>
+        </View>
         <Modal
           animationType="fade"
           transparent={true}

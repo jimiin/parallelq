@@ -39,8 +39,6 @@ class ReadyScreen extends Component {
         newActiveSection.push(i);
       }
 
-      console.log(newData);
-
       this.setState({ data: newData, activeSections: newActiveSection });
     } catch (err) {
       console.log(err)

@@ -16,7 +16,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 class MenuScreen extends Component {
 
-  state = { 
+  state = {
     data: [],
     activeSections: [],
     multipleSelect: true,
@@ -25,23 +25,23 @@ class MenuScreen extends Component {
   /* generateData retrieves what is being prepared. */
   generateData = async () => {
     try {
-        const newData = [];
-        let newActiveSection = []
-        let res = await axios.get(`https://drp38-backend.herokuapp.com/items`+this.props.id);
-        var orders = res.data;
-        for (let i = 0; i < orders.length; i++) {
-          newData.push({
-            id: orders[i]._id,
-            name: orders[i].name,
-            price: orders[i].price,
-            description: orders[i].description,
-            availability: orders[i].availability
-          });
-          newActiveSection.push(i);
-        } 
-        
-        this.setState({data: newData, activeSections: newActiveSection});
-    } catch(err) {
+      const newData = [];
+      let newActiveSection = []
+      let res = await axios.get('https://drp38-backend.herokuapp.com/items/' + this.props.id);
+      var orders = res.data;
+      for (let i = 0; i < orders.length; i++) {
+        newData.push({
+          id: orders[i]._id,
+          name: orders[i].name,
+          price: orders[i].price,
+          description: orders[i].description,
+          availability: orders[i].availability
+        });
+        newActiveSection.push(i);
+      }
+
+      this.setState({ data: newData, activeSections: newActiveSection });
+    } catch (err) {
       console.log(err)
     }
   }
@@ -60,24 +60,24 @@ class MenuScreen extends Component {
     return (
       <View>
         <View style={[styles.row]}>
-          <View style={{flexDirection:'column'}}>
+          <View style={{ flexDirection: 'column' }}>
 
             <Text style={styles.title}>{section.name}</Text>
-            <Text style={section.availability == 'available' ? styles.available : styles.unavailable}>{'Currently: '+section.availability}</Text>
+            <Text style={section.availability == 'available' ? styles.available : styles.unavailable}>{'Currently: ' + section.availability}</Text>
             <Text >{'Item ID: ' + section.id}</Text>
             <Text >{'Price: £' + section.price}</Text>
 
-            <View style={{flexDirection:'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
             </View>
 
           </View>
-          
+
           <Button title={section.availability == "available" ? "Make unavailable" : "Make available"} onPress={() => this.handlePress(section)} />
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
-      
+
     );
   };
 
@@ -85,15 +85,15 @@ class MenuScreen extends Component {
   handlePress = async (section) => {
     try {
       console.log("about to do it");
-      var request = 'https://drp38-backend.herokuapp.com/items/change_availability/' + (section.availability == "available" ? "unavailable" : "available" ) + '/' + section.id;
+      var request = 'https://drp38-backend.herokuapp.com/items/change_availability/' + (section.availability == "available" ? "unavailable" : "available") + '/' + section.id;
       console.log(request);
       let res = await axios.post(request);
       this.generateData();
-    } catch(err) {
+    } catch (err) {
       console.log(err)
-    }   
-  }; 
-  
+    }
+  };
+
 
   renderContent(section, _, isActive) {
     return (
@@ -124,13 +124,13 @@ class MenuScreen extends Component {
   componentWillUnmount() {
     // Clear the interval right before component unmount
     clearInterval(this.interval);
-}
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
-         
+
           <Accordion
             sections={this.state.data}
             activeSections={this.state.activeSections}
@@ -141,9 +141,9 @@ class MenuScreen extends Component {
             duration={0}
             onChange={this.updateSections}
           />
-           <View style={styles.accordion}></View>
-          
-        </ScrollView> 
+          <View style={styles.accordion}></View>
+
+        </ScrollView>
       </View>
     );
   }
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    padding:-15,
+    padding: -15,
   },
   title: {
     textAlign: 'left',
@@ -176,10 +176,10 @@ const styles = StyleSheet.create({
     color: '#d93030',
   },
   row: {
-    flexDirection:'row', 
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     borderColor: 'grey',
-    padding:10,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
     backgroundColor: 'white',
@@ -202,14 +202,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    user: state.id
+    id: state.id
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);
+export default connect(mapStateToProps)(MenuScreen);

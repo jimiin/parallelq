@@ -2,19 +2,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import SaleScreen from '../screens/SaleScreen';
 import MenuScreen from '../screens/MenuScreen';
 import OrdersNavigator from '../screens/order/OrdersNavigator';
 import AccountScreen from '../screens/AccountScreen';
+import MenuNavigator from './MenuNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Orders';
 
 export default function BottomTabNavigator({ navigation, route }) {
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  navigation.setOptions(
+    {
+      headerTitle: getHeaderTitle(route),
+      headerShown: showHeader(route)
+    }
+  );
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
@@ -28,7 +31,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Menu"
-        component={MenuScreen}
+        component={MenuNavigator}
         options={{
           title: 'Menu',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
@@ -36,7 +39,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Sale"
-        component={HomeScreen}
+        component={SaleScreen}
         options={{
           title: 'Sale',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="logo-usd" />,
@@ -62,4 +65,14 @@ function getHeaderTitle(route) {
       return 'ParallelQ - Orders';
   }
   return routeName;
+}
+
+function showHeader(route) {
+  const routeName =
+    route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+
+  switch (routeName) {
+    case "Menu":
+      return false;
+  }
 }
