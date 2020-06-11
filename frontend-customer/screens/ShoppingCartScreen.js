@@ -128,7 +128,7 @@ class ShoppingCartScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     itemCount: state.cartItems.itemCount,
-    id: state.user.id
+    id: state.user.user.id
   }
 }
 

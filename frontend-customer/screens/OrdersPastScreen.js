@@ -55,7 +55,7 @@ class OrderPastScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
-    id: state.user.id
+    id: state.user.user.id
   }
 }
 
