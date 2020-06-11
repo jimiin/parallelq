@@ -8,6 +8,20 @@ import RestaurantCard from '../src/components/RestaurantCard';
 class HomeScreen extends React.Component {
   state = {}
 
+  getRestaurantImage = (id) => {
+    switch (id) {
+      case 0:
+        return require('../assets/images/restaurants/0.jpg');
+        break;
+      case 1:
+        return require('../assets/images/restaurants/1.jpg');
+        break;
+      default:
+        break;
+    }
+    
+  }
+
   renderRestaurants = async () => {
     try {
       let res = await axios.get(urlList.restaurants);
@@ -17,7 +31,7 @@ class HomeScreen extends React.Component {
         restaurantsList: restaurants.map(restaurant => (
           <RestaurantCard
             key={restaurant._id}
-            img={require('../assets/images/burger.jpg')}
+            img={this.getRestaurantImage(restaurant._id)}
             label={restaurant.name}
             onPress={() =>
               this.props.navigation.navigate('Restaurant',
