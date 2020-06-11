@@ -9,10 +9,6 @@ import { styles } from '../src/styles/styles';
 class LoginScreen extends Component {
   state = {}
 
-  // componentDidMount() {
-  //   this.initAsync();
-  // }
-
   config = {
     androidClientId: `302399817797-0u74s0rbvcrmapn413h3fp703g98i91h.apps.googleusercontent.com`,
     androidStandaloneAppClientId: `302399817797-3hf5lo1ljogl5phng26t4803att42ia6.apps.googleusercontent.com`,
@@ -30,21 +26,12 @@ class LoginScreen extends Component {
         gid: user.id
       })
 
-      const uid = res.data.gid;
-      this.props.signIn(user, uid);
+      this.props.signIn(user);
       console.log(type);
       console.log(user);
     } catch (e) {
       console.log("Error: " + e);
     }
-
-    // if (type === 'success') {
-    //   // Then you can use the Google REST API
-    //   let userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-    //     headers: { Authorization: `Bearer ${accessToken}` },
-    //   });
-    // }
-
   };
 
   render() {
@@ -79,11 +66,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user, id) =>
-      dispatch({ type: 'SIGN_IN', payload: { user: user, id: id } }),
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
     signOut: () => dispatch({ type: 'SIGN_OUT' }),
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
-//export default LoginScreen;

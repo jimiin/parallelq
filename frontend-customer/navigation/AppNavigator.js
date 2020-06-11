@@ -20,9 +20,7 @@ class AppNavigator extends React.Component {
         console.log(objData);
         if (objData !== null && objData.gid !== null) {
           console.log("in");
-
-          //TODO VERIFY USER ID
-          this.props.signIn(objData, objData.id);
+          this.props.signIn(objData);
         } else {
           this.props.user = null;
         }
@@ -60,8 +58,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user, id) =>
-      dispatch({ type: 'SIGN_IN', payload: { user: user, id: id } }),
+    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
   }
 }
 

@@ -4,7 +4,7 @@ const user = (state = {}, action) => {
   switch (action.type) {
     case 'SIGN_IN':
       AsyncStorage.setItem('user', JSON.stringify(action.payload.user))
-      return { user: action.payload.user, id: action.payload.id }
+      return { user: action.payload }
     case 'SIGN_OUT':
       AsyncStorage.removeItem('user')
       return {}
