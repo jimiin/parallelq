@@ -150,7 +150,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     height: 40,
     width: window.width,
-    top: window.height - 100,
+    top: window.height / 2 - 20,
     left: 0,
     alignItems: 'center',
     justifyContent: 'center'

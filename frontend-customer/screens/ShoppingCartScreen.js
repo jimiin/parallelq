@@ -56,7 +56,7 @@ class ShoppingCartScreen extends React.Component {
     this.setState({
       modalVisible: true
     });
-    setTimeout(this.handleClose, 1000);
+    setTimeout(this.handleClose, 10000);
   };
 
   handleClose = () => {
@@ -90,17 +90,17 @@ class ShoppingCartScreen extends React.Component {
         <Text style={{ fontSize: 20 }}>
           Total: {formatter.format(this.totalPrice())}
         </Text>
-        <View style={{paddingBottom:10}}>
-        <TouchableOpacity
-        style={{backgroundColor:'#00008B', padding:20, borderRadius:20}}
-          onPress={() => {
-            this.makeOrders();
-            (this.props.resetCart)();
-            this.handleOpen();
-          }}
-        >
-          <Text style={{textAlign:'center', color:'white', fontSize:20}}>ORDER</Text>
-        </TouchableOpacity>
+        <View style={{ paddingBottom: 10 }}>
+          <TouchableOpacity
+            style={{ backgroundColor: '#00008B', padding: 20, borderRadius: 20 }}
+            onPress={() => {
+              this.makeOrders();
+              (this.props.resetCart)();
+              this.handleOpen();
+            }}
+          >
+            <Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}>ORDER</Text>
+          </TouchableOpacity>
         </View>
         <Modal
           animationType="fade"
@@ -113,9 +113,14 @@ class ShoppingCartScreen extends React.Component {
               <View style={styles.notificationContainer}>
                 {
                   (this.state.orderSuccessful) ?
-                    <Text style={{ color: 'white' }}>
-                      Order has been successfully made!
-                    </Text> :
+                    <View>
+                      <Text style={{ color: 'white' }}>
+                        Order has been successfully made!
+                      </Text>
+                      <Text style={{ color: 'white' }}>
+                        You can view your order in orders tab
+                      </Text>
+                    </View> :
                     <Text style={{ color: 'white' }}>
                       Your cart is empty!
                     </Text>
