@@ -97,6 +97,7 @@ class RestaurantScreen extends React.Component {
           value={searchQuery}
         />
         <MenuItems
+          buttonText="Add to cart"
           key={this.state.menu}
           itemCount={this.props.itemCount}
           favItems={this.props.favItems}

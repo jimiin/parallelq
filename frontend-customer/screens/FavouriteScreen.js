@@ -32,6 +32,7 @@ class FavouriteScreen extends React.Component {
         {
           this.props.favItems.length > 0 ?
             <MenuItems
+              buttonText={"Order now"}
               key={this.props.favItems}
               itemCount={this.props.itemCount}
               favItems={this.props.favItems}
@@ -40,7 +41,7 @@ class FavouriteScreen extends React.Component {
               onPressUnfav={this.props.unfavItem}
               onPress={(item) => {
                 this.props.addItemToCart(item);
-                this.handleOpen();
+                this.props.navigation.navigate('Cart');
               }} /> :
             <View style={{
               flex: 1,

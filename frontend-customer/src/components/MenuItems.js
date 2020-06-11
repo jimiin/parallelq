@@ -28,7 +28,7 @@ class MenuItems extends Component {
     if (item.availability === "available") {
       return (
         <Button
-          title="Add to cart"
+          title={this.props.buttonText}
           onPress={() => { this.props.onPress(item) }} />
       )
     }
