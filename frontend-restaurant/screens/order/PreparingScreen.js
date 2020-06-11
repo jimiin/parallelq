@@ -90,7 +90,6 @@ class PreparingScreen extends Component {
 
   /* Sets order to prepared and deletes from the list. */
   onHandleReady = async (sectionId) => {
-    console.log("Deleting:" + sectionId);
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId);
       this.generateData();
@@ -101,7 +100,6 @@ class PreparingScreen extends Component {
 
   /* Cancels order and deletes from the list. */
   onHandleCancel = async (sectionId) => {
-    console.log("Deleting:" + sectionId);
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/cancelled/' + sectionId);
       this.generateData();

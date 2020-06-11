@@ -57,23 +57,36 @@ class MenuScreen extends Component {
   };
 
   renderHeader = (section, _, isActive) => {
+    const availability = section.availability === 'available'
+
     return (
       <View>
         <View style={[styles.row]}>
           <View style={{ flexDirection: 'column' }}>
 
             <Text style={styles.title}>{section.name}</Text>
-            <Text style={section.availability == 'available' ? styles.available : styles.unavailable}>{'Currently: ' + section.availability}</Text>
-            <Text >{'Item ID: ' + section.id}</Text>
-            <Text >{'Price: £' + section.price}</Text>
+            <Text
+              style={availability ? styles.available : styles.unavailable}>
+              {'Currently: ' + section.availability}
+            </Text>
+            <Text>{'Item ID: ' + section.id}</Text>
+            <Text>{'Price: £' + section.price}</Text>
 
             <View style={{ flexDirection: 'row' }}>
-              <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
+              <Icon
+                name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+                size={30}
+                color={'black'} />
             </View>
 
           </View>
 
-          <Button title={section.availability == "available" ? "Make unavailable" : "Make available"} onPress={() => this.handlePress(section)} />
+          <View style={styles.rightContainer}>
+            <Button
+              title={availability ? "Make unavailable" : "Make available"}
+              onPress={() => this.handlePress(section)} />
+          </View>
+
         </View>
         <View style={isActive ? styles.active : styles.inactive}></View>
       </View>
@@ -129,7 +142,7 @@ class MenuScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
+        <ScrollView contentContainerStyle={{ padding: 10 }}>
 
           <Accordion
             sections={this.state.data}
@@ -183,6 +196,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     backgroundColor: 'white',
+  },
+  rightContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   content: {
     padding: 20,
