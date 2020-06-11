@@ -1,42 +1,51 @@
-import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from "react";
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+
+import SalesCard from '../components/SalesCard'
 const axios = require('axios');
 
 class SaleScreen extends Component {
-  async totalSales() {
-    let res = await axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/past')
-    if (!res) {
-      return 0;
-    }
-    let sales = res.data.map(order => order.price)
-    const reducer = (acc, val) => acc + val;
-    let totalSales = sales.reduce(reducer, 0)
-    return totalSales;
+  state = {}
+
+  componentDidMount() {
+    this.updateOrders();
+    this.updateInterval = setInterval(this.updateOrders, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.updateInterval);
+  }
+
+  updateOrders = () => {
+    axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/past')
+      .then(res => {
+        const orders = res.data;
+        this.setState({
+          Orders: orders.map(order => (
+            <SalesCard
+              orderNumber={order._id}
+              item={order.items}
+              totalPrice={order.total_price}
+              time={order.updatedAt}
+            />
+          ))
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   render() {
-    this.totalSales().then(
-      res => {
-        return (
-          <View>
-            <Text>
-              Total: {res}
-            </Text>
-          </View>
-        );
-      }
-    )
     return (
-      <View>
-        <Text>
-          Total: 0
-        </Text>
-      </View>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}>
+        {this.state.Orders}
+      </ScrollView>
     );
-
   }
 }
 
@@ -45,5 +54,15 @@ const mapStateToProps = (state) => {
     id: state.id
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fafafa',
+  },
+  contentContainer: {
+    paddingTop: 15,
+  },
+})
 
 export default connect(mapStateToProps)(SaleScreen);
