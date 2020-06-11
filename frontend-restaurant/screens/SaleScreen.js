@@ -2,12 +2,10 @@ import * as WebBrowser from 'expo-web-browser';
 import React, { Component } from "react";
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 const axios = require('axios');
 
-
-
-
-export default class  SaleScreen extends Component {
+class SaleScreen extends Component {
   async totalSales() {
     let res = await axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/past')
     if (!res) {
@@ -19,7 +17,7 @@ export default class  SaleScreen extends Component {
     return totalSales;
   }
 
-  render() {
+  render() {
     this.totalSales().then(
       res => {
         return (
@@ -28,17 +26,24 @@ export default class  SaleScreen extends Component {
               Total: {res}
             </Text>
           </View>
-            );
+        );
       }
     )
     return (
       <View>
         <Text>
-              Total: 0
-            </Text>
+          Total: 0
+        </Text>
       </View>
-        );
+    );
 
-    }
   }
-  
+}
+
+const mapStateToProps = (state) => {
+  return {
+    id: state.id
+  }
+};
+
+export default connect(mapStateToProps)(SaleScreen);
