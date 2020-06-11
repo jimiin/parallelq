@@ -68,6 +68,6 @@ export const styles = StyleSheet.create({
   },
   inactive: {
     backgroundColor: '#f8f8f8',
-    paddingBottom: 20,
+    paddingBottom: 0,
   },
 });
