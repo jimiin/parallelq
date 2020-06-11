@@ -70,4 +70,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     paddingBottom: 0,
   },
+  available: {
+    textAlign: 'left',
+    fontSize: 22,
+    fontWeight: '300',
+    marginBottom: 10,
+    color: '#29cf53',
+  },
+  unavailable: {
+    textAlign: 'left',
+    fontSize: 22,
+    fontWeight: '300',
+    marginBottom: 10,
+    color: '#d93030',
+  },
+
 });

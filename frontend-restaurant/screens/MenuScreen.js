@@ -13,125 +13,46 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import Icon from "react-native-vector-icons/MaterialIcons";
+import MenuCard from '../components/MenuCard';
 
 class MenuScreen extends Component {
 
   state = {
-    data: [],
-    activeSections: [],
-    multipleSelect: true,
+    menuCards: [],
   };
 
-  /* generateData retrieves what is being prepared. */
-  generateData = async () => {
-    try {
-      const newData = [];
-      let newActiveSection = []
-      let res = await axios.get('https://drp38-backend.herokuapp.com/items/' + this.props.id);
-      var orders = res.data;
-      for (let i = 0; i < orders.length; i++) {
-        newData.push({
-          id: orders[i]._id,
-          name: orders[i].name,
-          price: orders[i].price,
-          description: orders[i].description,
-          availability: orders[i].availability
-        });
-        newActiveSection.push(i);
-      }
+  updateOrders = () => {
+    axios.get('https://drp38-backend.herokuapp.com/items/' + this.props.id)
+      .then(res => {
+        const orders = res.data;
+        const orderIds = orders.map(order => order.id);
+        var newOrders = [];
+        for (let i = 0; i < orderIds.length; i++) {
+          var order = orders[i];
+          newOrders.push(
+            <MenuCard
+            key={order._id}
+            itemNumber={order._id}
+            name={order.name}
+            price={order.price}
+            description={order.description}
+            availability={order.availability} />
+          );
+          
+        }
 
-      this.setState({ data: newData, activeSections: newActiveSection });
-    } catch (err) {
-      console.log(err)
-    }
+        this.setState({
+          menuCards: newOrders
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  toggleExpanded = () => {
-    this.setState({ collapsed: this.state.collapsed });
-  };
-
-  setSections = sections => {
-    this.setState({
-      activeSections: sections.includes(undefined) ? [] : sections,
-    });
-  };
-
-  renderHeader = (section, _, isActive) => {
-    const availability = section.availability === 'available'
-
-    return (
-      <View>
-        <View style={[styles.row]}>
-          <View style={{ flexDirection: 'column' }}>
-
-            <Text style={styles.title}>{section.name}</Text>
-            <Text
-              style={availability ? styles.available : styles.unavailable}>
-              {'Currently: ' + section.availability}
-            </Text>
-            <Text>{'Item ID: ' + section.id}</Text>
-            <Text>{'Price: £' + section.price}</Text>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Icon
-                name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
-                size={30}
-                color={'black'} />
-            </View>
-
-          </View>
-
-          <View style={styles.rightContainer}>
-            <Button
-              title={availability ? "Make unavailable" : "Make available"}
-              onPress={() => this.handlePress(section)} />
-          </View>
-
-        </View>
-        <View style={isActive ? styles.active : styles.inactive}></View>
-      </View>
-
-    );
-  };
-
-  /* Sets order to prepared and deletes from the list. */
-  handlePress = async (section) => {
-    try {
-      console.log("about to do it");
-      var request = 'https://drp38-backend.herokuapp.com/items/change_availability/' + (section.availability == "available" ? "unavailable" : "available") + '/' + section.id;
-      console.log(request);
-      let res = await axios.post(request);
-      this.generateData();
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
-
-  renderContent(section, _, isActive) {
-    return (
-      <View>
-        <Animatable.View
-          duration={0}
-          style={[styles.content, styles.active]}
-          transition="backgroundColor"
-        >
-          <Text>
-            {'Description: ' + section.description}
-          </Text>
-        </Animatable.View>
-        <View style={styles.inactive}>
-        </View>
-      </View>
-    );
-  }
-
-  updateSections = activeSections => {
-    this.setState({ activeSections });
-  };
 
   componentDidMount() {
-    this.interval = setInterval(this.generateData, 1000);
+    this.interval = setInterval(this.updateOrders, 1000);
   }
 
   componentWillUnmount() {
@@ -141,23 +62,13 @@ class MenuScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ padding: 10, paddingTop: 30 }}>
-
-          <Accordion
-            sections={this.state.data}
-            activeSections={this.state.activeSections}
-            touchableComponent={TouchableOpacity}
-            expandMultiple={true}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            duration={0}
-            onChange={this.updateSections}
-          />
-          <View style={styles.accordion}></View>
-
-        </ScrollView>
-      </View>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+     
+        {this.state.menuCards}
+      </ScrollView>
     );
   }
 }
