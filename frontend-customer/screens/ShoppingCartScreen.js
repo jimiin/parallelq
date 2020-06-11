@@ -92,7 +92,7 @@ class ShoppingCartScreen extends React.Component {
         </Text>
         <View style={{ paddingBottom: 10 }}>
           <TouchableOpacity
-            style={{ backgroundColor: '#00008B', padding: 20, borderRadius: 20 }}
+            style={{ backgroundColor: '#1E90FF', padding: 20 }}
             onPress={() => {
               this.makeOrders();
               (this.props.resetCart)();

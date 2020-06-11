@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 import { styles } from '../src/styles/styles';
@@ -30,6 +29,7 @@ class OrdersCurrentScreen extends React.Component {
               key={order._id}
               orderNumber={order._id}
               item={order.items}
+              icon={"md-checkbox-outline"}
               creationTime={order.createdAt}
               prepared={1}
               totalPrice={order.total_price}
@@ -49,6 +49,7 @@ class OrdersCurrentScreen extends React.Component {
             <OrderCard
               key={order._id}
               orderNumber={order._id}
+              icon={"md-time"}
               item={order.items}
               creationTime={order.createdAt}
               prepared={0}
@@ -70,23 +71,12 @@ class OrdersCurrentScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-
-        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-          <View style={styles.optionIconContainer}>
-            <Ionicons name={"md-restaurant"} size={40} color="rgba(0,0,0,0.35)" />
-          </View>
-          <View style={styles.optionTextContainer}>
-            <Text style={{ fontSize: 20 }}>Prepared orders:</Text>
-          </View>
+        <View style={styles.optionTextContainer}>
+          <Text style={{ fontSize: 20 }}>Prepared orders:</Text>
         </View>
         {this.state.preparedOrders}
-        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-          <View style={styles.optionIconContainer}>
-            <Ionicons name={"md-time"} size={40} color="rgba(0,0,0,0.35)" />
-          </View>
-          <View style={styles.optionTextContainer}>
-            <Text style={{ fontSize: 20 }}>Preparing orders:</Text>
-          </View>
+        <View style={styles.optionTextContainer}>
+          <Text style={{ fontSize: 20 }}>Preparing orders:</Text>
         </View>
         {this.state.preparingOrders}
       </ScrollView>);

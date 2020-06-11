@@ -19,7 +19,6 @@ class HomeScreen extends React.Component {
       default:
         break;
     }
-    
   }
 
   renderRestaurants = async () => {

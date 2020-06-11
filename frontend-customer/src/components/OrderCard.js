@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 import { axios, urlList } from '../backend-api/api';
 import { styles } from '../styles/styles';
@@ -81,6 +82,9 @@ class OrderCard extends React.Component {
               flexDirection: 'row',
               justifyContent: 'flex-start',
             }}>
+              <View style={styles.optionIconContainer}>
+                <Ionicons name={this.props.icon} size={30} color="rgba(0,0,0,0.35)" />
+              </View>
               <View style={styles.title}>
                 <Text style={styles.orderTitle}>
                   Order #{this.props.orderNumber}

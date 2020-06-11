@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     marginRight: 12,
   },
   optionTextContainer: {
+    marginLeft: 10,
     marginTop: 10,
   },
   option: {
