@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, Button } from 'react-native';
+import { View, Image, Button, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import * as Google from 'expo-google-app-auth';
 import { axios, urlList } from '../src/backend-api/api';
@@ -7,7 +7,9 @@ import { axios, urlList } from '../src/backend-api/api';
 import { styles } from '../src/styles/styles';
 
 class LoginScreen extends Component {
-  state = {}
+  state = {
+    isLoading: false
+  }
 
   config = {
     androidClientId: `302399817797-0u74s0rbvcrmapn413h3fp703g98i91h.apps.googleusercontent.com`,
@@ -17,6 +19,7 @@ class LoginScreen extends Component {
 
   signInWithGoogleAsync = async () => {
     console.log("About to log on!!!");
+    this.setState({ isLoading: true })
     try {
       // First- obtain access token from Expo's Google API
       const { type, accessToken, user } = await Google.logInAsync(this.config);
@@ -27,6 +30,7 @@ class LoginScreen extends Component {
       })
 
       this.props.signIn(user);
+      this.setState({ isLoading: false })
       console.log(type);
       console.log(user);
     } catch (e) {
@@ -36,24 +40,29 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'white',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-        <Image
-          style={styles.logoImage}
-          source={require('../assets/images/logo.png')} />
+      this.state.isLoading ? (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator size='large' />
+        </View>
+      ) : (
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+            <Image
+              style={styles.logoImage}
+              source={require('../assets/images/logo.png')} />
 
-        <Button
-          title="Sign in With Google"
-          onPress={() => {
-            this.signInWithGoogleAsync();
-
-          }} />
-      </View>
+            <Button
+              title="Sign in With Google"
+              onPress={() => {
+                this.signInWithGoogleAsync();
+              }} />
+          </View>
+        )
     );
   }
 }
