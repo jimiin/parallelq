@@ -14,115 +14,54 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 import Icon from "react-native-vector-icons/MaterialIcons";
+import OrderCardReady from '../../components/OrderCardReady';
 
 class ReadyScreen extends Component {
 
   state = {
-    data: [],
-    activeSections: [],
-    multipleSelect: true,
+    orderCards: [],
   };
 
+ 
 
-  /* generateData retrieves what is being prepared. */
-  generateData = async () => {
-    try {
-      const newData = [];
-      let newActiveSection = []
-      let res = await axios.get(`https://drp38-backend.herokuapp.com/orders/restaurant_status/` + this.props.id + `/prepared`)
-      var orders = res.data;
-      for (let i = 0; i < orders.length; i++) {
-        newData.push({
-          id: orders[i]._id,
-          items: orders[i].items
-        });
-        newActiveSection.push(i);
-      }
+  updateOrders = () => {
+    axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/prepared')
+      .then(res => {
+        const orders = res.data;
+        const oldOrders = this.state.orderCards;
+        const oldOrderIds = oldOrders.map(order => order.id);
+        const orderIds = orders.map(order => order.id);
+        var newOrders = [];
+        for (let i = 0; i < oldOrders.length; i++) {
+          if (orderIds.includes(oldOrderIds[i])) {
+            newOrders.push(oldOrders[i]);
+          }
+        }
+        for (let i = 0; i < orderIds.length; i++) {
+          if (!oldOrderIds.includes(orderIds[i])) {
+            var order = orders[i];
+            newOrders.push(
+              <OrderCardReady
+              key={order._id}
+              id={order._id}
+              items={order.items}
+              onHandleDelete={() => this.onHandleDelete(order._id)} />
+            );
+          }
+        }
 
-      this.setState({ data: newData, activeSections: newActiveSection });
-    } catch (err) {
-      console.log(err)
-    }
-
+        this.setState({
+          orderCards: newOrders
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  toggleExpanded = () => {
-    this.setState({ collapsed: this.state.collapsed });
-  };
-
-  setSections = sections => {
-    this.setState({
-      activeSections: sections.includes(undefined) ? [] : sections,
-    });
-  };
-
-  renderHeader = (section, _, isActive) => {
-    return (
-      <View>
-        <View style={[styles.row]}>
-          <View style={{ flexDirection: 'column' }}>
-
-            <Text style={styles.title}>#{section.id}</Text>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
-              <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
-            </View>
-
-          </View>
-
-          <View style={styles.rightContainer}>
-            <Button
-              title="Picked up"
-              onPress={() => this.onHandleDelete(section.id)} />
-          </View>
-        </View>
-        <View style={isActive ? styles.active : styles.inactive}></View>
-      </View>
-
-    );
-  };
-
-  updateSections = activeSections => {
-    this.setState({ activeSections });
-  };
-
-
-  /* Sets order to prepared and deletes from the list. */
-  onHandleDelete = async (sectionId) => {
-    try {
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId);
-      this.generateData();
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
-
-  renderContent(section, _, isActive) {
-    return (
-      <View>
-        <Animatable.View
-          duration={0}
-          style={[styles.content, styles.active]}
-          transition="backgroundColor"
-        >
-          <Text>
-            {section.items}
-          </Text>
-        </Animatable.View>
-        <View style={styles.inactive}>
-        </View>
-      </View>
-    );
-  }
-
-  updateSections = activeSections => {
-    this.setState({ activeSections });
-  };
 
   componentDidMount() {
-    this.interval = setInterval(this.generateData, 1000);
+    this.interval = setInterval(this.updateOrders, 1000);
   }
 
   componentWillUnmount() {
@@ -132,22 +71,27 @@ class ReadyScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ padding: 10, paddingTop: 30 }}>
-          <Accordion
-            sections={this.state.data}
-            activeSections={this.state.activeSections}
-            touchableComponent={TouchableOpacity}
-            expandMultiple={true}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            duration={0}
-            onChange={this.updateSections}
-          />
-        </ScrollView>
-      </View>
-    );
+
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+     
+        {this.state.orderCards}
+      </ScrollView>
+      );
   }
+
+  /* Sets order to prepared and deletes from the list. */
+  onHandleDelete = async (sectionId) => {
+    try {
+      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/past/' + sectionId);
+      this.updateOrders();
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
 }
 
 const styles = StyleSheet.create({

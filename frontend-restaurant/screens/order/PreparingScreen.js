@@ -62,7 +62,6 @@ class PreparingScreen extends Component {
         }
         for (let i = 0; i < orderIds.length; i++) {
           if (!oldOrderIds.includes(orderIds[i])) {
-            console.log('got here');
             var order = orders[i];
             newOrders.push(
               <OrderCard
