@@ -25,18 +25,19 @@ class OrderPastScreen extends React.Component {
         this.setState({
           Orders: orders.map(order => (
             <OrderCard
+              key={order._id}
               orderNumber={order._id}
               item={order.items}
               creationTime={order.createdAt}
               prepared={2}
               totalPrice={order.total_price}
-              restaurant={order.restaurant_id}
+              restaurantId={order.restaurant_id}
             />
           ))
         });
       })
       .catch(err => {
-        console.log("Error: " + err);
+        console.log(err);
       });
   }
 

@@ -49,11 +49,6 @@ export const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'cover',
   },
-
-
-  /* new items */
-
-
   logoImage: {
     width: 400,
     height: 200,
@@ -77,13 +72,13 @@ export const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '300',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   orderTitle: {
     textAlign: 'left',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '300',
   },
   row: {

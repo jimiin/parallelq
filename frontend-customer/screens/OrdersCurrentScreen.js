@@ -27,17 +27,18 @@ class OrdersCurrentScreen extends React.Component {
         this.setState({
           preparedOrders: orders.map(order => (
             <OrderCard
+              key={order._id}
               orderNumber={order._id}
               item={order.items}
               creationTime={order.createdAt}
               prepared={1}
               totalPrice={order.total_price}
-              restaurant={order.restaurant_id} />
+              restaurantId={order.restaurant_id} />
           ))
         });
       })
       .catch(err => {
-        console.log("Error: " + err);
+        console.log(err);
       });
 
     axios.get(urlList.orders + this.props.id + '/preparing')
@@ -46,19 +47,20 @@ class OrdersCurrentScreen extends React.Component {
         this.setState({
           preparingOrders: orders.map(order => (
             <OrderCard
+              key={order._id}
               orderNumber={order._id}
               item={order.items}
               creationTime={order.createdAt}
               prepared={0}
               queuePosition={order.queuePosition}
               totalPrice={order.total_price}
-              restaurant={order.restaurant_id}
+              restaurantId={order.restaurant_id}
             />
           ))
         });
       })
       .catch(err => {
-        console.log("Error: " + err);
+        console.log(err);
       });
   }
 
