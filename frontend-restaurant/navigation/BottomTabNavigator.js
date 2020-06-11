@@ -2,10 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import SaleScreen from '../screens/SaleScreen';
 import MenuScreen from '../screens/MenuScreen';
 import OrdersNavigator from '../screens/order/OrdersNavigator';
 import AccountScreen from '../screens/AccountScreen';
+import MenuNavigator from './MenuNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Orders';
@@ -28,7 +29,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Menu"
-        component={MenuScreen}
+        component={MenuNavigator}
         options={{
           title: 'Menu',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
@@ -36,7 +37,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Sale"
-        component={HomeScreen}
+        component={SaleScreen}
         options={{
           title: 'Sale',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="logo-usd" />,

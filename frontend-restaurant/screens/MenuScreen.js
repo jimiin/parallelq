@@ -16,7 +16,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 class MenuScreen extends Component {
 
-  state = { 
+  state = {
     data: [],
     activeSections: [],
     multipleSelect: true,
@@ -27,7 +27,7 @@ class MenuScreen extends Component {
     try {
         const newData = [];
         let newActiveSection = []
-        let res = await axios.get(`https://drp38-backend.herokuapp.com/items`+this.props.id);
+        let res = await axios.get('https://drp38-backend.herokuapp.com/items/0');
         var orders = res.data;
         for (let i = 0; i < orders.length; i++) {
           newData.push({
@@ -38,7 +38,7 @@ class MenuScreen extends Component {
             availability: orders[i].availability
           });
           newActiveSection.push(i);
-        } 
+        }
         
         this.setState({data: newData, activeSections: newActiveSection});
     } catch(err) {
