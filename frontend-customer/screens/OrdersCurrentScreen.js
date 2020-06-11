@@ -13,7 +13,7 @@ class OrdersCurrentScreen extends React.Component {
 
   renderPreparedOrders = async () => {
     try {
-      let res = await axios.get(urlList.orders + this.props.user.id + '/prepared');
+      let res = await axios.get(urlList.orders + this.props.id + '/prepared');
       let orders = res.data;
 
       this.setState({
@@ -33,7 +33,7 @@ class OrdersCurrentScreen extends React.Component {
 
   renderPreparingOrders = async () => {
     try {
-      let res = await axios.get(urlList.orders + this.props.user.id + '/preparing');
+      let res = await axios.get(urlList.orders + this.props.id + '/preparing');
       let orders = res.data;
 
       this.setState({
@@ -86,16 +86,10 @@ class OrdersCurrentScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    id: state.user.id
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-    signOut: () => dispatch({ type: 'SIGN_OUT' }),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersCurrentScreen);
+export default connect(mapStateToProps)(OrdersCurrentScreen);
 

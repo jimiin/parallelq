@@ -29,7 +29,7 @@ class LoginScreen extends Component {
         email: user.email,
         gid: user.id
       })
-      this.props.signIn(user);
+      this.props.signIn(user, gid);
       console.log(type);
       console.log(user);
     } catch (e) {
@@ -77,7 +77,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+    signIn: (user, id) =>
+      dispatch({ type: 'SIGN_IN', user: user, id: id }),
     signOut: () => dispatch({ type: 'SIGN_OUT' }),
   }
 }

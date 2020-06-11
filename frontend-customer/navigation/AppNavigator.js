@@ -13,16 +13,17 @@ const Stack = createStackNavigator();
 class AppNavigator extends React.Component {
   state = {}
 
+  // TODO
   componentDidMount() {
     AsyncStorage.getItem('user')
       .then(data => {
         if (data !== null) {
           console.log("=================================")
           console.log(data);
-          this.props.signIn(data);
+          //this.props.signIn(data);
         }
       })
-      .catch(err => console.log('Error: '+err))
+      .catch(err => console.log('Error: ' + err))
     // React.useEffect(() => {
     //   data = AsyncStorage.getItem('user');
     // })
@@ -58,7 +59,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
+    signIn: (user, id) =>
+      dispatch({ type: 'SIGN_IN', user: user, id: id }),
   }
 }
 

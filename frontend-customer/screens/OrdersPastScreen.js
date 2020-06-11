@@ -11,7 +11,7 @@ class OrderPastScreen extends React.Component {
 
   renderOrders = async () => {
     try {
-      let res = await axios.get(urlList.orders + this.props.user.gid + '/past');
+      let res = await axios.get(urlList.orders + this.props.id + '/past');
       let orders = res.data;
 
       this.setState({
@@ -44,15 +44,9 @@ class OrderPastScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    id: state.user.id
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-    signOut: () => dispatch({ type: 'SIGN_OUT' }),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderPastScreen);
+export default connect(mapStateToProps)(OrderPastScreen);
