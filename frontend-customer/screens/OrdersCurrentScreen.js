@@ -21,7 +21,7 @@ class OrdersCurrentScreen extends React.Component {
   }
 
   updateOrders = () => {
-    axios.get(urlList.orders + this.props.id + '/prepared')
+    axios.get(urlList.orders + this.props.user.id + '/prepared')
       .then(res => {
         const orders = res.data;
         this.setState({
@@ -41,7 +41,7 @@ class OrdersCurrentScreen extends React.Component {
         console.log(err);
       });
 
-    axios.get(urlList.orders + this.props.id + '/preparing')
+    axios.get(urlList.orders + this.props.user.id + '/preparing')
       .then(res => {
         const orders = res.data;
         this.setState({
@@ -96,7 +96,6 @@ class OrdersCurrentScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
-    id: state.user.user.id
   }
 }
 

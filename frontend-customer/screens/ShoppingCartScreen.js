@@ -34,7 +34,7 @@ class ShoppingCartScreen extends React.Component {
         let res = await axios.post(urlList.makeOrder, {
           items: order.substring(0, order.length - 1),
           restaurant_id: exampleItem.restaurant_id,
-          user_id: this.props.id,
+          user_id: this.props.user.id,
           total_price: this.totalPrice()
         });
       } catch (e) {
@@ -128,7 +128,7 @@ class ShoppingCartScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     itemCount: state.cartItems.itemCount,
-    id: state.user.user.id
+    user: state.user.user.id
   }
 }
 

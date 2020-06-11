@@ -19,7 +19,7 @@ class OrderPastScreen extends React.Component {
   }
 
   updateOrders = () => {
-    axios.get(urlList.orders + this.props.id + '/past')
+    axios.get(urlList.orders + this.props.user.id + '/past')
       .then(res => {
         const orders = res.data;
         this.setState({
@@ -54,8 +54,7 @@ class OrderPastScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user,
-    id: state.user.user.id
+    user: state.user.user
   }
 }
 
