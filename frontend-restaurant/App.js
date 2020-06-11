@@ -1,13 +1,23 @@
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 
-import useCachedResources from './hooks/useCachedResources';
-import AppNavigator from './navigation/AppNavigator';
-import { Provider } from 'react-redux';
-
+import { Provider } from 'react-redux'
 import { store } from './reducers/index'
 
+import "intl";
+import "intl/locale-data/jsonp/en";
+
+import useCachedResources from './hooks/useCachedResources';
+import AppNavigator from './navigation/AppNavigator';
+
+  
+
 export default function App(props) {
+  if (Platform.OS === "android") {
+    if (typeof Intl.__disableRegExpRestore === "function") {
+      Intl.__disableRegExpRestore();
+    }
+  }
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {

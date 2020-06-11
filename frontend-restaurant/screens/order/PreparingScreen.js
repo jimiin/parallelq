@@ -1,98 +1,35 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Button,
 } from 'react-native';
+
+import { ScrollView } from 'react-native-gesture-handler';
+
+import { Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import Icon from "react-native-vector-icons/MaterialIcons";
+import OrderCard from '../../components/OrderCard';
 
 class PreparingScreen extends Component {
 
   state = {
-    data: [],
-    activeSections: [],
-    multipleSelect: true,
+    orderCards: [],
   };
 
-  /* generateData retrieves what is being prepared. */
-  generateData = async () => {
-    try {
-      const newData = [];
-      let newActiveSection = [];
-      let res = await axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/preparing')
-      var orders = res.data;
-      for (let i = 0; i < orders.length; i++) {
-        newData.push({
-          id: orders[i]._id,
-          items: orders[i].items
-        });
-        newActiveSection.push(i);
-      }
-
-      this.setState({ data: newData, activeSections: newActiveSection });
-    } catch (err) {
-      console.log(err)
-    }
-
-  }
-
-  toggleExpanded = () => {
-    this.setState({ collapsed: this.state.collapsed });
-  };
-
-  setSections = sections => {
-    this.setState({
-      activeSections: sections.includes(undefined) ? [] : sections,
-    });
-  };
-
-  renderHeader = (section, _, isActive) => {
-    return (
-      <View>
-        <View style={styles.row}>
-          <View style={styles.leftContainer}>
-            <Button
-              title='Cancel'
-              color='#fa8072'
-              onPress={() => this.onHandleCancel(section.id)}>
-            </Button>
-          </View>
-
-          <View style={{ flexDirection: 'column' }}>
-            <Text style={styles.title}>#{section.id}</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={[styles.viewItems]}>{isActive ? 'Hide Items' : 'View Items'}</Text>
-              <Icon name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'black'} />
-            </View>
-          </View>
-
-          <View style={styles.rightContainer}>
-            <Button
-              title='Prepared'
-              color='#96cdff'
-              onPress={() => this.onHandleReady(section.id)}>
-            </Button>
-          </View>
-        </View>
-        <View style={isActive ? styles.active : styles.inactive}></View>
-      </View>
-
-    );
-  };
+ 
 
   /* Sets order to prepared and deletes from the list. */
   onHandleReady = async (sectionId) => {
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + sectionId);
-      this.generateData();
+      this.updateOrders();
     } catch (err) {
       console.log(err)
     }
@@ -102,36 +39,56 @@ class PreparingScreen extends Component {
   onHandleCancel = async (sectionId) => {
     try {
       let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/cancelled/' + sectionId);
-      this.generateData();
+      this.updateOrders();
     } catch (err) {
       console.log(err)
     }
   };
 
-  renderContent(section, _, isActive) {
-    return (
-      <View>
-        <Animatable.View
-          duration={0}
-          style={[styles.content, styles.active]}
-          transition="backgroundColor"
-        >
-          <Text>
-            {section.items}
-          </Text>
-        </Animatable.View>
-        <View style={styles.inactive}>
-        </View>
-      </View>
-    );
+
+
+  updateOrders = () => {
+    axios.get('https://drp38-backend.herokuapp.com/orders/restaurant_status/' + this.props.id + '/preparing')
+      .then(res => {
+        const orders = res.data;
+        const oldOrders = this.state.orderCards;
+        const oldOrderIds = oldOrders.map(order => order.id);
+        const orderIds = orders.map(order => order.id);
+        var newOrders = [];
+        for (let i = 0; i < oldOrders.length; i++) {
+          if (orderIds.includes(oldOrderIds[i])) {
+            newOrders.push(oldOrders[i]);
+          }
+        }
+        for (let i = 0; i < orderIds.length; i++) {
+          if (!oldOrderIds.includes(orderIds[i])) {
+            console.log('got here');
+            var order = orders[i];
+            newOrders.push(
+              <OrderCard
+              key={order._id}
+              id={order._id}
+              items={order.items}
+              onHandleReady={() => this.onHandleReady(order._id)}
+              onHandleCancel={() => this.onHandleCancel(order._id)} />
+            );
+          }
+        }
+
+        this.setState({
+          orderCards: newOrders
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  updateSections = activeSections => {
-    this.setState({ activeSections });
-  };
+
+  
 
   componentDidMount() {
-    this.interval = setInterval(this.generateData, 1000);
+    this.interval = setInterval(this.updateOrders, 1000);
   }
 
   componentWillUnmount() {
@@ -141,32 +98,52 @@ class PreparingScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ padding: 10, paddingTop: 30 }}>
 
-          <Accordion
-            sections={this.state.data}
-            activeSections={this.state.activeSections}
-            touchableComponent={TouchableOpacity}
-            expandMultiple={true}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            duration={0}
-            onChange={this.updateSections}
-          />
-          <View style={styles.accordion}></View>
-
-        </ScrollView>
-      </View>
-    );
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+     
+        {this.state.orderCards}
+      </ScrollView>
+      );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
-    padding: -15,
+    backgroundColor: '#fafafa',
+  },
+  contentContainer: {
+    paddingTop: 15,
+  },
+  optionIconContainer: {
+    marginRight: 12,
+  },
+  optionTextContainer: {
+    marginTop: 10,
+  },
+  option: {
+    backgroundColor: '#fdfdfd',
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 0,
+    borderColor: '#ededed',
+  },
+  lastOption: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  optionText: {
+    fontSize: 15,
+    marginTop: 1,
+    textAlign: 'left',
+  },
+  description: {
+    height: 0,
+    flexWrap: 'wrap',
+    color: 'transparent',
   },
   title: {
     textAlign: 'left',
