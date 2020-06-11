@@ -8,6 +8,13 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/:r_id').get((req, res) => {
+    const restaurant_id = req.params.r_id;
+    Restaurant.findById(restaurant_id)
+        .then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
 router.route('/add').post((req, res) => {
     const name = req.body.name;
     const image_dir = req.body.image_dir;

@@ -13,20 +13,21 @@ const Stack = createStackNavigator();
 class AppNavigator extends React.Component {
   state = {}
 
-  // TODO
   componentDidMount() {
     AsyncStorage.getItem('user')
       .then(data => {
-        if (data !== null) {
-          console.log("=================================")
-          console.log(data);
-          //this.props.signIn(data);
+        let objData = JSON.parse(data);
+        console.log(objData);
+        if (objData !== null && objData.gid !== null) {
+          console.log("in");
+
+          //TODO VERIFY USER ID
+          this.props.signIn(objData, objData.id);
+        } else {
+          this.props.user = null;
         }
       })
       .catch(err => console.log('Error: ' + err))
-    // React.useEffect(() => {
-    //   data = AsyncStorage.getItem('user');
-    // })
 
   }
 
