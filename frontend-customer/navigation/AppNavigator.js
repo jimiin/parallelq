@@ -60,7 +60,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user, id) =>
-      dispatch({ type: 'SIGN_IN', user: user, id: id }),
+      dispatch({ type: 'SIGN_IN', payload: { user: user, id: id } }),
   }
 }
 

@@ -24,12 +24,14 @@ class LoginScreen extends Component {
     try {
       // First- obtain access token from Expo's Google API
       const { type, accessToken, user } = await Google.logInAsync(this.config);
-      const gid = await axios.post(urlList.verify, {
+      const res = await axios.post(urlList.verify, {
         name: user.name,
         email: user.email,
         gid: user.id
       })
-      this.props.signIn(user, gid);
+
+      const uid = res.data.gid;
+      this.props.signIn(user, uid);
       console.log(type);
       console.log(user);
     } catch (e) {
@@ -78,7 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user, id) =>
-      dispatch({ type: 'SIGN_IN', user: user, id: id }),
+      dispatch({ type: 'SIGN_IN', payload: { user: user, id: id } }),
     signOut: () => dispatch({ type: 'SIGN_OUT' }),
   }
 }
