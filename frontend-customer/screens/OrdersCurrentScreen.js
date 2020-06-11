@@ -23,7 +23,8 @@ class OrdersCurrentScreen extends React.Component {
             item={order.items}
             creationTime={order.createdAt}
             prepared={1}
-          />
+            totalPrice={order.total_price}
+            restaurant={order.restaurant_id} />
         ))
       });
     } catch (err) {
@@ -36,6 +37,10 @@ class OrdersCurrentScreen extends React.Component {
       let res = await axios.get(urlList.orders + this.props.id + '/preparing');
       let orders = res.data;
 
+      console.log("===========")
+      console.log(urlList.orders + this.props.id + '/preparing')
+      console.log(orders)
+
       this.setState({
         preparingOrders: orders.map(order => (
           <OrderCard
@@ -44,6 +49,8 @@ class OrdersCurrentScreen extends React.Component {
             creationTime={order.createdAt}
             prepared={0}
             queuePosition={order.queuePosition}
+            totalPrice={order.total_price}
+            restaurant={order.restaurant_id}
           />
         ))
       });

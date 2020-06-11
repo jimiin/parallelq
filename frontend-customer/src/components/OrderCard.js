@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
 import { styles } from '../styles/styles';
+import { formatter } from '../styles/formatter';
 
 const ordinalSuffix = (queuePosition) => {
   const pos = queuePosition + 1
@@ -51,7 +52,7 @@ const orderTime = (creationTime) => {
     </Text>)
 }
 
-export default function OrderCard({ orderNumber, item, creationTime, prepared, queuePosition, onPress }) {
+export default function OrderCard({ orderNumber, item, creationTime, prepared, queuePosition, totalPrice, restaurant, onPress }) {
   return (
     <RectButton
       style={[(prepared == 1) ?
@@ -78,6 +79,8 @@ export default function OrderCard({ orderNumber, item, creationTime, prepared, q
         </View>
 
         <Text style={styles.itemNameText}>{item}</Text>
+        <Text style={styles.itemNameText}>{restaurant}</Text>
+        <Text style={styles.itemNameText}>{formatter.format(totalPrice)}</Text>
         <View style={styles.optionTextContainer}>
           {orderTime(creationTime)}
         </View>

@@ -21,6 +21,8 @@ class OrderPastScreen extends React.Component {
             item={order.items}
             creationTime={order.createdAt}
             prepared={2}
+            totalPrice={order.total_price}
+            restaurant={order.restaurant_id}
           />
         ))
       });
