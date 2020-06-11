@@ -56,7 +56,7 @@ class ShoppingCartScreen extends React.Component {
     this.setState({
       modalVisible: true
     });
-    setTimeout(this.handleClose, 10000);
+    setTimeout(this.handleClose, 3000);
   };
 
   handleClose = () => {
