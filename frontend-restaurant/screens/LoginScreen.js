@@ -53,7 +53,7 @@ class LoginScreen extends Component {
           <Form
             ref='form'
             type={loginModel}
-           options={{options}}
+           options={options}
           // value={{}}
           // onChange={{}}
           />
