@@ -29,6 +29,8 @@ class ShoppingCartScreen extends React.Component {
 
     if (order !== "") {
       try {
+        const exampleItem = this.props.itemCount[0].item;
+
         let res = await axios.post(urlList.makeOrder, {
           items: order.substring(0, order.length - 1),
           restaurant_id: exampleItem.restaurant_id,
