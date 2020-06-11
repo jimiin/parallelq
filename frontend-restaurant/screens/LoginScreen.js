@@ -1,8 +1,22 @@
 import React, { Component } from "react";
-import { View, Image, Button, Text, TextInput } from 'react-native';
+import { View, Image, Button, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import  t  from  'tcomb-form-native'
+
+let  Form = t.form.Form
 
 class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.submitForm = this.submitForm.bind(this)
+  }
+
+  submitForm() {
+    this.setState({ id: this.refs.form.getValue().restaurant_id });
+    console.log(this.state.id);
+    this.props.signIn(this.state.id);
+  }
   state = {}
 
   render() {
@@ -38,15 +52,12 @@ class LoginScreen extends Component {
         <View>
           <Form
             ref='form'
-            type={MenuItemModel}
+            type={loginModel}
            options={{options}}
           // value={{}}
           // onChange={{}}
           />
-          <TouchableOpacity style={styles.button} onPress={() => {
-            console.log(this.state.id);
-            this.props.signIn(this.state.id);
-          }} >
+          <TouchableOpacity style={styles.button} onPress={this.submitForm} >
              <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
       </View>
