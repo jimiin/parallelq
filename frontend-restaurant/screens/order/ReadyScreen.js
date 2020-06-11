@@ -133,7 +133,7 @@ class ReadyScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
+        <ScrollView contentContainerStyle={{ padding: 10, paddingTop: 30 }}>
           <Accordion
             sections={this.state.data}
             activeSections={this.state.activeSections}

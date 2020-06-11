@@ -142,7 +142,7 @@ class MenuScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ padding: 10 }}>
+        <ScrollView contentContainerStyle={{ padding: 10, paddingTop: 30 }}>
 
           <Accordion
             sections={this.state.data}
