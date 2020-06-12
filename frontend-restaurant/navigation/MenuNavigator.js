@@ -4,15 +4,14 @@ import { Button } from "react-native";
 
 import MenuScreen from "../screens/MenuScreen";
 import AddMenuScreen from "../screens/AddMenuScreen";
+import EditMenuScreen from "../screens/EditMenuScreen";
 
 const Stack = createStackNavigator();
 
 export default function MenuNavigator({ navigation, route }) {
-  const addItem =
-    <Button
-      title="Add Meal"
-      onPress={() => navigation.navigate('NewMeal')}
-    />;
+  const addItem = (
+    <Button title="Add Meal" onPress={() => navigation.navigate("Add Menu")} />
+  );
 
   return (
     <Stack.Navigator>
@@ -20,9 +19,11 @@ export default function MenuNavigator({ navigation, route }) {
         name="Menu"
         component={MenuScreen}
         options={() => ({
-          headerRight: () => addItem
-        })} />
-      <Stack.Screen name="NewMeal" component={AddMenuScreen} />
+          headerRight: () => addItem,
+        })}
+      />
+      <Stack.Screen name="Add Menu" component={AddMenuScreen} />
+      <Stack.Screen name="Edit Menu" component={EditMenuScreen} />
     </Stack.Navigator>
   );
 }

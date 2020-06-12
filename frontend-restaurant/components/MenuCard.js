@@ -92,7 +92,17 @@ class MenuCard extends React.Component {
                   </View>
 
                   <View style={{ padding: 2 }}>
-                    <Button title="Edit" onPress={this.handlePress} />
+                    <Button
+                      title="Edit"
+                      onPress={() =>
+                        this.props.onPressEdit(
+                          this.props.itemNumber,
+                          this.props.name,
+                          this.props.price,
+                          this.props.description
+                        )
+                      }
+                    />
                   </View>
 
                   <View style={{ padding: 2 }}>
@@ -114,11 +124,9 @@ class MenuCard extends React.Component {
               {"Description: " + this.props.description}
             </Text>
           </View>
-          <View style={styles.inactive}></View>
+          <View style={styles.inactive} />
 
-          <View
-            style={this.state.isActive ? styles.active : styles.inactive}
-          ></View>
+          <View style={this.state.isActive ? styles.active : styles.inactive} />
         </View>
       </TouchableOpacity>
     );
