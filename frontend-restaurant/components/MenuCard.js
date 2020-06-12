@@ -1,5 +1,11 @@
 import * as React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ToastAndroid,
+  TouchableOpacity,
+} from "react-native";
 
 import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
@@ -14,7 +20,7 @@ class MenuCard extends React.Component {
       isAvailable: this.props.availability,
     };
     this.changeText = this.changeText.bind(this);
-    this.handlePress = this.handlePress.bind(this);
+    this.handleAvailability = this.handleAvailability.bind(this);
   }
 
   changeText() {
@@ -23,7 +29,7 @@ class MenuCard extends React.Component {
   }
 
   /* Sets order to prepared and deletes from the list. */
-  handlePress = async () => {
+  handleAvailability = async () => {
     const prev = this.state.isAvailable;
     this.setState({
       isAvailable: prev == "available" ? "unavailable" : "available",
@@ -40,6 +46,19 @@ class MenuCard extends React.Component {
     // } catch (err) {
     //   console.log(err);
     // }
+  };
+
+  handleRemove = async () => {
+    try {
+      let res = await axios.delete(
+        "https://drp38-backend.herokuapp.com/items/delete/" +
+          this.props.itemNumber
+      );
+      ToastAndroid.show("Item Removed", ToastAndroid.SHORT);
+    } catch (e) {
+      ToastAndroid.show("Item Failed to be Removed", ToastAndroid.SHORT);
+      console.log(e);
+    }
   };
 
   render() {
@@ -87,7 +106,7 @@ class MenuCard extends React.Component {
                           ? "unavailable"
                           : "available")
                       }
-                      onPress={this.handlePress}
+                      onPress={this.handleAvailability}
                     />
                   </View>
 
@@ -106,7 +125,7 @@ class MenuCard extends React.Component {
                   </View>
 
                   <View style={{ padding: 2 }}>
-                    <Button title="Remove" onPress={this.handlePress} />
+                    <Button title="Remove" onPress={this.handleRemove} />
                   </View>
                 </View>
               </View>
