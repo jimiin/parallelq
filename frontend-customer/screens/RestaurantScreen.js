@@ -1,61 +1,58 @@
-import * as React from 'react';
-import {
-  View,
-  Text,
-  Modal,
-  TouchableWithoutFeedback
-} from 'react-native';
-import { connect } from 'react-redux';
-import { Searchbar } from 'react-native-paper';
+import * as React from "react";
+import { View, Text, Modal, TouchableWithoutFeedback } from "react-native";
+import { connect } from "react-redux";
+import { Searchbar } from "react-native-paper";
 
-import MenuItems from '../src/components/MenuItems';
-import { styles } from '../src/styles/styles';
-import { axios, urlList } from '../src/backend-api/api';
+import MenuItems from "../src/components/MenuItems";
+import { styles } from "../src/styles/styles";
+import { axios, urlList } from "../src/backend-api/api";
 
 class RestaurantScreen extends React.Component {
-  state = { menu: [], modalVisible: false, searchQuery: '' }
+  state = { menu: [], modalVisible: false, searchQuery: "" };
 
   compareMenu(a, b) {
     if (a.availability < b.availability) {
-      return -1
+      return -1;
     }
     if (a.availability > b.availability) {
-      return 1
+      return 1;
     }
-    return a._id - b._id
+    return a._id - b._id;
   }
 
   faved(favedItems, item) {
-    return favedItems.filter(i => item._id === i._id).length !== 0
+    return favedItems.filter((i) => item._id === i._id).length !== 0;
   }
 
   sortMenu(menu) {
     const favedItems = menu
-      .filter(i => this.faved(this.props.favItems, i))
-      .sort(this.compareMenu)
+      .filter((i) => this.faved(this.props.favItems, i))
+      .sort(this.compareMenu);
     const notfavedItems = menu
-      .filter(i => !this.faved(this.props.favItems, i))
-      .sort(this.compareMenu)
+      .filter((i) => !this.faved(this.props.favItems, i))
+      .sort(this.compareMenu);
 
-    return favedItems.concat(notfavedItems)
+    return favedItems.concat(notfavedItems);
   }
 
   updateMenu = () => {
-    axios.get(urlList.items + this.props.route.params.id)
-      .then(res => {
+    axios
+      .get(urlList.items + this.props.route.params.id)
+      .then((res) => {
         var allItems = res.data;
-        var allRelevantItems = allItems.filter(item => (item.name.toLowerCase()).includes(this.state.searchQuery.toLowerCase()));
-        this.setState({ menu: this.sortMenu(allRelevantItems) })
+        var allRelevantItems = allItems.filter((item) =>
+          item.name.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+        );
+        this.setState({ menu: this.sortMenu(allRelevantItems) });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error: " + err);
       });
-  }
+  };
 
-  _onChangeSearch = query => {
+  _onChangeSearch = (query) => {
     this.setState({ searchQuery: query });
-  }
-
+  };
 
   componentDidMount() {
     this.updateMenu();
@@ -68,14 +65,14 @@ class RestaurantScreen extends React.Component {
 
   handleOpen = () => {
     this.setState({
-      modalVisible: true
+      modalVisible: true,
     });
     setTimeout(this.handleClose, 1000);
   };
 
   handleClose = () => {
     this.setState({
-      modalVisible: false
+      modalVisible: false,
     });
   };
 
@@ -83,11 +80,9 @@ class RestaurantScreen extends React.Component {
     const title = this.props.route.params.title;
     const { searchQuery } = this.state;
 
-    this.props.navigation.setOptions(
-      {
-        headerTitle: title
-      }
-    );
+    this.props.navigation.setOptions({
+      headerTitle: title,
+    });
 
     return (
       <View style={styles.container}>
@@ -107,19 +102,18 @@ class RestaurantScreen extends React.Component {
           onPress={(item) => {
             this.props.addItemToCart(item);
             this.handleOpen();
-          }} />
+          }}
+        />
         <Modal
           animationType="fade"
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={this.handleClose}>
-          <TouchableWithoutFeedback
-            onPress={this.handleClose}>
+          onRequestClose={this.handleClose}
+        >
+          <TouchableWithoutFeedback onPress={this.handleClose}>
             <View style={styles.notificationView}>
               <View style={styles.notificationContainer}>
-                <Text style={{ color: 'white' }}>
-                  Added to Shopping Cart!
-                </Text>
+                <Text style={{ color: "white" }}>Added to Shopping Cart!</Text>
               </View>
             </View>
           </TouchableWithoutFeedback>
@@ -132,16 +126,16 @@ class RestaurantScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     itemCount: state.cartItems.itemCount,
-    favItems: state.favItems.favItems
-  }
-}
+    favItems: state.favItems.favItems,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addItemToCart: (item) => dispatch({ type: 'INC_ITEM', payload: item }),
-    favItem: (item) => dispatch({ type: 'FAV_ITEM', payload: item }),
-    unfavItem: (item) => dispatch({ type: 'UNFAV_ITEM', payload: item }),
-  }
-}
+    addItemToCart: (item) => dispatch({ type: "INC_ITEM", payload: item }),
+    favItem: (item) => dispatch({ type: "FAV_ITEM", payload: item }),
+    unfavItem: (item) => dispatch({ type: "UNFAV_ITEM", payload: item }),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantScreen);
