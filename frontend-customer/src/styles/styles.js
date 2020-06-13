@@ -39,6 +39,9 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginTop: 5,
   },
+  orderTimeText: {
+    fontSize: 15,
+  },
   itemPriceText: {
     alignSelf: "flex-start",
     marginTop: 1,

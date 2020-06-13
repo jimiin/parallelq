@@ -60,7 +60,7 @@ class OrderCard extends React.Component {
     const date = dateTime[0];
     const time = dateTime[1].split(".")[0];
     return (
-      <Text style={styles.optionText}>Ordered: {date + " at " + time}</Text>
+      <Text style={styles.orderTimeText}>Ordered: {date + " at " + time}</Text>
     );
   };
 
@@ -72,7 +72,10 @@ class OrderCard extends React.Component {
         ? styles.cancelledRow
         : styles.preparingRow;
     return (
-      <RectButton style={buttonStyle} onPress={this.props.onPress}>
+      <RectButton
+        style={buttonStyle}
+        onPress={() => this.props.onPress(this.props.orderNumber)}
+      >
         <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={{ flexDirection: "row" }}>
             <View
@@ -105,9 +108,7 @@ class OrderCard extends React.Component {
           <Text style={styles.itemNameText}>
             {formatter.format(this.props.totalPrice)}
           </Text>
-          <View style={styles.optionTextContainer}>
-            {this.orderTime(this.props.creationTime)}
-          </View>
+          {this.orderTime(this.props.creationTime)}
         </View>
       </RectButton>
     );

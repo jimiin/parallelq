@@ -17,10 +17,8 @@ class MenuCard extends React.Component {
     super(props);
     this.state = {
       isActive: true,
-      isAvailable: this.props.availability,
     };
     this.changeText = this.changeText.bind(this);
-    this.handleAvailability = this.handleAvailability.bind(this);
   }
 
   changeText() {
@@ -30,22 +28,17 @@ class MenuCard extends React.Component {
 
   /* Sets order to prepared and deletes from the list. */
   handleAvailability = async () => {
-    const prev = this.state.isAvailable;
-    this.setState({
-      isAvailable: prev == "available" ? "unavailable" : "available",
-    });
-    // try {
-    //   console.log("about to do it");
-    //   var request =
-    //     "https://drp38-backend.herokuapp.com/items/change_availability/" +
-    //     (this.props.availability == "available" ? "unavailable" : "available") +
-    //     "/" +
-    //     this.props.itemNumber;
-    //   console.log(request);
-    //   let res = await axios.post(request);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+     try {
+       console.log("about to do it");
+       var request =
+         "https://drp38-backend.herokuapp.com/items/change_availability/" +
+         (this.props.availability == "available" ? "unavailable" : "available") +
+         "/" +
+         this.props.itemNumber;
+       let res = await axios.post(request);
+     } catch (err) {
+       console.log(err);
+     }
   };
 
   handleRemove = async () => {
@@ -75,12 +68,12 @@ class MenuCard extends React.Component {
               <View style={{ flexDirection: "column" }}>
                 <Text
                   style={
-                    this.state.isAvailable == "available"
+                    this.props.availability == "available"
                       ? styles.available
                       : styles.unavailable
                   }
                 >
-                  {"Currently: " + this.state.isAvailable}
+                  {"Currently: " + this.props.availability}
                 </Text>
                 <Text>{"Item ID: " + this.props.itemNumber}</Text>
                 <Text>{"Price: " + formatter.format(this.props.price)}</Text>
@@ -102,7 +95,7 @@ class MenuCard extends React.Component {
                     <Button
                       title={
                         "Make " +
-                        (this.state.isAvailable == "available"
+                        (this.props.availability == "available"
                           ? "unavailable"
                           : "available")
                       }
