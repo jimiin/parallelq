@@ -8,4 +8,5 @@ export const urlList = {
   items: url + "/items/",
   verify: url + "/users/verify",
   changeOrderStatus: url + "/orders/change_status/",
+  categories: url + "/categories/",
 };
