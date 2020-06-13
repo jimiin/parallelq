@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
     items: { type: String, required: true },
-    restaurant_id: { type: Number, required: true },
-    user_id: { type: Number, required: true },
+    restaurant_id: { type: String, required: true },
+    user_id: { type: String, required: true },
     total_price: { type: Number, required: true },
     status: { type: String, required: true },
 }, {
