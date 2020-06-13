@@ -22,7 +22,7 @@ class LoginScreen extends Component {
     try {
       // First- obtain access token from Expo's Google API
       const { type, accessToken, user } = await Google.logInAsync(this.config);
-      this.props.signIn(user);
+      this.props.signIn(user, this.props.token);
       this.setState({ isLoading: false });
       console.log(type);
       console.log(user);
@@ -64,13 +64,20 @@ class LoginScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
+    token: state.token.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: "SIGN_IN", payload: user }),
-    signOut: () => dispatch({ type: "SIGN_OUT" }),
+    signIn: (user, token) =>
+      dispatch({
+        type: "SIGN_IN",
+        payload: {
+          user: user,
+          token: token,
+        },
+      }),
   };
 };
 

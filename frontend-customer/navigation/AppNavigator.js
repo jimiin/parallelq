@@ -16,22 +16,76 @@ import LoginScreen from "../screens/LoginScreen";
 const Stack = createStackNavigator();
 
 class AppNavigator extends React.Component {
-  state = {};
+  state = {
+    expoPushToken: "",
+    notification: {},
+  };
+
+  registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      this.setState({ expoPushToken: token });
+      this.props.saveToken(token);
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.createChannelAndroidAsync("default", {
+        name: "default",
+        sound: true,
+        priority: "max",
+        vibrate: [0, 250, 250, 250],
+      });
+    }
+  };
 
   componentDidMount() {
+    this.registerForPushNotificationsAsync();
+
+    // Handle notifications that are received or selected while the app
+    // is open. If the app was closed and then opened by tapping the
+    // notification (rather than just tapping the app icon to open it),
+    // this function will fire on the next tick after the app starts
+    // with the notification data.
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
+
     AsyncStorage.getItem("user")
       .then((data) => {
         let objData = JSON.parse(data);
         console.log(objData);
         if (objData !== null && objData.gid !== null) {
           console.log("in");
-          this.props.signIn(objData);
+          this.props.signIn(objData, this.state.expoPushToken);
         } else {
           this.props.user = null;
         }
       })
       .catch((err) => console.log("Error: " + err));
   }
+
+  _handleNotification = (notification) => {
+    Vibration.vibrate();
+    console.log(notification);
+    this.setState({ notification: notification });
+  };
 
   render() {
     const isSignedIn = this.props.user;
@@ -55,12 +109,21 @@ class AppNavigator extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
+    token: state.token.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: "SIGN_IN", payload: user }),
+    signIn: (user, token) =>
+      dispatch({
+        type: "SIGN_IN",
+        payload: {
+          user: user,
+          token: token,
+        },
+      }),
+    saveToken: (token) => dispatch({ type: "SAVE_TOKEN", payload: token }),
   };
 };
 
