@@ -37,7 +37,7 @@ class AppNavigator extends React.Component {
         alert("Failed to get push token for push notification!");
         return;
       }
-      token = await Notifications.getExpoPushTokenAsync();
+      let token = await Notifications.getExpoPushTokenAsync();
       console.log(token);
       this.setState({ expoPushToken: token });
       this.props.saveToken(token);
