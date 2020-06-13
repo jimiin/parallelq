@@ -5,7 +5,8 @@ const STASUSES = Object.freeze({
     PREPARING: 'preparing',
     PREPARED: 'prepared',
     PAST: 'past',
-    CANCELLED: 'cancelled'
+    CANCELLED: 'cancelled',
+    CANCELLED_RESOLVED: 'cancelled_resolved',
 });
 
 function oldAppendQueuePos(initialOrders, posMap) {
@@ -46,7 +47,7 @@ function getPosMap(orders) {
 }
 
 // DEPRECATED
-router.route('/').get((req, res) => {
+router.route('/all').get((req, res) => {
     Order.find()
         .sort('_id')
         .then(orders => res.json(oldAppendQueuePos(orders)))
