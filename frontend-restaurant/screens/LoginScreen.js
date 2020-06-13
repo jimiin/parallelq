@@ -1,32 +1,35 @@
 import React, { Component } from "react";
-import { View, Image, Button, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import t from 'tcomb-form-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import t from "tcomb-form-native";
 
-let Form = t.form.Form
+let Form = t.form.Form;
 
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.submitForm = this.submitForm.bind(this)
+    this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm() {
     this.props.signIn(this.refs.form.getValue().restaurant_id);
   }
-  state = {}
+  state = {};
 
   render() {
     let loginModel = t.struct({
       restaurant_id: t.Number,
+      restaurant_pw: t.String,
     });
 
     let options = {
       fields: {
         restaurant_id: {
-          label: 'Restaurant Id',
-          help: 'Please enter the id assigned to you',
+          label: "Restaurant ID",
+        },
+        restaurant_pw: {
+          label: "Restaurant Password",
         },
       },
     };
@@ -35,25 +38,23 @@ class LoginScreen extends Component {
       <View
         style={{
           flex: 1,
-          backgroundColor: 'white',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Image
           style={{
             width: 400,
             height: 200,
-            resizeMode: 'cover'
+            resizeMode: "cover",
           }}
-          source={require('../assets/images/logo.png')} />
+          source={require("../assets/images/logo.png")}
+        />
 
         <View>
-          <Form
-            ref='form'
-            type={loginModel}
-            options={options}
-          />
-          <TouchableOpacity style={styles.button} onPress={this.submitForm} >
+          <Form ref="form" type={loginModel} options={options} />
+          <TouchableOpacity style={styles.button} onPress={this.submitForm}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
@@ -64,38 +65,38 @@ class LoginScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 50,
     padding: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   buttonText: {
     fontSize: 18,
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
   },
   button: {
     height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
+    backgroundColor: "#48BBEC",
+    borderColor: "#48BBEC",
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
+    alignSelf: "stretch",
+    justifyContent: "center",
   },
 });
 
 const mapStateToProps = (state) => {
   return {
-    id: state.id
-  }
-}
+    id: state.id,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-  }
-}
+    signIn: (user) => dispatch({ type: "SIGN_IN", payload: user }),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

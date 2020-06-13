@@ -79,7 +79,7 @@ class EditMenuScreen extends Component {
     };
 
     return (
-      <View>
+      <View style={{ padding: 10 }}>
         <Form ref="form" type={MenuItemModel} value={value} options={options} />
         <TouchableOpacity style={styles.button} onPress={this.submitForm}>
           <Text style={styles.buttonText}>Submit</Text>
