@@ -26,7 +26,7 @@ class PreparingScreen extends Component {
         for (let i = 0; i < orderIds.length; i++) {
           var order = orders[i];
           newOrders.push(
-            <OrderCard key={order._id} id={order._id} items={order.items} />
+            <OrderCard key={order._id} id={order._id} items={order.items} uid={order.user_id} rid={order.restaurant_id}/>
           );
         }
 

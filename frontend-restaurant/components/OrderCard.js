@@ -28,7 +28,19 @@ class OrderCard extends React.Component {
    onHandleReady = async () => {
     try {
       console.log('got here')
-      let res = await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + this.props.id);
+      await axios.post('https://drp38-backend.herokuapp.com/orders/change_status/prepared/' + this.props.id);
+      // Post notification
+      let restaurantName = (await axios.get('https://drp38-backend.herokuapp.com/restaurants/' + this.props.rid)).data.name;
+      console.log(restaurantName);
+      console.log(this.props.uid);
+      let res = await axios.post(
+        'https://drp38-backend.herokuapp.com/notifications/notify/user/', 
+        {
+          title: "Order ready to pick up!",
+          body: "Your order from "+restaurantName+" is ready to pick up!",
+          user_id: this.props.uid
+        });
+        console.log(res);
     } catch (err) {
       console.log(err)
     }
