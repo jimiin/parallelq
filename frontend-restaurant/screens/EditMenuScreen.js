@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import {
-  View,
   TouchableOpacity,
   ToastAndroid,
   StyleSheet,
   Text,
+  ScrollView,
 } from "react-native";
 import t from "tcomb-form-native";
 
@@ -79,12 +79,12 @@ class EditMenuScreen extends Component {
     };
 
     return (
-      <View style={{ padding: 10 }}>
+      <ScrollView style={{ padding: 10 }}>
         <Form ref="form" type={MenuItemModel} value={value} options={options} />
         <TouchableOpacity style={styles.button} onPress={this.submitForm}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 }

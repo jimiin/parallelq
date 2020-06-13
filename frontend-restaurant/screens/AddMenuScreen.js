@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import {
-  View,
   TouchableOpacity,
   ToastAndroid,
   StyleSheet,
   Text,
+  ScrollView,
 } from "react-native";
 import t from "tcomb-form-native";
 import { connect } from "react-redux";
@@ -15,6 +15,9 @@ let Form = t.form.Form;
 class AddMenuScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: null,
+    }
 
     this.submitForm = this.submitForm.bind(this);
   }
@@ -34,6 +37,7 @@ class AddMenuScreen extends Component {
             restaurant_id: this.props.id,
           }
         );
+        this.setState({value: null});
         ToastAndroid.show("Item Added to Menu", ToastAndroid.SHORT);
       } catch (e) {
         console.log(e);
@@ -51,12 +55,12 @@ class AddMenuScreen extends Component {
     });
 
     return (
-      <View style={{ padding: 10 }}>
-        <Form ref="form" type={MenuItemModel} />
+      <ScrollView style={{ padding: 10 }}>
+        <Form ref="form" type={MenuItemModel} value={this.state.value}/>
         <TouchableOpacity style={styles.button} onPress={this.submitForm}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 }

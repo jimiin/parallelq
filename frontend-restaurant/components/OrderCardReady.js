@@ -52,7 +52,6 @@ class OrderCardReady extends React.Component {
           <View style={styles.rightContainer}>
             <Button
               title='PICKED UP'
-              color='#96cdff'
               onPress={this.onHandleDelete}>
             </Button>
           </View>
