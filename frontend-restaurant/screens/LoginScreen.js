@@ -6,6 +6,8 @@ import t from "tcomb-form-native";
 let Form = t.form.Form;
 
 class LoginScreen extends Component {
+  state = {};
+
   constructor(props) {
     super(props);
 
@@ -13,9 +15,12 @@ class LoginScreen extends Component {
   }
 
   submitForm() {
-    this.props.signIn(this.refs.form.getValue().restaurant_id);
+    let value = this.refs.form.getValue();
+    if (value) {
+      console.log(value);
+      this.props.signIn(value.restaurant_id);
+    }
   }
-  state = {};
 
   render() {
     let loginModel = t.struct({
@@ -30,6 +35,8 @@ class LoginScreen extends Component {
         },
         restaurant_pw: {
           label: "Restaurant Password",
+          password: true,
+          secureTextEntry: true,
         },
       },
     };
