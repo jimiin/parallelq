@@ -74,4 +74,24 @@ router.route('/modify/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/change_availability/:availability/:id').post((req, res) => {
+    const id = req.params.id;
+    const availability = req.params.availability;
+
+    Item.findById(id)
+        .then(item => {
+            if (Object.values(AVAILABILITIES).includes(availability)) {
+                item.availability = availability;
+
+                item.save()
+                    .then(() => res.json('Item availability updated'))
+                    .catch(err => res.status(400).json('Error: ' + err));
+            } else {
+                res.status(400).json('Error: Invalid availability')
+            }
+            
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 module.exports = router;
