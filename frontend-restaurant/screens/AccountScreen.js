@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { connect } from "react-redux";
 import AccountProfile from "../components/AccountProfile";
+import { styles } from "../styles/styles";
 
 class AccountScreen extends React.Component {
   state = {};
@@ -23,14 +24,8 @@ class AccountScreen extends React.Component {
             }}
           />
         ) : (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: 20 }}>You need to log in!</Text>
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>You need to log in!</Text>
           </View>
         )}
       </View>

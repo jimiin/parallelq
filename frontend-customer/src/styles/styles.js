@@ -19,8 +19,9 @@ export const styles = StyleSheet.create({
   },
   option: {
     backgroundColor: "#fdfdfd",
-    paddingHorizontal: 25,
-    paddingVertical: 15,
+    paddingHorizontal: 20,
+    paddingTop: 15,
+    paddingBottom: 5,
     borderWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: 0,
     borderColor: "#ededed",
@@ -29,8 +30,8 @@ export const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   optionText: {
-    fontSize: 15,
-    marginTop: 1,
+    fontSize: 20,
+    marginTop: 5,
     textAlign: "left",
   },
   itemNameText: {
@@ -177,5 +178,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 2000,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyText: {
+    fontSize: 20,
   },
 });

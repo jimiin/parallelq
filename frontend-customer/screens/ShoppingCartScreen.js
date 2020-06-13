@@ -69,14 +69,8 @@ class ShoppingCartScreen extends React.Component {
             itemCount={this.props.itemCount}
           />
         ) : (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: 20 }}>Your Cart is empty!</Text>
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>Your Cart is empty!</Text>
           </View>
         )}
         <Text style={{ fontSize: 20 }}>
