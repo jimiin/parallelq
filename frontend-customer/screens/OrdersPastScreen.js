@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
+import * as React from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 
-import { styles } from '../src/styles/styles';
-import OrderCard from '../src/components/OrderCard';
-import { axios, urlList } from '../src/backend-api/api';
+import { styles } from "../src/styles/styles";
+import OrderCard from "../src/components/OrderCard";
+import { axios, urlList } from "../src/backend-api/api";
 
 class OrderPastScreen extends React.Component {
-  state = {}
+  state = {};
 
   componentDidMount() {
     this.updateOrders();
@@ -19,28 +19,29 @@ class OrderPastScreen extends React.Component {
   }
 
   updateOrders = () => {
-    axios.get(urlList.orders + this.props.user.id + '/past')
-      .then(res => {
+    axios
+      .get(urlList.orders + this.props.user.id + "/past")
+      .then((res) => {
         const orders = res.data;
         this.setState({
-          Orders: orders.map(order => (
+          Orders: orders.map((order) => (
             <OrderCard
               key={order._id}
               orderNumber={order._id}
               item={order.items}
               icon={"md-restaurant"}
               creationTime={order.createdAt}
-              prepared={2}
+              status={2}
               totalPrice={order.total_price}
               restaurantId={order.restaurant_id}
             />
-          ))
+          )),
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     return (
@@ -49,14 +50,15 @@ class OrderPastScreen extends React.Component {
         contentContainerStyle={styles.contentContainer}
       >
         {this.state.Orders}
-      </ScrollView>);
+      </ScrollView>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
-  }
-}
+    user: state.user.user,
+  };
+};
 
 export default connect(mapStateToProps)(OrderPastScreen);

@@ -1,28 +1,29 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons';
+import * as React from "react";
+import { View, Text } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
 
-import { axios, urlList } from '../backend-api/api';
-import { styles } from '../styles/styles';
-import { formatter } from '../styles/formatter';
+import { axios, urlList } from "../backend-api/api";
+import { styles } from "../styles/styles";
+import { formatter } from "../styles/formatter";
 
 class OrderCard extends React.Component {
-  state = {}
+  state = {};
 
   componentDidMount() {
-    axios.get(urlList.restaurants + this.props.restaurantId)
-      .then(res => {
-        this.setState({ restaurantName: res.data.name })
+    axios
+      .get(urlList.restaurants + this.props.restaurantId)
+      .then((res) => {
+        this.setState({ restaurantName: res.data.name });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   ordinalSuffix = (queuePosition) => {
-    const pos = queuePosition + 1
-    const i = pos % 10
+    const pos = queuePosition + 1;
+    const i = pos % 10;
     const j = pos % 100;
     if (i == 1 && j != 11) {
       return pos + "st";
@@ -34,56 +35,59 @@ class OrderCard extends React.Component {
       return pos + "rd";
     }
     return pos + "th";
-  }
+  };
 
-  /* TODO: Add number of people in queue in case 2 */
-  orderStatus = (prepared, queuePosition) => {
-    switch (prepared) {
+  orderStatus = (status, queuePosition) => {
+    switch (status) {
       case 0:
         return (
           <Text style={styles.orderTitle}>
             Position in queue: {this.ordinalSuffix(queuePosition)}
           </Text>
-        )
+        );
       case 1:
-        return (
-          <Text style={styles.orderTitle}>
-            Pick Up Now
-          </Text>
-        )
+        return <Text style={styles.orderTitle}>Pick Up Now</Text>;
+      case -1:
+        return <Text style={styles.orderTitle}>Order cancelled</Text>;
       case 2:
       default:
-        return (<Text></Text>)
+        return <Text></Text>;
     }
-  }
+  };
 
   orderTime = (creationTime) => {
-    const dateTime = creationTime.split('T')
+    const dateTime = creationTime.split("T");
     const date = dateTime[0];
-    const time = (dateTime[1]).split('.')[0];
+    const time = dateTime[1].split(".")[0];
     return (
-      <Text style={styles.optionText}>
-        Ordered: {date + ' at ' + time}
-      </Text>)
-  }
+      <Text style={styles.optionText}>Ordered: {date + " at " + time}</Text>
+    );
+  };
 
   render() {
+    const buttonStyle =
+      this.props.status === 1
+        ? styles.preparedRow
+        : this.props.status === -1
+        ? styles.cancelledRow
+        : styles.preparingRow;
     return (
-      <RectButton
-        style={[(this.props.prepared == 1) ?
-          styles.preparedRow :
-          styles.preparingRow,
-        { borderRadius: 10, margin: 10 }]}
-        onPress={() => console.log("pressed")} >
-        <View style={{ flex: 1, flexDirection: 'column' }}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}>
+      <RectButton style={buttonStyle} onPress={this.props.onPress}>
+        <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flexDirection: "row" }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "flex-start",
+              }}
+            >
               <View style={styles.optionIconContainer}>
-                <Ionicons name={this.props.icon} size={30} color="rgba(0,0,0,0.35)" />
+                <Ionicons
+                  name={this.props.icon}
+                  size={30}
+                  color="rgba(0,0,0,0.35)"
+                />
               </View>
               <View style={styles.title}>
                 <Text style={styles.orderTitle}>
@@ -91,20 +95,21 @@ class OrderCard extends React.Component {
                 </Text>
               </View>
             </View>
-            <View style={{ alignItems: 'flex-end' }}>
-              {this.orderStatus(this.props.prepared, this.props.queuePosition)}
+            <View style={{ alignItems: "flex-end" }}>
+              {this.orderStatus(this.props.status, this.props.queuePosition)}
             </View>
           </View>
 
           <Text style={styles.orderTitle}>{this.state.restaurantName}</Text>
           <Text style={styles.itemNameText}>{this.props.item}</Text>
-          <Text style={styles.itemNameText}>{formatter.format(this.props.totalPrice)}</Text>
+          <Text style={styles.itemNameText}>
+            {formatter.format(this.props.totalPrice)}
+          </Text>
           <View style={styles.optionTextContainer}>
             {this.orderTime(this.props.creationTime)}
           </View>
         </View>
-
-      </ RectButton>
+      </RectButton>
     );
   }
 }
