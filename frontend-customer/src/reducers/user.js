@@ -3,11 +3,11 @@ import { axios, urlList } from "../backend-api/api";
 
 async function verify(user, token) {
   try {
-    // TODO: use token to verify
     const res = await axios.post(urlList.verify, {
       name: user.name,
       email: user.email,
       gid: user.id,
+      notification_token: token
     });
   } catch (e) {
     console.log(e);

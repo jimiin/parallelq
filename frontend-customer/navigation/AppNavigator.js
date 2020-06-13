@@ -70,7 +70,7 @@ class AppNavigator extends React.Component {
     AsyncStorage.getItem("user")
       .then((data) => {
         let objData = JSON.parse(data);
-        console.log(objData);
+        // console.log(objData);
         if (objData !== null && objData.gid !== null) {
           console.log("in");
           this.props.signIn(objData, this.state.expoPushToken);
