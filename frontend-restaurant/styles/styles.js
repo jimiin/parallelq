@@ -92,4 +92,12 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     color: "#d93030",
   },
+  emptyContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyText: {
+    fontSize: 20,
+  },
 });
