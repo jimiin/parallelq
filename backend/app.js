@@ -29,6 +29,8 @@ const userRouter = require('./routes/users');
 
 const restaurantRouter = require('./routes/restaurants');
 
+const notificationRouter = require('./routes/notifications');
+
 app.use('/orders', orderRouter);
 
 app.use('/items', itemRouter);
@@ -36,6 +38,8 @@ app.use('/items', itemRouter);
 app.use('/users', userRouter);
 
 app.use('/restaurants', restaurantRouter);
+
+app.use('/notifications', notificationRouter);
 
 app.listen(port, () => {
     console.log(`Sever is running on port: ${port}`)

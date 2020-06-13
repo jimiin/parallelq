@@ -28,10 +28,11 @@ router.route('/verify').post((req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const gid = req.body.gid;
+    const notification_token = req.body.notification_token;
 
     // Setup stuff
     var query = { gid };
-    var update = { name, email, gid };
+    var update = { name, email, gid, notification_token };
     var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
     // Find the document
