@@ -34,7 +34,7 @@ createNavigators = () => {
       tabs.push(<TopTab.Screen
         name={categories[i].name}
         // id may have to change depending on field name in backend
-        component={<RestaurantScreen category_id={categories[i].id}/>}
+        component={() => <RestaurantScreen category_id={categories[i].id}/>}
       />)
     }
     return tabs;
