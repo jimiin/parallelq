@@ -1,21 +1,26 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import * as React from "react";
+import { connect } from "react-redux";
+import { AsyncStorage } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import LinkingConfiguration from './LinkingConfiguration';
-import BottomTabNavigator from './BottomTabNavigator';
-import LoginScreen from '../screens/LoginScreen';
+import { Text, View, Button, Vibration, Platform } from "react-native";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import Constants from "expo-constants";
+
+import LinkingConfiguration from "./LinkingConfiguration";
+import BottomTabNavigator from "./BottomTabNavigator";
+import LoginScreen from "../screens/LoginScreen";
 
 const Stack = createStackNavigator();
 
 class AppNavigator extends React.Component {
-  state = {}
+  state = {};
 
   componentDidMount() {
-    AsyncStorage.getItem('user')
-      .then(data => {
+    AsyncStorage.getItem("user")
+      .then((data) => {
         let objData = JSON.parse(data);
         console.log(objData);
         if (objData !== null && objData.gid !== null) {
@@ -25,8 +30,7 @@ class AppNavigator extends React.Component {
           this.props.user = null;
         }
       })
-      .catch(err => console.log('Error: ' + err))
-
+      .catch((err) => console.log("Error: " + err));
   }
 
   render() {
@@ -34,17 +38,15 @@ class AppNavigator extends React.Component {
 
     return (
       <NavigationContainer linking={LinkingConfiguration}>
-        {
-          isSignedIn ? (
-            <Stack.Navigator>
-              <Stack.Screen name="Root" component={BottomTabNavigator} />
-            </Stack.Navigator>
-          ) : (
-              <Stack.Navigator>
-                <Stack.Screen name="Login" component={LoginScreen} />
-              </Stack.Navigator>
-            )
-        }
+        {isSignedIn ? (
+          <Stack.Navigator>
+            <Stack.Screen name="Root" component={BottomTabNavigator} />
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen name="Login" component={LoginScreen} />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     );
   }
@@ -52,14 +54,14 @@ class AppNavigator extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
-  }
-}
+    user: state.user.user,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch({ type: 'SIGN_IN', payload: user }),
-  }
-}
+    signIn: (user) => dispatch({ type: "SIGN_IN", payload: user }),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator)
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator);
