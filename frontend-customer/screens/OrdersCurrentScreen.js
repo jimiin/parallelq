@@ -19,6 +19,17 @@ class OrdersCurrentScreen extends React.Component {
     clearInterval(this.updateInterval);
   }
 
+  resolveCancel = async (id) => {
+    console.log(urlList.changeOrderStatus + "cancelled_resolved/" + id);
+    try {
+      let res = await axios.post(
+        urlList.changeOrderStatus + "cancelled_resolved/" + id
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   updateOrders = () => {
     // Set Prepared Orders
     axios
@@ -85,7 +96,10 @@ class OrdersCurrentScreen extends React.Component {
               status={-1}
               totalPrice={order.total_price}
               restaurantId={order.restaurant_id}
-              onPress={() => alert("This order has been cancelled")}
+              onPress={(id) => {
+                alert("This order has been cancelled");
+                this.resolveCancel(id);
+              }}
             />
           )),
         });

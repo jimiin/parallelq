@@ -18,24 +18,74 @@ class OrderPastScreen extends React.Component {
     clearInterval(this.updateInterval);
   }
 
+  compareOrder(a, b) {
+    if (a.createdAt < b.createdAt) {
+      return 1;
+    }
+
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    }
+
+    return a._id - b._id;
+  }
+
+  pastOrder(order) {
+    return (
+      <OrderCard
+        key={order._id}
+        orderNumber={order._id}
+        item={order.items}
+        icon={"md-restaurant"}
+        creationTime={order.createdAt}
+        status={2}
+        totalPrice={order.total_price}
+        restaurantId={order.restaurant_id}
+      />
+    );
+  }
+
+  cancelledResolvedOrder(order) {
+    return (
+      <OrderCard
+        key={order._id}
+        orderNumber={order._id}
+        icon={"md-close-circle-outline"}
+        item={order.items}
+        creationTime={order.createdAt}
+        status={-1}
+        totalPrice={order.total_price}
+        restaurantId={order.restaurant_id}
+      />
+    );
+  }
+
   updateOrders = () => {
     axios
       .get(urlList.orders + this.props.user.id + "/past")
       .then((res) => {
         const orders = res.data;
+        this.setState({ data: orders });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
+      .then((res) => {
+        const orders = res.data;
+        let data = this.state.data.concat(orders);
+        data = data.sort(this.compareOrder);
+
         this.setState({
-          Orders: orders.map((order) => (
-            <OrderCard
-              key={order._id}
-              orderNumber={order._id}
-              item={order.items}
-              icon={"md-restaurant"}
-              creationTime={order.createdAt}
-              status={2}
-              totalPrice={order.total_price}
-              restaurantId={order.restaurant_id}
-            />
-          )),
+          Orders: data.map((order) => {
+            if (order.status === "past") {
+              return this.pastOrder(order);
+            } else {
+              return this.cancelledResolvedOrder(order);
+            }
+          }),
         });
       })
       .catch((err) => {

@@ -1,10 +1,11 @@
-export const url = 'https://drp38-backend.herokuapp.com'
-export const axios = require('axios');
+export const url = "https://drp38-backend.herokuapp.com";
+export const axios = require("axios");
 
 export const urlList = {
-  restaurants: url + '/restaurants/',
-  orders: url + '/orders/user_status/',
-  makeOrder: url + '/orders/add',
-  items: url + '/items/',
-  verify: url + '/users/verify',
-}
+  restaurants: url + "/restaurants/",
+  orders: url + "/orders/user_status/",
+  makeOrder: url + "/orders/add",
+  items: url + "/items/",
+  verify: url + "/users/verify",
+  changeOrderStatus: url + "/orders/change_status/",
+};
