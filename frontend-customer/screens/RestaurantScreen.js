@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, Modal, TouchableWithoutFeedback } from "react-native";
+import { View, ToastAndroid } from "react-native";
 import { connect } from "react-redux";
 import { Searchbar } from "react-native-paper";
 
@@ -8,7 +8,7 @@ import { styles } from "../src/styles/styles";
 import { axios, urlList } from "../src/backend-api/api";
 
 class RestaurantScreen extends React.Component {
-  state = { menu: [], modalVisible: false, searchQuery: "" };
+  state = { menu: [], searchQuery: "" };
 
   compareMenu(a, b) {
     if (a.availability < b.availability) {
@@ -63,19 +63,6 @@ class RestaurantScreen extends React.Component {
     clearInterval(this.menuInterval);
   }
 
-  handleOpen = () => {
-    this.setState({
-      modalVisible: true,
-    });
-    setTimeout(this.handleClose, 1000);
-  };
-
-  handleClose = () => {
-    this.setState({
-      modalVisible: false,
-    });
-  };
-
   render() {
     const title = this.props.route.params.title;
     const { searchQuery } = this.state;
@@ -101,23 +88,12 @@ class RestaurantScreen extends React.Component {
           onPressUnfav={this.props.unfavItem}
           onPress={(item) => {
             this.props.addItemToCart(item);
-            this.handleOpen();
+            ToastAndroid.show(
+              "Item Added to Shopping Cart",
+              ToastAndroid.SHORT
+            );
           }}
         />
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={this.handleClose}
-        >
-          <TouchableWithoutFeedback onPress={this.handleClose}>
-            <View style={styles.notificationView}>
-              <View style={styles.notificationContainer}>
-                <Text style={{ color: "white" }}>Added to Shopping Cart!</Text>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
       </View>
     );
   }

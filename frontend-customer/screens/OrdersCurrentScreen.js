@@ -83,9 +83,9 @@ class OrdersCurrentScreen extends React.Component {
               item={order.items}
               creationTime={order.createdAt}
               status={-1}
-              queuePosition={order.queuePosition}
               totalPrice={order.total_price}
               restaurantId={order.restaurant_id}
+              onPress={() => alert("This order has been cancelled")}
             />
           )),
         });
