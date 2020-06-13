@@ -28,6 +28,7 @@
     "android": {
       "package": "com.drp38.parallelq",
       "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyC2O2MiTNEi2005DRBph20Obg_mqg0N0sY",
