@@ -42,6 +42,7 @@ async function sendPushNotification(title, body, gid) {
         body: body,
         data: { data: 'goes here' },
         _displayInForeground: true,
+        channelId: 'default'
     };
 
     let chunks = expo.chunkPushNotifications([message]);
