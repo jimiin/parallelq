@@ -69,7 +69,6 @@ class OrderCard extends React.Component {
           <View style={styles.rightContainer}>
             <Button
               title='Prepared'
-              color='#96cdff'
               onPress={this.onHandleReady}>
             </Button>
           </View>

@@ -37,8 +37,7 @@ class RestaurantScreen extends React.Component {
 
   updateMenu = () => {
     axios
-      .get(urlList.items + "/category/" + this.props.category_id
-        
+      .get(urlList.items + "/category/" + this.props.category_id)
       .then((res) => {
         var allItems = res.data;
         var allRelevantItems = allItems.filter((item) =>
@@ -48,7 +47,7 @@ class RestaurantScreen extends React.Component {
       })
       .catch((err) => {
         console.log("Error: " + err);
-      });
+      })
   };
 
   _onChangeSearch = (query) => {
