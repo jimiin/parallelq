@@ -62,35 +62,33 @@ class OrderPastScreen extends React.Component {
 
   updateOrders = () => {
     if (this.props.user) {
-      let data = [];
-
       axios
         .get(urlList.orders + this.props.user.id + "/past")
         .then((res) => {
-          data = data.concat(res.data);
+          let data = res.data;
+
+          axios
+            .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
+            .then((res) => {
+              data = data.concat(res.data).sort(this.compareOrder);
+
+              this.setState({
+                Orders: data.map((order) => {
+                  if (order.status === "past") {
+                    return this.pastOrder(order);
+                  } else {
+                    return this.cancelledResolvedOrder(order);
+                  }
+                }),
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
         });
-
-      axios
-        .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
-        .then((res) => {
-          data = data.concat(res.data).sort(this.compareOrder);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      this.setState({
-        Orders: data.map((order) => {
-          if (order.status === "past") {
-            return this.pastOrder(order);
-          } else {
-            return this.cancelledResolvedOrder(order);
-          }
-        }),
-      });
     }
   };
 

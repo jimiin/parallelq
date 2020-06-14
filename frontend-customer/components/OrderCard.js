@@ -71,11 +71,13 @@ class OrderCard extends React.Component {
         : this.props.status === -1
         ? styles.cancelledRow
         : styles.preparingRow;
+
+    const onPress = this.props.onPress
+      ? () => this.props.onPress(this.props.orderNumber)
+      : () => console.log("hi");
+
     return (
-      <RectButton
-        style={buttonStyle}
-        onPress={() => this.props.onPress(this.props.orderNumber)}
-      >
+      <RectButton style={buttonStyle} onPress={onPress}>
         <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={{ flexDirection: "row" }}>
             <View
