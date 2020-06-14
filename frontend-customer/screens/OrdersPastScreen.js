@@ -7,7 +7,7 @@ import OrderCard from "../components/OrderCard";
 import { axios, urlList } from "../constants/api";
 
 class OrderPastScreen extends React.Component {
-  state = { data: [] };
+  state = {};
 
   componentDidMount() {
     this.updateOrders();
@@ -62,10 +62,12 @@ class OrderPastScreen extends React.Component {
 
   updateOrders = () => {
     if (this.props.user) {
+      let data = [];
+
       axios
         .get(urlList.orders + this.props.user.id + "/past")
         .then((res) => {
-          this.setState({ data: res.data });
+          data = data.concat(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -74,16 +76,14 @@ class OrderPastScreen extends React.Component {
       axios
         .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
         .then((res) => {
-          let data = this.state.data.concat(res.data);
-          data = data.sort(this.compareOrder);
-          this.setState({ data: data });
+          data = data.concat(res.data).sort(this.compareOrder);
         })
         .catch((err) => {
           console.log(err);
         });
 
       this.setState({
-        Orders: this.state.data.map((order) => {
+        Orders: data.map((order) => {
           if (order.status === "past") {
             return this.pastOrder(order);
           } else {
