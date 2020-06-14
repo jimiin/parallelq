@@ -3,9 +3,9 @@ import { View, ToastAndroid } from "react-native";
 import { connect } from "react-redux";
 import { Searchbar } from "react-native-paper";
 
-import MenuItems from "../src/components/MenuItems";
-import { styles } from "../src/styles/styles";
-import { axios, urlList } from "../src/backend-api/api";
+import MenuItems from "../components/MenuItems";
+import { styles } from "../styles/styles";
+import { axios, urlList } from "../constants/api";
 
 class RestaurantScreen extends React.Component {
   state = { menu: [], searchQuery: "" };

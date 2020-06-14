@@ -2,8 +2,8 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { connect } from "react-redux";
 
-import { styles } from "../src/styles/styles";
-import AccountProfile from "../src/components/AccountProfile";
+import { styles } from "../styles/styles";
+import AccountProfile from "../components/AccountProfile";
 
 class AccountScreen extends React.Component {
   state = {};

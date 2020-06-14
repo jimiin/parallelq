@@ -2,9 +2,9 @@ import * as React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
-import { styles } from "../src/styles/styles";
-import OrderCard from "../src/components/OrderCard";
-import { axios, urlList } from "../src/backend-api/api";
+import { styles } from "../styles/styles";
+import OrderCard from "../components/OrderCard";
+import { axios, urlList } from "../constants/api";
 
 class OrderPastScreen extends React.Component {
   state = { data: [] };

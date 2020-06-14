@@ -3,9 +3,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
 
-import { styles } from "../src/styles/styles";
-import OrderCard from "../src/components/OrderCard";
-import { axios, urlList } from "../src/backend-api/api";
+import { styles } from "../styles/styles";
+import OrderCard from "../components/OrderCard";
+import { axios, urlList } from "../constants/api";
 
 class OrdersCurrentScreen extends React.Component {
   state = {};

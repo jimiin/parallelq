@@ -2,8 +2,8 @@ import * as React from "react";
 import { View, Text, Modal, TouchableWithoutFeedback } from "react-native";
 import { connect } from "react-redux";
 
-import MenuItems from "../src/components/MenuItems";
-import { styles } from "../src/styles/styles";
+import MenuItems from "../components/MenuItems";
+import { styles } from "../styles/styles";
 
 class FavouriteScreen extends React.Component {
   state = { modalVisible: false };

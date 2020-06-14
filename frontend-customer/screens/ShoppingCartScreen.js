@@ -2,10 +2,10 @@ import * as React from "react";
 import { View, Text, ToastAndroid, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import ShoppingCartItems from "../src/components/ShoppingCartItems";
-import { axios, urlList } from "../src/backend-api/api";
-import { styles } from "../src/styles/styles";
-import { formatter } from "../src/styles/formatter";
+import ShoppingCartItems from "../components/ShoppingCartItems";
+import { axios, urlList } from "../constants/api";
+import { styles } from "../styles/styles";
+import { formatter } from "../styles/formatter";
 
 class ShoppingCartScreen extends React.Component {
   makeOrders = async () => {

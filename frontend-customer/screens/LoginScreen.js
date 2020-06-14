@@ -3,7 +3,7 @@ import { View, Image, Button, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import * as Google from "expo-google-app-auth";
 
-import { styles } from "../src/styles/styles";
+import { styles } from "../styles/styles";
 
 class LoginScreen extends Component {
   state = {

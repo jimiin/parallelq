@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { axios, urlList } from "../src/backend-api/api";
-import { styles } from "../src/styles/styles";
-import RestaurantCard from "../src/components/RestaurantCard";
+import { axios, urlList } from "../constants/api";
+import { styles } from "../styles/styles";
+import RestaurantCard from "../components/RestaurantCard";
 
 class HomeScreen extends React.Component {
   state = {};
