@@ -1,9 +1,9 @@
 import { combineReducers, createStore } from "redux";
 
-import cartItems from "../reducers/cartItems";
-import favouriteItems from "../reducers/favouriteItems";
-import user from "../reducers/user";
-import notificationToken from "../reducers/notificationToken";
+import cartItems from "./cartItems";
+import favouriteItems from "./favouriteItems";
+import user from "./user";
+import notificationToken from "./notificationToken";
 
 const rootReducer = combineReducers({
   cartItems: cartItems,

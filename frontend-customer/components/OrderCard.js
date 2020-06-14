@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-import { axios, urlList } from "../backend-api/api";
+import { axios, urlList } from "../constants/api";
 import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
 

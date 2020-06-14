@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native";
-import { axios, urlList } from "../backend-api/api";
+import { axios, urlList } from "../constants/api";
 
 async function verify(user, token) {
   try {
@@ -7,7 +7,7 @@ async function verify(user, token) {
       name: user.name,
       email: user.email,
       gid: user.id,
-      notification_token: token
+      notification_token: token,
     });
   } catch (e) {
     console.log(e);
