@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     fontWeight: "300",
   },
   fitImage: {
-    width: window.width - 60,
+    width: window.width - 40,
     height: 150,
     resizeMode: "cover",
   },
