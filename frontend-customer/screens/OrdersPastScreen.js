@@ -7,7 +7,7 @@ import OrderCard from "../src/components/OrderCard";
 import { axios, urlList } from "../src/backend-api/api";
 
 class OrderPastScreen extends React.Component {
-  state = {};
+  state = { data: [] };
 
   componentDidMount() {
     this.updateOrders();
@@ -61,36 +61,37 @@ class OrderPastScreen extends React.Component {
   }
 
   updateOrders = () => {
-    axios
-      .get(urlList.orders + this.props.user.id + "/past")
-      .then((res) => {
-        const orders = res.data;
-        this.setState({ data: orders });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axios
-      .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
-      .then((res) => {
-        const orders = res.data;
-        let data = this.state.data.concat(orders);
-        data = data.sort(this.compareOrder);
-
-        this.setState({
-          Orders: data.map((order) => {
-            if (order.status === "past") {
-              return this.pastOrder(order);
-            } else {
-              return this.cancelledResolvedOrder(order);
-            }
-          }),
+    if (this.props.user) {
+      axios
+        .get(urlList.orders + this.props.user.id + "/past")
+        .then((res) => {
+          this.setState({ data: res.data });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
+
+      axios
+        .get(urlList.orders + this.props.user.id + "/cancelled_resolved")
+        .then((res) => {
+          let data = this.state.data.concat(res.data);
+          data = data.sort(this.compareOrder);
+          this.setState({ data: data });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      this.setState({
+        Orders: this.state.data.map((order) => {
+          if (order.status === "past") {
+            return this.pastOrder(order);
+          } else {
+            return this.cancelledResolvedOrder(order);
+          }
+        }),
       });
+    }
   };
 
   render() {
