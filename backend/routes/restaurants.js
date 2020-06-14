@@ -11,17 +11,20 @@ router.route('/').get((req, res) => {
 let Order = require('../models/order.model');
 
 router.route('/with_queue_size').get(async (req, res) => {
-    Restaurant.find()
-        .sort('_id')
-        .then(initialRestaurants => {
-            let restaurants = [];
-            initialRestaurants.forEach(e => restaurants.push(e.toObject()));
-            for (let i = 0; i < restaurants.length; i++) {
-                let orders = await Order.find({restaurant_id : restaurant[i]._id, status: 'preparing'});
-                restaurants[i].queue_size = orders.length;
-            }
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
+    try {
+        let initialRestaurants = await Restaurant.find().sort('_id').exec();
+        let restaurants = [];
+        initialRestaurants.forEach(e => restaurants.push(e.toObject()));
+        for (let i = 0; i < restaurants.length; i++) {
+            let orders = await Order.find({restaurant_id : restaurants[i]._id, status: 'preparing'}).exec();
+            restaurants[i].queue_size = orders.length;
+        }
+        res.json(restaurants);
+    } catch(err) {
+        res.status(400).json('Error: '+err);
+    }
+
+
 })
 
 router.route('/:r_id').get((req, res) => {
