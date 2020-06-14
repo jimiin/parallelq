@@ -38,7 +38,7 @@ function getPosMap(orders) {
         posMap.set(orders[i]._id , 0);
         if (orders[i].status != 'preparing') continue;
         for (j = 0; j < orders.length; j++) {
-            if (orders[j].status == 'preparing' && orders[j]._id < orders[i]._id) {
+            if (orders[j].status == 'preparing' && orders[j]._id < orders[i]._id && orders[j].restaurant_id == orders[i].restaurant_id) {
                 posMap.set(orders[i]._id , posMap.get(orders[i]._id) + 1);
             }
         }
