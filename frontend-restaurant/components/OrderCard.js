@@ -31,7 +31,7 @@ class OrderCard extends React.Component {
       let restaurantName = (
         await axios.get(
           "https://drp38-backend.herokuapp.com/restaurants/" +
-            this.props.order.user_id
+            this.props.order.restaurant_id
         )
       ).data.name;
       console.log(restaurantName);
