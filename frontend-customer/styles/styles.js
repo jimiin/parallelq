@@ -34,6 +34,12 @@ export const styles = StyleSheet.create({
     marginTop: 5,
     textAlign: "left",
   },
+  queueSizeText: {
+    fontSize: 15,
+    color: "grey",
+    marginTop: 5,
+    textAlign: "left",
+  },
   itemNameText: {
     fontSize: 17.5,
     alignSelf: "flex-start",
@@ -51,6 +57,7 @@ export const styles = StyleSheet.create({
   },
   fitImage: {
     width: window.width - 40,
+    borderRadius: 10,
     height: 150,
     resizeMode: "cover",
   },
@@ -94,10 +101,20 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: "white",
   },
+  restaurantCard: {
+    flexDirection: "column",
+    borderColor: "#DCDCDC",
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
+  },
   preparingRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "white",
@@ -107,7 +124,7 @@ export const styles = StyleSheet.create({
   preparedRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "#96cdff",
@@ -117,7 +134,7 @@ export const styles = StyleSheet.create({
   cancelledRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "#fa8072",

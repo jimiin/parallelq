@@ -1,6 +1,5 @@
 import * as React from "react";
-import { View, Text } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { axios, urlList } from "../constants/api";
@@ -87,7 +86,7 @@ class OrderCard extends React.Component {
       : () => console.log("hi");
 
     return (
-      <RectButton style={buttonStyle} onPress={onPress}>
+      <TouchableOpacity style={buttonStyle} onPress={onPress}>
         <View style={{ flex: 1, flexDirection: "column" }}>
           <View style={{ flexDirection: "row" }}>
             <View
@@ -126,7 +125,7 @@ class OrderCard extends React.Component {
           </Text>
           {this.orderTime(this.props.order.createdAt)}
         </View>
-      </RectButton>
+      </TouchableOpacity>
     );
   }
 }
