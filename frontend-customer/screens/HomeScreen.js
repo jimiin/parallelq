@@ -1,4 +1,5 @@
 import * as React from "react";
+import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { axios, urlList } from "../constants/api";
@@ -28,18 +29,20 @@ class HomeScreen extends React.Component {
 
       this.setState({
         restaurantsList: restaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant._id}
-            img={this.getRestaurantImage(restaurant._id)}
-            label={restaurant.name}
-            queueSize={restaurant.queue_size}
-            onPress={() =>
-              this.props.navigation.navigate("Restaurant", {
-                id: restaurant._id,
-                title: restaurant.name,
-              })
-            }
-          />
+          <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+            <RestaurantCard
+              key={restaurant._id}
+              img={this.getRestaurantImage(restaurant._id)}
+              label={restaurant.name}
+              queueSize={restaurant.queue_size}
+              onPress={() =>
+                this.props.navigation.navigate("Restaurant", {
+                  id: restaurant._id,
+                  title: restaurant.name,
+                })
+              }
+            />
+          </View>
         )),
       });
     } catch (err) {
@@ -55,12 +58,15 @@ class HomeScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <RestaurantCard
-          img={require("../assets/images/favourites.jpg")}
-          label="Favourites"
-          queueSize={-1}
-          onPress={() => this.props.navigation.navigate("Favourites")}
-        />
+        <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+          <RestaurantCard
+            img={require("../assets/images/favourites.jpg")}
+            label="Favourites"
+            queueSize={-1}
+            onPress={() => this.props.navigation.navigate("Favourites")}
+          />
+        </View>
+
         {this.state.restaurantsList}
       </ScrollView>
     );
