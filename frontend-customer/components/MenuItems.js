@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Image,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, View, Text, Button, TouchableOpacity } from "react-native";
 import Accordion from "react-native-collapsible/Accordion";
 
 import FavouriteIcon from "./FavouriteIcon";
@@ -75,7 +68,7 @@ class MenuItems extends Component {
     return (
       <View>
         <View style={[styles.row]}>
-          <View style={{ flexDirection: "column", flexShrink: 1 }}>
+          <View style={{ flexDirection: "column" }}>
             <View style={{ flexDirection: "row" }}>
               <FavouriteIcon
                 onPressFav={this.props.onPressFav}
@@ -86,12 +79,18 @@ class MenuItems extends Component {
               <Text style={styles.title}>{section.name}</Text>
             </View>
 
-            <View style={styles.priceTag}>
-              <Text style={styles.itemPriceText}>
-                {formatter.format(section.price)}
-              </Text>
-              {this.renderItemCount(section)}
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.priceTag}>
+                <Text style={styles.itemPriceText}>
+                  {formatter.format(section.price)}
+                </Text>
+                {this.renderItemCount(section)}
+              </View>
+              <View style={styles.rightContainer}>
+                {this.renderItemButton(section)}
+              </View>
             </View>
+
             <View style={styles.descriptionContainer}>
               <Text style={isActive ? styles.description : { padding: 10 }}>
                 Description: {section.description.substring(0, 60)}...
@@ -100,12 +99,6 @@ class MenuItems extends Component {
                 Description: {section.description}
               </Text>
             </View>
-          </View>
-
-          <View style={{ flexDirection: "column", flexShrink: 1 }}>
-            {/* <Image style={styles.fitImage} source={require('../../assets/images/library.jpg')} /> */}
-            <Text style={{ height: 10 }} />
-            {this.renderItemButton(section)}
           </View>
         </View>
         <View style={isActive ? styles.inactive : styles.inactive}></View>

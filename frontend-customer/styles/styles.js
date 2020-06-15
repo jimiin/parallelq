@@ -17,6 +17,13 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
+  rightContainer: {
+    flex: 1,
+    marginRight: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
   option: {
     backgroundColor: "#fdfdfd",
     paddingHorizontal: 20,
