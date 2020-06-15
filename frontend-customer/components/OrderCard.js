@@ -64,6 +64,18 @@ class OrderCard extends React.Component {
     );
   };
 
+  printItems() {
+    let splitText = this.props.item.split("\nSpecial requirements");
+    return (<View>
+      <Text style={[styles.itemNameText, splitText[1] == undefined ? {fontSize:0} : {color:'red'}]}>
+        {"Special requirements" + splitText[1]}
+      </Text>
+      <Text style={styles.itemNameText}>
+        {splitText[0]}
+      </Text>
+    </View>);
+  };
+
   render() {
     const buttonStyle =
       this.props.status === 1
@@ -106,7 +118,7 @@ class OrderCard extends React.Component {
           </View>
 
           <Text style={styles.orderTitle}>{this.state.restaurantName}</Text>
-          <Text style={styles.itemNameText}>{this.props.item}</Text>
+          {this.printItems()}
           <Text style={styles.itemNameText}>
             {formatter.format(this.props.totalPrice)}
           </Text>

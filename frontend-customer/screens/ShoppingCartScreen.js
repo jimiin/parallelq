@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, ToastAndroid, TouchableOpacity } from "react-native";
+import { View, Text, ToastAndroid, TouchableOpacity, TextInput } from "react-native";
 import { connect } from "react-redux";
 
 import ShoppingCartItems from "../components/ShoppingCartItems";
@@ -8,6 +8,10 @@ import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
 
 class ShoppingCartScreen extends React.Component {
+  state={
+    text: "",
+  }
+
   makeOrders = async () => {
     let order = "";
     this.props.itemCount
@@ -15,6 +19,10 @@ class ShoppingCartScreen extends React.Component {
       .map((i) => {
         order += i.item.name + " x" + i.count + "\n";
       });
+      if (this.state.text != "") {
+        order += "Special requirements: " + this.state.text;
+      }
+    
 
     if (order !== "") {
       try {
@@ -57,22 +65,41 @@ class ShoppingCartScreen extends React.Component {
     return prices.reduce(reducer, 0);
   };
 
+  setText = (requirements) => {
+    this.setState({text: requirements})
+  }
+
   render() {
     return (
+      
       <View style={styles.container}>
         {this.props.itemCount.length > 0 ? (
-          <ShoppingCartItems
-            key={this.props.itemCount}
-            onPressPlus={this.props.incItem}
-            onPressMinus={this.props.decItem}
-            onPressRemove={this.props.removeItemFromCart}
-            itemCount={this.props.itemCount}
-          />
+      
+            <ShoppingCartItems
+              key={this.props.itemCount}
+              onPressPlus={this.props.incItem}
+              onPressMinus={this.props.decItem}
+              onPressRemove={this.props.removeItemFromCart}
+              itemCount={this.props.itemCount}
+            />
+            
         ) : (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>Your Cart is empty!</Text>
           </View>
         )}
+        <View style={styles.container}>
+        {this.props.itemCount.length > 0 ? (
+        <TextInput
+              style={{height: 40, borderRadius: 5, borderWidth: 1, borderColor: 'black'}}
+              placeholder="Add additional requirements (allergies, ...) here"
+              onChangeText={text => this.setText(text)}
+              defaultValue={this.state.text}
+              multiline={true}
+              
+            />
+        ) : (<View></View>)}
+        </View>
         <Text style={{ fontSize: 20 }}>
           Total: {formatter.format(this.totalPrice())}
         </Text>
