@@ -12,7 +12,7 @@ class OrderCard extends React.Component {
 
   componentDidMount() {
     axios
-      .get(urlList.restaurants + this.props.restaurantId)
+      .get(urlList.restaurants + this.props.order.restaurant_id)
       .then((res) => {
         this.setState({ restaurantName: res.data.name });
       })
@@ -64,17 +64,15 @@ class OrderCard extends React.Component {
     );
   };
 
-  printItems() {
-    let splitText = this.props.item.split("\nSpecial requirements");
-    return (<View>
-      <Text style={[styles.itemNameText, splitText[1] == undefined ? {fontSize:0} : {color:'red'}]}>
-        {"Special requirements" + splitText[1]}
-      </Text>
-      <Text style={styles.itemNameText}>
-        {splitText[0]}
-      </Text>
-    </View>);
-  };
+  printRequirements() {
+    if (this.props.order.hasOwnProperty("special_request")) {
+      return (
+        <Text style={[styles.itemNameText, { color: "red" }]}>
+          {"Special requirements: " + this.props.order.special_request}
+        </Text>
+      );
+    }
+  }
 
   render() {
     const buttonStyle =
@@ -85,7 +83,7 @@ class OrderCard extends React.Component {
         : styles.preparingRow;
 
     const onPress = this.props.onPress
-      ? () => this.props.onPress(this.props.orderNumber)
+      ? () => this.props.onPress(this.props.order._id)
       : () => console.log("hi");
 
     return (
@@ -108,21 +106,25 @@ class OrderCard extends React.Component {
               </View>
               <View style={styles.title}>
                 <Text style={styles.orderTitle}>
-                  Order #{this.props.orderNumber}
+                  Order #{this.props.order._id}
                 </Text>
               </View>
             </View>
             <View style={{ alignItems: "flex-end" }}>
-              {this.orderStatus(this.props.status, this.props.queuePosition)}
+              {this.orderStatus(
+                this.props.status,
+                this.props.order.queuePosition
+              )}
             </View>
           </View>
 
           <Text style={styles.orderTitle}>{this.state.restaurantName}</Text>
-          {this.printItems()}
+          {this.printRequirements()}
+          <Text style={styles.itemNameText}>{this.props.order.items}</Text>
           <Text style={styles.itemNameText}>
-            {formatter.format(this.props.totalPrice)}
+            {formatter.format(this.props.order.total_price)}
           </Text>
-          {this.orderTime(this.props.creationTime)}
+          {this.orderTime(this.props.order.createdAt)}
         </View>
       </RectButton>
     );
