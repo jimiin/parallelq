@@ -26,20 +26,28 @@ class ShoppingCartScreen extends React.Component {
         order += i.item.name + " x" + i.count + "\n";
       });
 
-    if (this.state.text !== "") {
-      order += "Special requirements: " + this.state.text;
-    }
-
     if (order !== "") {
       try {
+        order = order.substring(0, order.length - 1);
         const exampleItem = this.props.itemCount[0].item;
+        const specialRequest = this.state.text;
 
-        let res = await axios.post(urlList.makeOrder, {
-          items: order,
-          restaurant_id: exampleItem.restaurant_id,
-          user_id: this.props.user.id,
-          total_price: this.totalPrice(),
-        });
+        if (specialRequest !== "") {
+          let res = await axios.post(urlList.makeOrder, {
+            items: order,
+            restaurant_id: exampleItem.restaurant_id,
+            user_id: this.props.user.id,
+            total_price: this.totalPrice(),
+            special_request: specialRequest,
+          });
+        } else {
+          let res = await axios.post(urlList.makeOrder, {
+            items: order,
+            restaurant_id: exampleItem.restaurant_id,
+            user_id: this.props.user.id,
+            total_price: this.totalPrice(),
+          });
+        }
 
         ToastAndroid.showWithGravity(
           "Successfully ordered! View in Orders Tab",
