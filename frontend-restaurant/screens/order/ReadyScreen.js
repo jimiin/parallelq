@@ -23,13 +23,7 @@ class ReadyScreen extends Component {
         var newOrders = [];
         for (let i = 0; i < orderIds.length; i++) {
           var order = orders[i];
-          newOrders.push(
-            <OrderCardReady
-              key={order._id}
-              id={order._id}
-              items={order.items}
-            />
-          );
+          newOrders.push(<OrderCardReady key={order._id} order={order} />);
         }
 
         this.setState({

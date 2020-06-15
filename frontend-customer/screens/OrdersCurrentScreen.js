@@ -41,13 +41,9 @@ class OrdersCurrentScreen extends React.Component {
             preparedOrders: orders.map((order) => (
               <OrderCard
                 key={order._id}
-                orderNumber={order._id}
-                item={order.items}
+                order={order}
                 icon={"md-checkbox-outline"}
-                creationTime={order.createdAt}
                 status={1}
-                totalPrice={order.total_price}
-                restaurantId={order.restaurant_id}
               />
             )),
           });
@@ -65,14 +61,9 @@ class OrdersCurrentScreen extends React.Component {
             preparingOrders: orders.map((order) => (
               <OrderCard
                 key={order._id}
-                orderNumber={order._id}
+                order={order}
                 icon={"md-time"}
-                item={order.items}
-                creationTime={order.createdAt}
                 status={0}
-                queuePosition={order.queuePosition}
-                totalPrice={order.total_price}
-                restaurantId={order.restaurant_id}
               />
             )),
           });
@@ -90,13 +81,9 @@ class OrdersCurrentScreen extends React.Component {
             cancelledOrders: orders.map((order) => (
               <OrderCard
                 key={order._id}
-                orderNumber={order._id}
+                order={order}
                 icon={"md-close-circle-outline"}
-                item={order.items}
-                creationTime={order.createdAt}
                 status={-1}
-                totalPrice={order.total_price}
-                restaurantId={order.restaurant_id}
                 onPress={(id) => {
                   alert("This order has been cancelled");
                   this.resolveCancel(id);

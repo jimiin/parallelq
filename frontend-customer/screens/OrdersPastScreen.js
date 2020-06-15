@@ -34,13 +34,9 @@ class OrderPastScreen extends React.Component {
     return (
       <OrderCard
         key={order._id}
-        orderNumber={order._id}
-        item={order.items}
+        order={order}
         icon={"md-restaurant"}
-        creationTime={order.createdAt}
         status={2}
-        totalPrice={order.total_price}
-        restaurantId={order.restaurant_id}
       />
     );
   }
@@ -49,13 +45,9 @@ class OrderPastScreen extends React.Component {
     return (
       <OrderCard
         key={order._id}
-        orderNumber={order._id}
+        order={order}
         icon={"md-close-circle-outline"}
-        item={order.items}
-        creationTime={order.createdAt}
         status={-1}
-        totalPrice={order.total_price}
-        restaurantId={order.restaurant_id}
       />
     );
   }
