@@ -25,7 +25,7 @@ class OrderCardReady extends React.Component {
     try {
       let res = await axios.post(
         "https://drp38-backend.herokuapp.com/orders/change_status/past/" +
-          this.props.order_id
+          this.props.order._id
       );
     } catch (err) {
       console.log(err);
