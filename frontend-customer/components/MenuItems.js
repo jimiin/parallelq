@@ -84,9 +84,12 @@ class MenuItems extends Component {
                 <Text style={styles.itemPriceText}>
                   {formatter.format(section.price)}
                 </Text>
-                {this.renderItemCount(section)}
               </View>
+
               <View style={styles.rightContainer}>
+                <View style={{ paddingRight: 10 }}>
+                  {this.renderItemCount(section)}
+                </View>
                 {this.renderItemButton(section)}
               </View>
             </View>
