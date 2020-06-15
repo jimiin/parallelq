@@ -12,6 +12,18 @@ class SalesCard extends React.Component {
       </Text>)
   }
 
+  printItems() {
+    let splitText = this.props.item.split("\nSpecial requirements");
+    return (<View>
+      <Text style={[styles.itemNameText, splitText[1] == undefined ? {fontSize:0} : {color:'red'}]}>
+        {"Special requirements" + splitText[1]}
+      </Text>
+      <Text style={styles.itemNameText}>
+        {splitText[0]}
+      </Text>
+    </View>);
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -19,7 +31,7 @@ class SalesCard extends React.Component {
           <Text style={styles.orderTitle}>
             Order #{this.props.orderNumber}
           </Text>
-          <Text style={styles.itemNameText}>{this.props.item}</Text>
+          {this.printItems()}
           <Text style={styles.itemNameText}>£{this.props.totalPrice}</Text>
           <Text>{this.orderTime(this.props.time)}</Text>
         </View>

@@ -55,6 +55,18 @@ class OrderCard extends React.Component {
     }
   };
 
+  printItems() {
+    let splitText = this.props.items.split("\nSpecial requirements");
+    return (
+      <Text style={this.state.isActive ? [styles.content, styles.active] : {height:0}}>
+        <Text style={this.state.isActive ? [styles.content, styles.active] : {height:0}, splitText[1] == undefined ? {fontSize:0} : {color:'red'}}>
+          {"Special requirements" + splitText[1] + "\n\n"}
+        </Text>
+        {splitText[0]}
+      </Text>
+    );
+  };
+
   render() {
     return (
       <TouchableOpacity
@@ -81,7 +93,6 @@ class OrderCard extends React.Component {
           <View style={styles.rightContainer}>
             <Button
               title='Prepared'
-              color='#96cdff'
               onPress={this.onHandleReady}>
             </Button>
           </View>
@@ -90,9 +101,7 @@ class OrderCard extends React.Component {
         
         
         <View>
-          <Text style={this.state.isActive ? [styles.content, styles.active] : {height:0}}>
-            {this.props.items}
-          </Text>
+        {this.printItems()}
 
         <View style={styles.inactive}>
         </View>
