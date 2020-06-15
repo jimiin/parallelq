@@ -23,7 +23,7 @@ class HomeScreen extends React.Component {
 
   renderRestaurants = async () => {
     try {
-      let res = await axios.get(urlList.restaurants);
+      let res = await axios.get(urlList.restaurantsQueue);
       let restaurants = res.data;
 
       this.setState({
@@ -32,6 +32,7 @@ class HomeScreen extends React.Component {
             key={restaurant._id}
             img={this.getRestaurantImage(restaurant._id)}
             label={restaurant.name}
+            queueSize={restaurant.queue_size}
             onPress={() =>
               this.props.navigation.navigate("Restaurant", {
                 id: restaurant._id,
@@ -57,6 +58,7 @@ class HomeScreen extends React.Component {
         <RestaurantCard
           img={require("../assets/images/favourites.jpg")}
           label="Favourites"
+          queueSize={-1}
           onPress={() => this.props.navigation.navigate("Favourites")}
         />
         {this.state.restaurantsList}
