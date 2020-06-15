@@ -9,6 +9,7 @@ const orderSchema = new Schema({
     user_id: { type: String, required: true },
     total_price: { type: Number, required: true },
     status: { type: String, required: true },
+    special_request: { type: String, required: false }
 }, {
     timestamps: true,
 });

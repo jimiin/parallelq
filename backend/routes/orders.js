@@ -112,11 +112,13 @@ router.route('/add').post((req, res) => {
     const restaurant_id = req.body.restaurant_id;
     const user_id = req.body.user_id;
     const total_price = req.body.total_price;
+    const special_request = req.body.special_request;
     const newOrder = new Order({
         items,
         restaurant_id,
         user_id,
         total_price,
+        special_request,
         status: "preparing"
     });
 
