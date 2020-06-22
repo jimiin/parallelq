@@ -86,51 +86,56 @@ class ShoppingCartScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.itemCount.length > 0 ? (
-          <ShoppingCartItems
-            key={this.props.itemCount}
-            onPressPlus={this.props.incItem}
-            onPressMinus={this.props.decItem}
-            onPressRemove={this.props.removeItemFromCart}
-            itemCount={this.props.itemCount}
-          />
-        ) : (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>Your Cart is empty!</Text>
-          </View>
-        )}
-        <View style={{ padding: 10 }}>
-          <View>
-            {this.props.itemCount.length > 0 ? (
-              <TextInput
-                style={{
-                  height: 40,
-                  borderRadius: 5,
-                  borderWidth: 1,
-                  borderColor: "black",
-                }}
-                placeholder="Add additional requirements (allergies, ...) here"
-                onChangeText={(text) => this.setText(text)}
-                defaultValue={this.state.text}
-                multiline={true}
+        <View style={{ flex: 1, flexDirection: "column" }}>
+          {this.props.itemCount.length > 0 ? (
+            <View style={{ flex: 1 }}>
+              <ShoppingCartItems
+                key={this.props.itemCount}
+                onPressPlus={this.props.incItem}
+                onPressMinus={this.props.decItem}
+                onPressRemove={this.props.removeItemFromCart}
+                itemCount={this.props.itemCount}
               />
-            ) : (
-              <View></View>
-            )}
+            </View>
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>Your Cart is empty!</Text>
+            </View>
+          )}
+
+          <View style={styles.bottomContainer}>
+            <TextInput
+              style={{
+                padding: 5,
+                borderRadius: 5,
+                borderWidth: 1,
+                borderColor: "black",
+              }}
+              placeholder="Add additional requirements (allergies, ...) here"
+              onChangeText={(text) => this.setText(text)}
+              defaultValue={this.state.text}
+              multiline={true}
+            />
+
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontSize: 20 }}>Total:</Text>
+
+              <View style={styles.rightContainer}>
+                <Text style={{ fontSize: 20 }}>
+                  {formatter.format(this.totalPrice())}
+                </Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={{ backgroundColor: "#1E90FF", padding: 20 }}
+              onPress={() => {
+                this.makeOrders();
+              }}
+            >
+              <Text style={styles.orderbuttonText}>ORDER</Text>
+            </TouchableOpacity>
           </View>
-          <Text style={{ fontSize: 20 }}>
-            Total: {formatter.format(this.totalPrice())}
-          </Text>
-          <TouchableOpacity
-            style={{ backgroundColor: "#1E90FF", padding: 20 }}
-            onPress={() => {
-              this.makeOrders();
-            }}
-          >
-            <Text style={{ textAlign: "center", color: "white", fontSize: 20 }}>
-              ORDER
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
