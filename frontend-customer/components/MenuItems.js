@@ -67,7 +67,7 @@ class MenuItems extends Component {
   renderHeader = (section, _, isActive) => {
     return (
       <View>
-        <View style={[styles.row]}>
+        <View style={styles.row}>
           <View style={{ flexDirection: "column" }}>
             <View style={{ flexDirection: "row" }}>
               <FavouriteIcon
@@ -96,7 +96,8 @@ class MenuItems extends Component {
 
             <View style={styles.descriptionContainer}>
               <Text style={isActive ? styles.description : { padding: 10 }}>
-                Description: {section.description.substring(0, 60)}...
+                Description: {section.description.substring(0, 50)}
+                {section.description.length > 50 ? "..." : ""}
               </Text>
               <Text style={isActive ? { padding: 10 } : styles.description}>
                 Description: {section.description}
@@ -120,18 +121,19 @@ class MenuItems extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ paddingTop: 30 }}>
-          <Accordion
-            sections={this.props.menus}
-            activeSections={this.state.activeSections}
-            touchableComponent={TouchableOpacity}
-            expandMultiple={true}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            duration={0}
-            onChange={this.updateSections}
-          />
-          <View style={styles.accordion}></View>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: 10 }}>
+          <View style={{ paddingTop: 30 }}>
+            <Accordion
+              sections={this.state.data}
+              activeSections={this.state.activeSections}
+              touchableComponent={TouchableOpacity}
+              expandMultiple={true}
+              renderHeader={this.renderHeader}
+              renderContent={this.renderContent}
+              duration={0}
+              onChange={this.updateSections}
+            />
+          </View>
         </ScrollView>
       </View>
     );

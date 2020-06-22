@@ -24,6 +24,11 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  bottomContainer: {
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    padding: 10,
+  },
   option: {
     backgroundColor: "#fdfdfd",
     paddingHorizontal: 20,
@@ -61,6 +66,11 @@ export const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 22,
     fontWeight: "300",
+  },
+  orderbuttonText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 20,
   },
   fitImage: {
     width: window.width - 40,
@@ -103,9 +113,10 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
+    borderRadius: 10,
     backgroundColor: "white",
   },
   restaurantCard: {
@@ -182,7 +193,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   descriptionContainer: {
-    width: window.width - 10,
+    width: window.width - 30,
   },
   description: {
     height: 0,
