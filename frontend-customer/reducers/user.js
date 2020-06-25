@@ -1,5 +1,6 @@
 import { AsyncStorage } from "react-native";
-import { axios, urlList } from "../constants/api";
+import axios from "axios";
+import { urlList } from "../constants/api";
 
 async function verify(user, token) {
   try {

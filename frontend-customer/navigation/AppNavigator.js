@@ -4,7 +4,7 @@ import { AsyncStorage } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { Text, View, Button, Vibration, Platform } from "react-native";
+import { Vibration, Platform } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";

@@ -1,16 +1,14 @@
-import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import * as React from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
 
-import { Provider } from 'react-redux'
-import { store } from './reducers/index'
+import { Provider } from "react-redux";
+import { store } from "./reducers/index";
 
 import "intl";
 import "intl/locale-data/jsonp/en";
 
-import useCachedResources from './hooks/useCachedResources';
-import AppNavigator from './navigation/AppNavigator';
-
-  
+import useCachedResources from "./hooks/useCachedResources";
+import AppNavigator from "./navigation/AppNavigator";
 
 export default function App(props) {
   if (Platform.OS === "android") {
@@ -26,7 +24,7 @@ export default function App(props) {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+          {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
           <AppNavigator />
         </View>
       </Provider>
@@ -37,6 +35,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
@@ -7,7 +7,7 @@ import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
 
 import SalesCard from "../components/SalesCard";
-const axios = require("axios");
+import axios from "axios";
 
 class SaleScreen extends Component {
   state = {};
@@ -40,6 +40,7 @@ class SaleScreen extends Component {
         console.log(err);
       });
   };
+
   totalPrice() {
     if (this.state.Orders) {
       const prices = this.state.Orders.map(
