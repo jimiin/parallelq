@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "../../styles/styles";
 import axios from "axios";
@@ -63,10 +62,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (id) => dispatch({ type: "SIGN_IN", payload: id }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PreparingScreen);
+export default connect(mapStateToProps)(PreparingScreen);

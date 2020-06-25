@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "../../styles/styles";
 import axios from "axios";
@@ -62,10 +62,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (user) => dispatch({ type: "SIGN_IN", payload: user }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReadyScreen);
+export default connect(mapStateToProps)(ReadyScreen);
