@@ -29,9 +29,11 @@ class HomeScreen extends React.Component {
 
       this.setState({
         restaurantsList: restaurants.map((restaurant) => (
-          <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+          <View
+            key={restaurant._id}
+            style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+          >
             <RestaurantCard
-              key={restaurant._id}
               img={this.getRestaurantImage(restaurant._id)}
               label={restaurant.name}
               queueSize={restaurant.queue_size}
