@@ -28,17 +28,16 @@ class MenuCard extends React.Component {
 
   /* Sets order to prepared and deletes from the list. */
   handleAvailability = async () => {
-     try {
-       console.log("about to do it");
-       var request =
-         "https://drp38-backend.herokuapp.com/items/change_availability/" +
-         (this.props.availability == "available" ? "unavailable" : "available") +
-         "/" +
-         this.props.itemNumber;
-       let res = await axios.post(request);
-     } catch (err) {
-       console.log(err);
-     }
+    try {
+      var request =
+        "https://drp38-backend.herokuapp.com/items/change_availability/" +
+        (this.props.availability == "available" ? "unavailable" : "available") +
+        "/" +
+        this.props.itemNumber;
+      let res = await axios.post(request);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   handleRemove = async () => {
@@ -75,21 +74,27 @@ class MenuCard extends React.Component {
                 >
                   {"Currently: " + this.props.availability}
                 </Text>
-                <Text>{"Item ID: " + this.props.itemNumber}</Text>
-                <Text>{"Price: " + formatter.format(this.props.price)}</Text>
+                <Text style={styles.itemPropText}>
+                  {"Item ID: " + this.props.itemNumber}
+                </Text>
+                <Text style={styles.itemPropText}>
+                  {"Price: " + formatter.format(this.props.price)}
+                </Text>
 
-                <Icon
-                  name={
-                    this.state.isActive
-                      ? "keyboard-arrow-up"
-                      : "keyboard-arrow-down"
-                  }
-                  size={30}
-                  color={"black"}
-                />
+                <View style={styles.bottomContainer}>
+                  <Icon
+                    name={
+                      this.state.isActive
+                        ? "keyboard-arrow-up"
+                        : "keyboard-arrow-down"
+                    }
+                    size={30}
+                    color={"black"}
+                  />
+                </View>
               </View>
 
-              <View style={styles.rightContainer}>
+              <View style={styles.menuButtonContainer}>
                 <View style={{ flexDirection: "column", padding: 5 }}>
                   <View style={{ padding: 2 }}>
                     <Button

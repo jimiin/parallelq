@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "white",

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import axios from "axios";
+import { ScrollView } from "react-native";
 import { connect } from "react-redux";
+import axios from "axios";
 
+import { styles } from "../styles/styles";
 import MenuCard from "../components/MenuCard";
 
 class MenuScreen extends Component {
@@ -15,9 +16,8 @@ class MenuScreen extends Component {
       .get("https://drp38-backend.herokuapp.com/items/" + this.props.id)
       .then((res) => {
         const items = res.data;
-        const itemIds = items.map((item) => item.id);
         var newItems = [];
-        for (let i = 0; i < itemIds.length; i++) {
+        for (let i = 0; i < items.length; i++) {
           var item = items[i];
           newItems.push(
             <MenuCard
@@ -59,18 +59,15 @@ class MenuScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>{this.state.menuCards}</ScrollView>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        {this.state.menuCards}
+      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8f8f8",
-    padding: -15,
-  },
-});
 
 const mapStateToProps = (state) => {
   return {

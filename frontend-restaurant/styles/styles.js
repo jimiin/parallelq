@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   preparingRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "white",
@@ -14,15 +14,17 @@ export const styles = StyleSheet.create({
   preparedRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderWidth: 1,
     backgroundColor: "#96cdff",
   },
   container: {
     flex: 1,
-    backgroundColor: "#f8f8f8",
-    padding: -15,
+    backgroundColor: "#fafafa",
+  },
+  contentContainer: {
+    paddingTop: 10,
   },
   description: {
     height: 0,
@@ -37,7 +39,7 @@ export const styles = StyleSheet.create({
   },
   column: {
     flexDirection: "column",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
@@ -47,7 +49,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
@@ -56,7 +58,7 @@ export const styles = StyleSheet.create({
   content: {
     padding: 20,
     backgroundColor: "#fff",
-    borderColor: "grey",
+    borderColor: "#DCDCDC",
     borderRadius: 10,
     borderWidth: 1,
   },
@@ -71,23 +73,29 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  bottomContainer: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+  },
   active: {
     backgroundColor: "white",
   },
   inactive: {
     backgroundColor: "#f8f8f8",
-    paddingBottom: 0,
+    paddingBottom: 20,
   },
   available: {
     textAlign: "left",
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "300",
     marginBottom: 10,
     color: "#29cf53",
   },
   unavailable: {
     textAlign: "left",
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "300",
     marginBottom: 10,
     color: "#d93030",
@@ -99,5 +107,8 @@ export const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 20,
+  },
+  itemPropText: {
+    fontSize: 17.5,
   },
 });

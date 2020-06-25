@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
+import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
 
 import SalesCard from "../components/SalesCard";
@@ -56,9 +57,11 @@ class SaleScreen extends Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <Text style={{ fontSize: 20 }}>
-          Total Sales: {formatter.format(this.totalPrice())}
-        </Text>
+        <View style={{ paddingLeft: 20 }}>
+          <Text style={{ fontSize: 20 }}>
+            Total Sales: {formatter.format(this.totalPrice())}
+          </Text>
+        </View>
         {this.state.Orders}
       </ScrollView>
     );
@@ -70,15 +73,5 @@ const mapStateToProps = (state) => {
     id: state.id,
   };
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fafafa",
-  },
-  contentContainer: {
-    paddingTop: 15,
-  },
-});
 
 export default connect(mapStateToProps)(SaleScreen);
