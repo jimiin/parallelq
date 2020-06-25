@@ -2,10 +2,10 @@ import * as React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { View, Text } from "react-native";
 import { connect } from "react-redux";
-
+import axios from "axios";
 import { styles } from "../styles/styles";
+import { urlList } from "../constants/api";
 import OrderCard from "../components/OrderCard";
-import { axios, urlList } from "../constants/api";
 
 class OrdersCurrentScreen extends React.Component {
   state = {};

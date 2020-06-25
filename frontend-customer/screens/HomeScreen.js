@@ -1,8 +1,8 @@
 import * as React from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
-import { axios, urlList } from "../constants/api";
+import axios from "axios";
+import { urlList } from "../constants/api";
 import { styles } from "../styles/styles";
 import RestaurantCard from "../components/RestaurantCard";
 

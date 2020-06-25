@@ -1,5 +1,4 @@
 export const url = "https://drp38-backend.herokuapp.com";
-export const axios = require("axios");
 
 export const urlList = {
   restaurants: url + "/restaurants/",

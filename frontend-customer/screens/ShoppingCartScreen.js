@@ -7,9 +7,10 @@ import {
   TextInput,
 } from "react-native";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import ShoppingCartItems from "../components/ShoppingCartItems";
-import { axios, urlList } from "../constants/api";
+import { urlList } from "../constants/api";
 import { styles } from "../styles/styles";
 import { formatter } from "../styles/formatter";
 

@@ -2,10 +2,10 @@ import * as React from "react";
 import { View, Text, Modal, Button, ToastAndroid } from "react-native";
 import { connect } from "react-redux";
 import { Searchbar } from "react-native-paper";
-
-import MenuItems from "../components/MenuItems";
+import axios from "axios";
 import { styles } from "../styles/styles";
-import { axios, urlList } from "../constants/api";
+import { urlList } from "../constants/api";
+import MenuItems from "../components/MenuItems";
 
 class RestaurantScreen extends React.Component {
   state = { modalVisible: false, menu: [], searchQuery: "" };
